@@ -211,10 +211,14 @@ test('seviye tespit: alt seviyeler yeterliyse atlanır, B2 hiçbir zaman tümüy
   assert.equal(t.units['B2.1'], undefined);
 });
 
-test('AI kullanım hakkı: ücretsiz planda günde 1 konuşma ve 1 yazma', () => {
+test('AI kullanım hakkı: ücretsiz planda günlük sınır, ertesi gün sıfırlanır', () => {
   let state = newUserState('Test', day1);
-  assert.equal(aiAllowance(state, 'conversation', dayKey(day1)).allowed, true);
-  state = consumeAi(state, 'conversation', day1);
+  const limit = RULES.freeDailyAi.conversation;
+  assert.equal(aiAllowance(state, 'conversation', dayKey(day1)).limit, limit);
+  for (let i = 0; i < limit; i++) {
+    assert.equal(aiAllowance(state, 'conversation', dayKey(day1)).allowed, true);
+    state = consumeAi(state, 'conversation', day1);
+  }
   assert.equal(aiAllowance(state, 'conversation', dayKey(day1)).allowed, false);
   assert.throws(() => consumeAi(state, 'conversation', day1), /hakkı doldu/);
   assert.equal(aiAllowance(state, 'writing', dayKey(day1)).allowed, true);

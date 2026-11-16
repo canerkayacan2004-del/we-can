@@ -38,5 +38,5 @@ WECAN_SUPABASE_ANON_KEY=...
 Sonra `We-Can-Baslat.bat` (kendin için) ve `Paylasim-Paketi-Olustur.bat` (arkadaşların için) çalıştır.
 
 ## Notlar
-- Ücretsiz plan: kullanıcı başına günde 1 konuşma + 1 yazı değerlendirmesi (sunucuda sayılır).
+- Ücretsiz plan: kullanıcı başına günde 20 konuşma + 20 yazı değerlendirmesi (sunucuda sayılır).
 - İçerik değişirse fonksiyon verisini güncellemek için: `node scripts/build-function.mjs`, sonra 3. adımdaki kodu yeniden yapıştır.

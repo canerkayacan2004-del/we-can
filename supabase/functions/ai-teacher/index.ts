@@ -110,7 +110,7 @@ const WRITING_TASKS: Record<string, WritingTask> = {
 };
 // @@DATA-END
 
-const DAILY_LIMITS = { conversation: 1, writing: 1 } as const;
+const DAILY_LIMITS = { conversation: 20, writing: 20 } as const;
 const MAX_MESSAGE_CHARS = 600;
 const MAX_WRITING_CHARS = 2500;
 const FALLBACK_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash'];

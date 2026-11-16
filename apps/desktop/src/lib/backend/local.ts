@@ -87,7 +87,7 @@ export class LocalBackend implements Backend {
         ? {
             connected: true,
             titleTr: 'AI öğretmen (Gemini, sunucu üzerinden)',
-            detailTr: 'Bağlı. İstekler Supabase sunucu fonksiyonu üzerinden gider; API anahtarı uygulamada bulunmaz. Ücretsiz planda günde 1 konuşma ve 1 yazı değerlendirmesi.',
+            detailTr: 'Bağlı. İstekler Supabase sunucu fonksiyonu üzerinden gider; API anahtarı uygulamada bulunmaz. Ücretsiz planda günde 20 konuşma ve 20 yazı değerlendirmesi.',
           }
         : {
             connected: false,

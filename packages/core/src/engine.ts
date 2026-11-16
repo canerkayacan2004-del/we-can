@@ -26,8 +26,8 @@ export const RULES = {
   xpPracticePerCorrect: 2,
   xpPracticeMax: 20,
   maxSessionSeconds: 3600,
-  freeDailyAi: { conversation: 1, writing: 1 },
-  premiumDailyAi: { conversation: 20, writing: 20 },
+  freeDailyAi: { conversation: 20, writing: 20 },
+  premiumDailyAi: { conversation: 50, writing: 50 },
 } as const;
 
 // ---- Tarih yardımcıları (kullanıcının yerel gününe göre) ----
