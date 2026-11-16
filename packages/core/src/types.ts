@@ -197,7 +197,7 @@ export interface Appearance {
 
 export const DASHBOARD_WIDGETS = [
   'skills', 'weekly', 'continue', 'words', 'ai', 'rewards',
-  'planner', 'revision', 'analytics', 'notebook', 'audio', 'achievements',
+  'planner', 'revision', 'analytics', 'notebook', 'audio', 'achievements', 'games',
 ] as const;
 
 export const DEFAULT_APPEARANCE: Appearance = {
@@ -206,7 +206,7 @@ export const DEFAULT_APPEARANCE: Appearance = {
   scale: 1,
   motion: true,
   sound: true,
-  dashboard: ['skills', 'weekly', 'continue', 'words', 'ai', 'rewards', 'planner'],
+  dashboard: ['games', 'skills', 'weekly', 'continue', 'words', 'ai', 'rewards', 'planner'],
 };
 
 // ---- Kullanıcı durumu ----
@@ -307,6 +307,8 @@ export interface UserState {
   designV3?: boolean;
   /** Günlük 10 kelime: bugün görülen / öğrenilen kelimeler */
   dailyWords?: { date: string; seen: string[]; learned: string[]; rewarded: boolean };
+  /** Kelime oyunları istatistikleri */
+  games?: import('./games.ts').GameStats;
   profile: Profile;
   stats: { totalXp: number; streak: number; longestStreak: number; lastActiveDate: string | null };
   lessons: Record<string, LessonProgress>;

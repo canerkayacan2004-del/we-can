@@ -14,6 +14,7 @@ import { THEMES, isHexColor } from '../theme.ts';
 import { placementQuestions } from '@content/placement.ts';
 import { curriculum, getExercise, getLessonContent, getVocabItem, todaysWords } from '../content.ts';
 import { markDailyWord } from '@core/daily.ts';
+import { recordGame } from '@core/games.ts';
 import { BackendError } from './types.ts';
 import type { AiReply, Backend, ChatMessage, ProfilePatch, ServiceStatus, Session } from './types.ts';
 import { cloudAiChat, cloudAiConfig, cloudAiWriting } from './cloudAi.ts';
@@ -294,6 +295,15 @@ export class LocalBackend implements Backend {
     const word = getVocabItem(wordId);
     if (!word) throw new BackendError('Kelime bulunamadı.');
     const out = this.run(() => markDailyWord(state, word, learn, ids, now, today));
+    this.save(userId, out.state);
+    return out;
+  }
+
+  async recordGame(game: 'wordle' | 'scramble', result: { won: boolean; tries?: number; daily?: boolean; streak?: number }) {
+    if (game !== 'wordle' && game !== 'scramble') throw new BackendError('Geçersiz oyun.');
+    const userId = this.currentUserId();
+    const now = new Date();
+    const out = this.run(() => recordGame(this.load(userId), game, { won: !!result.won, tries: Number(result.tries) || undefined, daily: !!result.daily, streak: Number(result.streak) || 0 }, now, dayKey(now)));
     this.save(userId, out.state);
     return out;
   }

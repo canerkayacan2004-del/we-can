@@ -58,6 +58,8 @@ export interface Backend {
   completeAudio(session: { correct: number; total: number; seconds: number }): Promise<{ state: UserState; xp: number }>;
   /** Günlük kelime kartını tamamlar: learn=true ise deftere ve tekrara eklenir. */
   markDailyWord(wordId: string, learn: boolean): Promise<{ state: UserState; xp: number }>;
+  /** Kelime oyunu sonucunu kaydeder (istatistik + günlük sınırlı XP). */
+  recordGame(game: 'wordle' | 'scramble', result: { won: boolean; tries?: number; daily?: boolean; streak?: number }): Promise<{ state: UserState; xp: number }>;
   saveNote(note: Partial<Note> & { title: string; body: string }): Promise<UserState>;
   deleteNote(id: string): Promise<UserState>;
 

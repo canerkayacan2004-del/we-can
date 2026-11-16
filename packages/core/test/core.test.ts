@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import {
   addDays, aiAllowance, answerReview, completeAudio, completePractice, deleteNote, migrateState, mistakeExerciseIds, saveNote, applyPlacement, completeLesson, consumeAi, dayKey, dueReviews, effectiveStreak,
   gradeExercise, lessonUnlocked, newUserState, normalizeAnswer, scorePlacement, unitUnlocked, RULES, SRS_INTERVALS, shuffleExercises, seededRng,
-  pickDailyWords, markDailyWord, DAILY_WORDS_XP,
+  pickDailyWords, markDailyWord, DAILY_WORDS_XP, scoreGuess, recordGame, scrambleWord, dailyIndex, GAMES_DAILY_XP_CAP,
 } from '../src/index.ts';
 import type { Curriculum, LessonContent, Responses, UserState } from '../src/index.ts';
 import { lessonsA1U1 } from '../../../content/exercises/A1/unit01.ts';
@@ -346,4 +346,33 @@ test('günlük 10 kelime: 7 seviye + 3 üst seviye, gün içinde sabit, öğreni
   assert.equal(state.reviews.filter((r) => r.kind === 'vocab').length, 5);
   assert.equal(markDailyWord(state, a[0], true, ids, day1, d).xp, 0);
   assert.throws(() => markDailyWord(state, other.find((w) => !ids.includes(w.id))!, true, ids, day1, d), /listesinde değil/);
+});
+
+test('Wordle puanlaması: yerinde, var ama yeri yanlış, tekrar eden harfler', () => {
+  assert.deepEqual(scoreGuess('apple', 'apple'), ['correct', 'correct', 'correct', 'correct', 'correct']);
+  assert.deepEqual(scoreGuess('learn', 'renal'), ['present', 'correct', 'present', 'present', 'present']);
+  // "speed" tahmini, cevap "abide": yalnızca bir "e" ve bir "d" var
+  assert.deepEqual(scoreGuess('speed', 'abide'), ['absent', 'absent', 'present', 'absent', 'present']);
+  // "eerie" tahmini, cevap "there": e(0) var, e(1) yok... tekrar sayısı aşılmaz
+  const m = scoreGuess('eerie', 'there');
+  assert.equal(m.filter((x) => x !== 'absent').length <= 3, true);
+  assert.equal(m[4], 'correct');
+  assert.equal(dailyIndex('2026-11-16', 142), dailyIndex('2026-11-16', 142));
+  for (let i = 0; i < 20; i++) assert.notEqual(scrambleWord('apple'), 'apple');
+});
+
+test('oyun sonuçları: günlük Wordle bir kez, XP günlük sınırı', () => {
+  const d = '2026-11-16';
+  let state = newUserState('Test', day1);
+  let out = recordGame(state, 'wordle', { won: true, tries: 3, daily: true }, day1, d);
+  state = out.state;
+  assert.equal(out.xp, 10);
+  assert.equal(state.games?.wordle.dist[2], 1);
+  assert.throws(() => recordGame(state, 'wordle', { won: true, tries: 2, daily: true }, day1, d), /zaten oynandı/);
+  let total = out.xp;
+  for (let i = 0; i < 30; i++) { out = recordGame(state, 'scramble', { won: true, streak: i + 1 }, day1, d); state = out.state; total += out.xp; }
+  assert.equal(total, GAMES_DAILY_XP_CAP);
+  assert.equal(state.games?.scramble.best, 30);
+  // ertesi gün sınır sıfırlanır
+  assert.equal(recordGame(state, 'scramble', { won: true }, day1, '2026-11-17').xp, 2);
 });

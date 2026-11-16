@@ -174,6 +174,8 @@ export function migrateState(raw: any): UserState {
   // 0.3 tasarım güncellemesi: eski varsayılan temayı kullananlar bir kez yeni Neon temaya geçer.
   if (!raw?.designV3) {
     if (!raw?.profile?.appearance?.theme || raw.profile.appearance.theme === 'emerald') state.profile.appearance.theme = 'neon';
+    // Yeni pano kutusu: oyunlar (bir kez eklenir; kullanıcı sonra kapatabilir).
+    if (!state.profile.appearance.dashboard.includes('games')) state.profile.appearance.dashboard = ['games', ...state.profile.appearance.dashboard];
     state.designV3 = true;
   }
   if (!Array.isArray(state.profile.hobbies)) state.profile.hobbies = [];
