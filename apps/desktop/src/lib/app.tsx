@@ -21,8 +21,9 @@ export type Route =
   | { name: 'status' }
   | { name: 'friends' }
   | { name: 'daily' }
-  | { name: 'games' }
+  | { name: 'games'; game?: 'wordle' | 'scramble' | 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'story' }
   | { name: 'report' }
+  | { name: 'boss'; unitId: string }
   | { name: 'hub'; tab?: 'all' | 'watch' | 'read' | 'play' | 'packs' };
 
 export interface AppContextValue {

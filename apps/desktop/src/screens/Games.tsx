@@ -10,6 +10,7 @@ import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, SpeakButton, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { playSound } from '../lib/sound.ts';
+import { SpeedRound } from './arcade/SpeedRound.tsx';
 
 const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 
@@ -35,18 +36,30 @@ function randomIndex(n: number, avoid?: number) {
   return i;
 }
 
-export function GamesScreen() {
-  const [tab, setTab] = useState<'wordle' | 'scramble'>('wordle');
+export type GameTab = 'wordle' | 'scramble' | 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'story';
+const GAMES: { id: GameTab; emoji: string; label: string; hint: string }[] = [
+  { id: 'wordle', emoji: '🟩', label: 'Wordle', hint: '5 harfli kelimeyi bul' },
+  { id: 'scramble', emoji: '🔤', label: 'Kelime Avı', hint: 'Harfleri diz' },
+  { id: 'speed', emoji: '⚡', label: 'Hızlı tur', hint: '60 saniye' },
+];
+
+export function GamesScreen({ game }: { game?: GameTab }) {
+  const [tab, setTab] = useState<GameTab>(game && GAMES.some((g) => g.id === game) ? game : 'wordle');
   return (
-    <div data-screen="games" className="space-y-5">
-      <PageTitle title="Kelime oyunları" icon="sparkles" subtitle="Oynayarak kelime öğren. Günün Wordle'ı herkes için aynı kelimedir." />
-      <div className="flex gap-1 rounded-2xl border border-line bg-panel-2 p-1 sm:w-fit">
-        {([['wordle', 'Kelimeyi Bul (Wordle)'], ['scramble', 'Kelime Avı']] as const).map(([id, label]) => (
-          <button key={id} type="button" data-game-tab={id} onClick={() => setTab(id)}
-            className={cx('flex-1 rounded-xl px-4 py-2 text-sm font-bold sm:flex-none', tab === id ? 'bg-acc text-on-acc' : 'text-fg-2 hover:text-fg')}>{label}</button>
+    <div data-screen="games" className="space-y-4">
+      <PageTitle title="Oyun salonu" icon="target" subtitle="Oynayarak öğren: kelime, dinleme ve konuşma oyunları tek yerde." />
+      <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
+        {GAMES.map((g) => (
+          <button key={g.id} type="button" role="tab" aria-selected={tab === g.id} data-game-tab={g.id} onClick={() => setTab(g.id)} title={g.hint}
+            className={cx('flex shrink-0 items-center gap-2 rounded-2xl border px-3 py-2 text-left', tab === g.id ? 'border-acc bg-acc/12 shadow-[0_0_14px_-5px_var(--wc-acc)]' : 'border-line bg-panel-2 hover:border-acc/40')}>
+            <span className="text-xl leading-none">{g.emoji}</span>
+            <span><span className="block text-sm font-bold text-fg">{g.label}</span><span className="block text-[0.7rem] text-fg-3">{g.hint}</span></span>
+          </button>
         ))}
       </div>
-      {tab === 'wordle' ? <Wordle /> : <Scramble />}
+      {tab === 'wordle' && <Wordle />}
+      {tab === 'scramble' && <Scramble />}
+      {tab === 'speed' && <SpeedRound />}
     </div>
   );
 }

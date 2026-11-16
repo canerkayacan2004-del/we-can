@@ -1,6 +1,8 @@
+import type React from 'react';
 import type { ReactNode } from 'react';
 import { canSpeak, hasRecording, speak } from '../lib/tts.ts';
 import { Icon } from './Icon.tsx';
+import { gearById } from '@core/panda.ts';
 
 export function cx(...parts: (string | false | null | undefined)[]): string {
   return parts.filter(Boolean).join(' ');
@@ -10,13 +12,30 @@ export function cx(...parts: (string | false | null | undefined)[]): string {
 const MOOD_BADGE: Record<string, string> = { cheer: '🎉', sad: '💪', think: '💭' };
 
 /** We Can maskotu: kulaklıklı panda. Ruh hâli küçük bir rozetle gösterilir. */
-export function Mascot({ mood = 'happy', size = 96, className }: { mood?: 'happy' | 'cheer' | 'sad' | 'think'; size?: number; className?: string }) {
+/** Takılı panda aksesuarları; App her çizimde günceller (giriş ekranında boştur). */
+let mascotGear: string[] = [];
+export function setMascotGear(ids: string[] | undefined) { mascotGear = ids ?? []; }
+
+const SLOT_STYLE: Record<string, (s: number) => React.CSSProperties> = {
+  head: (s) => ({ top: -s * 0.2, left: '50%', transform: 'translateX(-50%) rotate(-8deg)', fontSize: s * 0.42 }),
+  eyes: (s) => ({ top: s * 0.3, left: '50%', transform: 'translateX(-50%)', fontSize: s * 0.36 }),
+  neck: (s) => ({ bottom: -s * 0.06, left: '50%', transform: 'translateX(-50%)', fontSize: s * 0.3 }),
+  hand: (s) => ({ bottom: -s * 0.04, left: -s * 0.1, fontSize: s * 0.34, transform: 'rotate(-12deg)' }),
+};
+
+export function Mascot({ mood = 'happy', size = 96, className, gear }: { mood?: 'happy' | 'cheer' | 'sad' | 'think'; size?: number; className?: string; gear?: string[] }) {
   const badge = MOOD_BADGE[mood];
+  const items = (gear ?? mascotGear).map(gearById).filter((g): g is NonNullable<ReturnType<typeof gearById>> => !!g);
+  const aura = items.find((g) => g.slot === 'aura')?.color ?? 'var(--wc-acc)';
+  const showGear = size >= 36;
   return (
-    <span className={cx('relative inline-block shrink-0', className)} style={{ width: size, height: size }} role="img" aria-label="We Can maskotu panda Can">
+    <span className={cx('relative inline-block shrink-0', className)} style={{ width: size, height: size }} role="img" aria-label="We Can maskotu panda Can" data-mascot-gear={items.map((g) => g.id).join(',')}>
       <img src="assets/panda.jpg" alt="" draggable={false} width={size} height={size}
         className="h-full w-full rounded-full object-cover"
-        style={{ boxShadow: `0 0 0 ${Math.max(2, size / 28)}px var(--wc-acc), 0 0 ${Math.round(size / 3)}px -${Math.round(size / 10)}px var(--wc-acc)` }} />
+        style={{ boxShadow: `0 0 0 ${Math.max(2, size / 28)}px ${aura}, 0 0 ${Math.round(size / 3)}px -${Math.round(size / 10)}px ${aura}` }} />
+      {showGear && items.filter((g) => g.slot !== 'aura').map((g) => (
+        <span key={g.id} aria-hidden="true" className="pointer-events-none absolute leading-none drop-shadow-[0_2px_3px_rgba(0,0,0,.6)]" style={SLOT_STYLE[g.slot](size)}>{g.emoji}</span>
+      ))}
       {badge && size >= 56 && (
         <span className="absolute -bottom-1 -right-1 flex items-center justify-center rounded-full border border-line-2 bg-panel" style={{ width: size / 2.6, height: size / 2.6, fontSize: size / 5 }}>{badge}</span>
       )}

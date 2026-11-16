@@ -39,8 +39,20 @@ export function dailyIndex(today: string, count: number): number {
 export interface GameStats {
   wordle: { played: number; won: number; streak: number; best: number; dist: number[]; lastDaily?: string; lastDailyWon?: boolean };
   scramble: { played: number; won: number; best: number };
+  /** Salon oyunları: oynama sayısı ve en iyi skor. */
+  arcade?: Partial<Record<ArcadeGame, { played: number; best: number; won: number }>>;
   xpDate?: string;
   xpToday?: number;
+}
+
+export type ArcadeGame = 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'boss' | 'story' | 'duel';
+export type GameId = 'wordle' | 'scramble' | ArcadeGame;
+export const ARCADE_GAMES: ArcadeGame[] = ['speed', 'dictation', 'subtitle', 'streamer', 'boss', 'story', 'duel'];
+
+/** Salon oyunlarında skora göre XP (en fazla 6; boss/hikaye kazanılınca 8). */
+export function arcadeXp(game: ArcadeGame, score: number, won: boolean): number {
+  if (game === 'boss' || game === 'story') return won ? 8 : 1;
+  return Math.max(0, Math.min(6, Math.floor(score / 3)));
 }
 
 export function emptyGameStats(): GameStats {
@@ -50,8 +62,8 @@ export function emptyGameStats(): GameStats {
 /** Oyun sonucunu kaydeder; günlük XP sınırı içinde XP verir. */
 export function recordGame(
   state: UserState,
-  game: 'wordle' | 'scramble',
-  result: { won: boolean; tries?: number; daily?: boolean; streak?: number },
+  game: GameId,
+  result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number },
   now: Date,
   today: string,
 ): { state: UserState; xp: number } {
@@ -72,6 +84,13 @@ export function recordGame(
       w.streak = 0;
     }
     if (result.daily) { w.lastDaily = today; w.lastDailyWon = result.won; }
+  } else if (game !== 'scramble') {
+    const a = ((stats.arcade ??= {})[game] ??= { played: 0, best: 0, won: 0 });
+    a.played++;
+    if (result.won) a.won++;
+    const score = Math.max(0, Math.floor(result.score ?? 0));
+    a.best = Math.max(a.best, score);
+    xp = arcadeXp(game, score, result.won);
   } else {
     const s = stats.scramble;
     s.played++;

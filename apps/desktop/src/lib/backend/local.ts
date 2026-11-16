@@ -14,7 +14,9 @@ import { THEMES, isHexColor } from '../theme.ts';
 import { placementQuestions } from '@content/placement.ts';
 import { curriculum, getExercise, getLessonContent, getVocabItem, todaysWords } from '../content.ts';
 import { markDailyWord } from '@core/daily.ts';
-import { recordGame } from '@core/games.ts';
+import { ARCADE_GAMES, recordGame } from '@core/games.ts';
+import type { GameId } from '@core/games.ts';
+import { setPandaGear } from '@core/panda.ts';
 import { BackendError } from './types.ts';
 import type { AiReply, Backend, ChatMessage, ProfilePatch, ServiceStatus, Session } from './types.ts';
 import { cloudAiChat, cloudAiConfig, cloudAiWriting } from './cloudAi.ts';
@@ -299,11 +301,19 @@ export class LocalBackend implements Backend {
     return out;
   }
 
-  async recordGame(game: 'wordle' | 'scramble', result: { won: boolean; tries?: number; daily?: boolean; streak?: number }) {
-    if (game !== 'wordle' && game !== 'scramble') throw new BackendError('Geçersiz oyun.');
+  async setPandaGear(ids: string[]) {
+    const userId = this.currentUserId();
+    const list = Array.isArray(ids) ? ids.slice(0, 8).map(String) : [];
+    const next = this.run(() => setPandaGear(this.load(userId), list));
+    this.save(userId, next);
+    return next;
+  }
+
+  async recordGame(game: GameId, result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number }) {
+    if (game !== 'wordle' && game !== 'scramble' && !ARCADE_GAMES.includes(game as never)) throw new BackendError('Geçersiz oyun.');
     const userId = this.currentUserId();
     const now = new Date();
-    const out = this.run(() => recordGame(this.load(userId), game, { won: !!result.won, tries: Number(result.tries) || undefined, daily: !!result.daily, streak: Number(result.streak) || 0 }, now, dayKey(now)));
+    const out = this.run(() => recordGame(this.load(userId), game, { won: !!result.won, tries: Number(result.tries) || undefined, daily: !!result.daily, streak: Number(result.streak) || 0, score: Math.min(10000, Number(result.score) || 0) }, now, dayKey(now)));
     this.save(userId, out.state);
     return out;
   }

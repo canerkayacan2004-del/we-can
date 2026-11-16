@@ -31,6 +31,15 @@ export function UnitScreen({ unitId }: { unitId: string }) {
         <div><p className="font-bold text-fg-3">Ünite görevi</p><p className="text-fg">{unit.unitTask}</p></div>
       </div>
 
+      {unlocked && hasContent && (
+        <button type="button" data-action="open-boss" onClick={() => go({ name: 'boss', unitId: unit.id })}
+          className="card mb-5 flex w-full items-center gap-4 p-4 text-left hover:border-bad/50">
+          <span className="text-4xl leading-none">👾</span>
+          <span className="flex-1"><b className="block text-fg">Boss savaşı</b><span className="text-sm text-fg-3">Ünitenin sorularıyla süreli savaş · 3 kalp · kazanırsan +8 XP</span></span>
+          <Icon name="arrowRight" size={18} className="text-fg-3" />
+        </button>
+      )}
+
       {!unlocked && <div className="mb-4"><Notice tone="warn">Bu ünite kilitli. Açmak için bir önceki ünitenin sınavını geçmelisin.</Notice></div>}
       {!hasContent && <div className="mb-4"><Notice tone="info"><b>Bu ünitenin alıştırmaları henüz hazırlanmadı.</b> Aşağıda derslerin hedeflerini görebilirsin.</Notice></div>}
       {progress?.status === 'skipped' && <div className="mb-4"><Notice tone="info">Bu ünite seviye tespitiyle atlandı. Emin değilsen doğrudan ünite sınavına girebilir veya dersleri baştan çalışabilirsin.</Notice></div>}

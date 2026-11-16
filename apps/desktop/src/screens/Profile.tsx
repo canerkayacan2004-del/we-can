@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { RULES, aiAllowance, currentLevel, dayKey, dayStats, lastDays, totals } from '@core/engine.ts';
 import { Bars } from '../components/charts.tsx';
 import { AvatarPicker } from '../components/Avatar.tsx';
+import { PandaWardrobe } from '../components/PandaWardrobe.tsx';
 import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, StatTile, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
@@ -74,6 +75,8 @@ export function ProfileScreen() {
         </div>
         <div className="text-center"><p className="text-sm text-fg-3">Seviye</p><p className="text-4xl font-black text-acc">{currentLevel(state, curriculum)}</p></div>
       </section>
+
+      <PandaWardrobe />
 
       <div className="grid gap-4 md:grid-cols-4">
         <StatTile label="Toplam XP" value={state.stats.totalXp} icon="bolt" tone="text-gold" />

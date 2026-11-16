@@ -73,7 +73,7 @@ function Explore({ level, go, setTab }: { level: CefrLevel | 'all'; go: (r: Rout
   const phrase = phraseOfDay(state, today);
   const tools: { icon: string; title: string; text: string; route: Route; data: string }[] = [
     { icon: 'sparkles', title: 'Günün 10 kelimesi', text: `${seen}/${words.length} görüldü · Türkçe anlam ve örnek cümle`, route: { name: 'daily' }, data: 'daily' },
-    { icon: 'target', title: 'Kelime oyunları', text: 'Wordle ve Kelime Avı', route: { name: 'games' }, data: 'games' },
+    { icon: 'target', title: 'Oyun salonu', text: 'Wordle, hızlı tur, dikte, altyazı, hikaye…', route: { name: 'games' }, data: 'games' },
     { icon: 'headphones', title: 'Dinleme odası', text: 'Dikte, ses ayırt etme, gölge konuşma', route: { name: 'audio' }, data: 'audio' },
     { icon: 'bot', title: 'AI öğretmen', text: 'Konuşma pratiği ve yazı değerlendirme', route: { name: 'ai' }, data: 'ai' },
     { icon: 'book', title: 'Kelime defteri', text: 'Öğrendiğin tüm kelimeler', route: { name: 'vocab' }, data: 'vocab' },

@@ -311,6 +311,8 @@ export interface UserState {
   dailyWords?: { date: string; seen: string[]; learned: string[]; rewarded: boolean };
   /** Kelime oyunları istatistikleri */
   games?: import('./games.ts').GameStats;
+  /** Panda dolabı: takılı aksesuarlar. */
+  panda?: { equipped: string[] };
   profile: Profile;
   stats: { totalXp: number; streak: number; longestStreak: number; lastActiveDate: string | null };
   lessons: Record<string, LessonProgress>;

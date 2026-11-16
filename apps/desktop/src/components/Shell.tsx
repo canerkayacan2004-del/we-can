@@ -34,7 +34,7 @@ export function Shell({ children }: { children: ReactNode }) {
   const due = dueReviews(state, today).length + mistakeExerciseIds(state).length;
   const streak = effectiveStreak(state, today);
   const status = backend.status();
-  const active = route.name === 'unit' ? 'map' : route.name === 'practice' ? 'review' : route.name === 'status' ? 'settings'
+  const active = route.name === 'unit' || route.name === 'boss' ? 'map' : route.name === 'practice' ? 'review' : route.name === 'status' ? 'settings'
     : route.name === 'daily' || route.name === 'games' || route.name === 'audio' ? 'hub' : route.name;
 
   return (

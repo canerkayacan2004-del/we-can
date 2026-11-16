@@ -1,3 +1,4 @@
+import type { GameId } from '@core/games.ts';
 // İstemcinin "sunucu" ile konuştuğu tek arayüz.
 // Yerel mod (LocalBackend) ve ileride bulut modu (Supabase) aynı arayüzü uygular;
 // ekranlar hangisinin çalıştığını bilmek zorunda değildir.
@@ -59,7 +60,8 @@ export interface Backend {
   /** Günlük kelime kartını tamamlar: learn=true ise deftere ve tekrara eklenir. */
   markDailyWord(wordId: string, learn: boolean): Promise<{ state: UserState; xp: number }>;
   /** Kelime oyunu sonucunu kaydeder (istatistik + günlük sınırlı XP). */
-  recordGame(game: 'wordle' | 'scramble', result: { won: boolean; tries?: number; daily?: boolean; streak?: number }): Promise<{ state: UserState; xp: number }>;
+  setPandaGear(ids: string[]): Promise<UserState>;
+  recordGame(game: GameId, result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number }): Promise<{ state: UserState; xp: number }>;
   saveNote(note: Partial<Note> & { title: string; body: string }): Promise<UserState>;
   deleteNote(id: string): Promise<UserState>;
 

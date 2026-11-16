@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { UserState } from '@core/types.ts';
 import { Shell } from './components/Shell.tsx';
-import { Mascot, Notice } from './components/ui.tsx';
+import { Mascot, Notice, setMascotGear } from './components/ui.tsx';
 import { AppContext, errorMessage } from './lib/app.tsx';
 import type { Route } from './lib/app.tsx';
 import { LocalBackend } from './lib/backend/local.ts';
@@ -18,6 +18,7 @@ import { DailyWordsScreen } from './screens/DailyWords.tsx';
 import { GamesScreen } from './screens/Games.tsx';
 import { ReportScreen } from './screens/Report.tsx';
 import { HubScreen } from './screens/Hub.tsx';
+import { BossScreen } from './screens/Boss.tsx';
 import { FriendsScreen } from './screens/Friends.tsx';
 import { LessonScreen } from './screens/Lesson.tsx';
 import { MapScreen } from './screens/Map.tsx';
@@ -76,6 +77,8 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  setMascotGear(state?.panda?.equipped);
+
   if (fatal) {
     return (
       <div className="flex h-full items-center justify-center p-10">
@@ -125,8 +128,9 @@ export function App() {
         {route.name === 'notebook' && <NotebookScreen />}
         {route.name === 'friends' && <FriendsScreen />}
         {route.name === 'daily' && <DailyWordsScreen />}
-        {route.name === 'games' && <GamesScreen />}
+        {route.name === 'games' && <GamesScreen key={route.game ?? 'g'} game={route.game} />}
         {route.name === 'report' && <ReportScreen />}
+        {route.name === 'boss' && <BossScreen key={route.unitId} unitId={route.unitId} />}
         {route.name === 'hub' && <HubScreen key={route.tab ?? 'all'} tab={route.tab} />}
         {route.name === 'planner' && <PlannerScreen />}
         {route.name === 'achievements' && <AchievementsScreen />}
