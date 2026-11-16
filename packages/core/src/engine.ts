@@ -178,6 +178,11 @@ export function migrateState(raw: any): UserState {
     if (!state.profile.appearance.dashboard.includes('games')) state.profile.appearance.dashboard = ['games', ...state.profile.appearance.dashboard];
     state.designV3 = true;
   }
+  if (!raw?.phraseV1) {
+    const d = state.profile.appearance.dashboard;
+    if (!d.includes('phrase')) { const at = d.indexOf('games'); d.splice(at >= 0 ? at + 1 : 0, 0, 'phrase'); }
+    state.phraseV1 = true;
+  }
   if (!Array.isArray(state.profile.hobbies)) state.profile.hobbies = [];
   if (!Array.isArray(state.profile.studyDays) || !state.profile.studyDays.length) state.profile.studyDays = [0, 1, 2, 3, 4];
   if (!state.profile.studyTime) state.profile.studyTime = 'evening';

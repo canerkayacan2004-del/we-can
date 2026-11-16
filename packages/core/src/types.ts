@@ -197,7 +197,7 @@ export interface Appearance {
 
 export const DASHBOARD_WIDGETS = [
   'skills', 'weekly', 'continue', 'words', 'ai', 'rewards',
-  'planner', 'revision', 'analytics', 'notebook', 'audio', 'achievements', 'games',
+  'planner', 'revision', 'analytics', 'notebook', 'audio', 'achievements', 'games', 'phrase',
 ] as const;
 
 export const DEFAULT_APPEARANCE: Appearance = {
@@ -206,7 +206,7 @@ export const DEFAULT_APPEARANCE: Appearance = {
   scale: 1,
   motion: true,
   sound: true,
-  dashboard: ['games', 'skills', 'weekly', 'continue', 'words', 'ai', 'rewards', 'planner'],
+  dashboard: ['games', 'phrase', 'skills', 'weekly', 'continue', 'words', 'ai', 'rewards', 'planner'],
 };
 
 // ---- Kullanıcı durumu ----
@@ -305,6 +305,8 @@ export interface UserState {
   version: 2;
   /** 0.3 tasarım geçişi yapıldı mı */
   designV3?: boolean;
+  /** Panoya "Günün cümlesi" kutusu bir kez eklendi mi. */
+  phraseV1?: boolean;
   /** Günlük 10 kelime: bugün görülen / öğrenilen kelimeler */
   dailyWords?: { date: string; seen: string[]; learned: string[]; rewarded: boolean };
   /** Kelime oyunları istatistikleri */

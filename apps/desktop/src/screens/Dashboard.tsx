@@ -7,10 +7,10 @@ import { DASHBOARD_WIDGETS, LEVELS } from '@core/types.ts';
 import type { UserState } from '@core/types.ts';
 import { Bars, Ring, Sparkline } from '../components/charts.tsx';
 import { Icon } from '../components/Icon.tsx';
-import { Mascot, ProgressBar, Toggle, cx } from '../components/ui.tsx';
+import { Mascot, ProgressBar, SpeakButton, Toggle, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { curriculum, getLessonContent, getLessonMeta, getUnit, getVocabItem } from '../lib/content.ts';
-import { todaysWords } from '../lib/content.ts';
+import { phraseOfDay, todaysWords } from '../lib/content.ts';
 import { speak } from '../lib/tts.ts';
 import { buildPlan } from './Planner.tsx';
 
@@ -19,7 +19,7 @@ const DAY_TR = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
 export const WIDGET_TR: Record<string, string> = {
   skills: 'Becerilerin', weekly: 'Haftalık ilerleme', continue: 'Son ders', words: 'Günün 10 kelimesi', ai: 'AI öğretmen',
   rewards: 'Seri ödülleri', planner: 'Günlük plan', revision: 'Akıllı tekrar', analytics: 'Gelişim özeti',
-  notebook: 'Not defterim', audio: 'Dinleme odası', achievements: 'Başarılar', games: 'Kelime oyunları',
+  notebook: 'Not defterim', audio: 'Dinleme odası', achievements: 'Başarılar', games: 'Kelime oyunları', phrase: 'Günün cümlesi',
 };
 
 /** Öğrencinin sıradaki dersi: içeriği hazır, kilidi açık ve henüz tamamlanmamış ilk ders. */
@@ -130,7 +130,8 @@ export function DashboardScreen() {
       )}
 
       <div className="grid gap-5 lg:grid-cols-12">
-        {on('games') && <GamesCard />}
+        {on('games') && <GamesCard wide={!on('phrase')} />}
+        {on('phrase') && <PhraseCard wide={!on('games')} />}
         {on('skills') && <SkillsCard />}
         {on('weekly') && <WeeklyCard />}
         {on('continue') && <ContinueCard next={next} />}
@@ -260,8 +261,10 @@ function WordsCard() {
       </div>
       <ul className="mb-3 flex flex-wrap gap-1.5">
         {words.map((w) => (
-          <li key={w.id} className={cx('chip text-xs', rec?.seen.includes(w.id) ? 'bg-acc/15 text-acc' : 'bg-panel-3 text-fg-2')}>
-            <span className="font-black opacity-70">{w.level}</span> {w.term}
+          <li key={w.id}>
+            <button type="button" lang="en" title="Dinle" onClick={() => speak(w.term)} className={cx('chip cursor-pointer text-xs hover:brightness-125', rec?.seen.includes(w.id) ? 'bg-acc/15 text-acc' : 'bg-panel-3 text-fg-2')}>
+              <span className="font-black opacity-70">{w.level}</span> {w.term}
+            </button>
           </li>
         ))}
       </ul>
@@ -273,13 +276,38 @@ function WordsCard() {
   );
 }
 
-function GamesCard() {
+function PhraseCard({ wide }: { wide: boolean }) {
+  const { state } = useApp();
+  const p = phraseOfDay(state, dayKey(new Date()));
+  return (
+    <section className={cx('card relative overflow-hidden', wide ? 'lg:col-span-12' : 'lg:col-span-5')} data-widget="phrase" data-phrase={p.id}>
+      <div className="flex items-center justify-between">
+        <p className="section-title"><Icon name="sparkles" size={18} className="text-acc" /> Günün cümlesi</p>
+        <span className="chip bg-panel-3 text-xs font-black text-fg-2">{p.level}</span>
+      </div>
+      <div className="flex items-start gap-2">
+        <p lang="en" className="text-2xl font-black leading-tight text-fg" data-phrase-en>{p.en}</p>
+        <SpeakButton text={p.en} label="" />
+      </div>
+      <p className="mt-1 font-semibold text-acc" data-phrase-tr>{p.tr}</p>
+      <div className="mt-3 flex items-start gap-2 rounded-2xl border border-line bg-panel-2 p-3">
+        <SpeakButton text={p.exEn} label="" slow />
+        <div>
+          <p lang="en" className="text-sm text-fg">{p.exEn}</p>
+          <p className="text-xs text-fg-3">{p.exTr}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GamesCard({ wide }: { wide: boolean }) {
   const { state, go } = useApp();
   const today = dayKey(new Date());
   const w = state.games?.wordle;
   const played = w?.lastDaily === today;
   return (
-    <section className="card card-glow relative overflow-hidden lg:col-span-12" data-widget="games">
+    <section className={cx('card card-glow relative overflow-hidden', wide ? 'lg:col-span-12' : 'lg:col-span-7')} data-widget="games">
       <div className="flex flex-wrap items-center gap-5">
         <div lang="en" className="flex gap-1" aria-hidden="true">
           {'WECAN'.split('').map((ch, i) => (

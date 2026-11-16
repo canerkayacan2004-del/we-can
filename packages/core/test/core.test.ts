@@ -277,6 +277,10 @@ test('eski kayıt yükseltmesi eksik alanları doldurur', () => {
   assert.equal(chose.profile.appearance.theme, 'emerald');
   const legacy = migrateState({ ...old, profile: { ...(old.profile as object), appearance: { theme: 'emerald' } } });
   assert.equal(legacy.profile.appearance.theme, 'neon');
+  // "Günün cümlesi" kutusu bir kez eklenir; kullanıcı kapatırsa geri gelmez.
+  assert.ok(legacy.profile.appearance.dashboard.includes('phrase'));
+  const off = migrateState({ ...m, profile: { ...m.profile, appearance: { ...m.profile.appearance, dashboard: ['skills'] } } });
+  assert.deepEqual(off.profile.appearance.dashboard, ['skills']);
 });
 
 test('karıştırma: şıklar ve soru sırası karışır, puanlama özgün içerikle doğru kalır', () => {

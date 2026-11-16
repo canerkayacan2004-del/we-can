@@ -71,7 +71,10 @@ export function DailyWordsScreen() {
           <div className="flex items-center justify-center gap-2"><LevelChip level={word.level} /><span className="chip bg-panel-3 text-xs text-fg-2">{word.pos}</span></div>
           <div className="mt-4 flex items-center justify-center gap-3">
             <h2 className="text-5xl font-black tracking-tight text-fg" data-word-term>{word.term}</h2>
-            <SpeakButton text={word.term} />
+            <div className="flex flex-col gap-1">
+              <SpeakButton text={word.term} />
+              <SpeakButton text={word.term} label="Yavaş" slow />
+            </div>
           </div>
           {!revealed ? (
             <div className="mt-8">
@@ -110,7 +113,7 @@ export function DailyWordsScreen() {
                 <button type="button" onClick={() => { setIndex(i); setRevealed(seen); }} data-word-item={w.id}
                   className={cx('flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left', i === index && !done ? 'border-acc/50 bg-acc/8' : 'border-line hover:bg-panel-2')}>
                   <LevelChip level={w.level} />
-                  <span className="font-semibold text-fg">{w.term}</span>
+                  <span lang="en" className="font-semibold text-fg">{w.term}</span>
                   <span className="truncate text-sm text-fg-3">{seen ? w.meaningTr : '•••'}</span>
                   <span className="ml-auto">{learned ? <Icon name="book" size={16} className="text-acc" /> : seen ? <Icon name="check" size={16} className="text-good" /> : null}</span>
                 </button>

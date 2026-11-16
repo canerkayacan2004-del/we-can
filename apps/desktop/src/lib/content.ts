@@ -9,6 +9,10 @@ import { currentLevel, dayKey } from '@core/engine.ts';
 import type { UserState } from '@core/types.ts';
 import { WORD_BANK, bankWord } from '@content/words/index.ts';
 import type { BankWord } from '@content/words/index.ts';
+import { PHRASES } from '@content/phrases.ts';
+import type { Phrase } from '@content/phrases.ts';
+import { CEFR_LEVELS } from '@core/types.ts';
+import { dailyIndex } from '@core/games.ts';
 export type { BankWord };
 
 export const curriculum = curriculumJson as unknown as Curriculum;
@@ -84,4 +88,13 @@ export function sentenceBank(): { en: string; tr: string; unitId: string }[] {
   }
   for (const v of vocabList) add(v.exampleEn, v.exampleTr, v.id.startsWith('a1u2') ? 'A1.2' : 'A1.1');
   return out;
+}
+
+/** Günün cümlesi: seviyene yakın (bir alt, aynı, bir üst) kalıplardan her gün biri. */
+export function phraseOfDay(state: UserState, today: string): Phrase {
+  const li = CEFR_LEVELS.indexOf(currentLevel(state, curriculum) as (typeof CEFR_LEVELS)[number]);
+  const near = new Set(CEFR_LEVELS.filter((_, i) => li < 0 ? i <= 1 : Math.abs(i - li) <= 1));
+  const pool = PHRASES.filter((p) => near.has(p.level));
+  const list = pool.length ? pool : PHRASES;
+  return list[dailyIndex(today, list.length)];
 }

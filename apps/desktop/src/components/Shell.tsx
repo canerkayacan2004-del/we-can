@@ -6,6 +6,7 @@ import { useApp } from '../lib/app.tsx';
 import type { Route } from '../lib/app.tsx';
 import { curriculum } from '../lib/content.ts';
 import { UserAvatar } from './Avatar.tsx';
+import { GoalCelebration } from './GoalCelebration.tsx';
 import { Icon } from './Icon.tsx';
 import { Logo, Mascot, cx } from './ui.tsx';
 
@@ -39,6 +40,7 @@ export function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-full">
+      <GoalCelebration />
       <aside className="flex w-64 shrink-0 flex-col border-r border-line bg-panel/80 px-4 py-5 backdrop-blur max-[1100px]:w-[76px] max-[1100px]:px-2" data-sidebar>
         <button type="button" className="mb-4 flex cursor-pointer items-center gap-2 px-2" onClick={() => go({ name: 'dashboard' })}>
           <Mascot size={42} />

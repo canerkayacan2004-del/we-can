@@ -176,3 +176,13 @@ html[data-fx="neon"] .field:focus { box-shadow: 0 0 0 3px color-mix(in oklab, va
 html[data-fx="neon"] .section-title svg { filter: drop-shadow(0 0 6px color-mix(in oklab, var(--wc-acc) 70%, transparent)); }
 html[data-fx="neon"] ::selection { background: color-mix(in oklab, var(--wc-acc) 40%, transparent); }
 .font-mono-num { font-family: "Cascadia Code", "Consolas", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+/* Günlük hedef kutlaması */
+@keyframes wc-fall {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(30px, 105vh, 0) rotate(540deg); opacity: 0.2; }
+}
+.wc-fall { animation-name: wc-fall; animation-timing-function: cubic-bezier(.3,.6,.6,1); animation-iteration-count: 2; animation-fill-mode: both; }
+@keyframes wc-bounce { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+.wc-bounce { animation: wc-bounce 1.1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .wc-fall, .wc-bounce { animation: none; display: none; } .wc-bounce { display: inline-block; } }
