@@ -41,13 +41,15 @@ export interface GameStats {
   scramble: { played: number; won: number; best: number };
   /** Salon oyunları: oynama sayısı ve en iyi skor. */
   arcade?: Partial<Record<ArcadeGame, { played: number; best: number; won: number }>>;
+  /** Kategori oyunu: kategori başına en iyi skor (0-10). */
+  cat?: Record<string, number>;
   xpDate?: string;
   xpToday?: number;
 }
 
-export type ArcadeGame = 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'boss' | 'story' | 'duel';
+export type ArcadeGame = 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'boss' | 'story' | 'duel' | 'categories';
 export type GameId = 'wordle' | 'scramble' | ArcadeGame;
-export const ARCADE_GAMES: ArcadeGame[] = ['speed', 'dictation', 'subtitle', 'streamer', 'boss', 'story', 'duel'];
+export const ARCADE_GAMES: ArcadeGame[] = ['speed', 'dictation', 'subtitle', 'streamer', 'boss', 'story', 'duel', 'categories'];
 
 /** Salon oyunlarında skora göre XP (en fazla 6; boss/hikaye kazanılınca 8). */
 export function arcadeXp(game: ArcadeGame, score: number, won: boolean): number {
@@ -63,7 +65,7 @@ export function emptyGameStats(): GameStats {
 export function recordGame(
   state: UserState,
   game: GameId,
-  result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number },
+  result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number; category?: string },
   now: Date,
   today: string,
 ): { state: UserState; xp: number } {
@@ -90,7 +92,11 @@ export function recordGame(
     if (result.won) a.won++;
     const score = Math.max(0, Math.floor(result.score ?? 0));
     a.best = Math.max(a.best, score);
-    xp = arcadeXp(game, score, result.won);
+    if (game === 'categories' && result.category && /^[a-z]{2,20}$/.test(result.category)) {
+      const c = (stats.cat ??= {});
+      c[result.category] = Math.max(c[result.category] ?? 0, Math.min(10, score));
+    }
+    xp = arcadeXp(game, game === 'categories' ? score * 1.5 : score, result.won);
   } else {
     const s = stats.scramble;
     s.played++;

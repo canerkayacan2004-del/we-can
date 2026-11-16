@@ -828,6 +828,36 @@ isim/sıfat ⇒ noun/adjective
 isim/zarf ⇒ noun/adverb
 kalıp ⇒ pattern
 sıfat/fiil ⇒ adjective/verb
+Meyveler ⇒ Fruits
+Sebzeler ⇒ Vegetables
+Hayvanlar ⇒ Animals
+Ülkeler ⇒ Countries
+Renkler ⇒ Colours
+Vücut ⇒ The body
+Yiyecek ve içecek ⇒ Food and drink
+Giysiler ⇒ Clothes
+Meslekler ⇒ Jobs
+Aile ⇒ Family
+Ev ve eşyalar ⇒ Home
+Mutfak ⇒ Kitchen
+Hava durumu ⇒ Weather
+Ulaşım ⇒ Transport
+Duygular ⇒ Feelings
+Okul ⇒ School
+Doğa ⇒ Nature
+Müzik aletleri ⇒ Instruments
+Şehirde yerler ⇒ Places in town
+Günlük fiiller ⇒ Everyday verbs
+Şekiller ve sayılar ⇒ Shapes and numbers
+Kategoriler ⇒ Categories
+Ülkeler, meyveler… ⇒ Countries, fruits…
+Bir konu seç: önce kelimelere göz at, sonra emojiden İngilizcesini seç ya da Türkçesinden İngilizcesini yaz. Her turda 10 soru. ⇒ Pick a topic: look through the words, then choose the English from the emoji or type the English from the Turkish. 10 questions per round.
+🎯 Seçmeli oyna ⇒ 🎯 Multiple choice
+⌨️ Yazarak oyna ⇒ ⌨️ Type the answer
+İngilizcesini yaz… ⇒ Type the English…
+Başka kategori ⇒ Another category
+seçmeli ⇒ multiple choice
+yazarak ⇒ typing
 `;
 
 const PATTERNS = `
@@ -893,6 +923,7 @@ Cümle {} / {} ⇒ Sentence {} / {}
 {} / {} doğru altyazı ⇒ {} / {} correct subtitles
 {} / {} puan ⇒ {} / {} points
 {} replik ⇒ {} lines
+{} kelime · {} ⇒ {} words · {}
 {} ifade · {}+ ⇒ {} phrases · {}+
 {} · {} ⇒ {} · {}
 Ders {} · {} ⇒ Lesson {} · {}

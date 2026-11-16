@@ -15,6 +15,7 @@ import { Dictation } from './arcade/Dictation.tsx';
 import { Streamer } from './arcade/Streamer.tsx';
 import { Subtitles } from './arcade/Subtitles.tsx';
 import { Story } from './arcade/Story.tsx';
+import { Categories } from './arcade/Categories.tsx';
 
 const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 
@@ -40,9 +41,10 @@ function randomIndex(n: number, avoid?: number) {
   return i;
 }
 
-export type GameTab = 'wordle' | 'scramble' | 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'story';
+export type GameTab = 'categories' | 'wordle' | 'scramble' | 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'story';
 const GAMES: { id: GameTab; emoji: string; label: string; hint: string }[] = [
   { id: 'story', emoji: '📖', label: 'Hikaye modu', hint: "Londra'da 7 gün" },
+  { id: 'categories', emoji: '🍎', label: 'Kategoriler', hint: 'Ülkeler, meyveler…' },
   { id: 'wordle', emoji: '🟩', label: 'Wordle', hint: '5 harfli kelimeyi bul' },
   { id: 'scramble', emoji: '🔤', label: 'Kelime Avı', hint: 'Harfleri diz' },
   { id: 'speed', emoji: '⚡', label: 'Hızlı tur', hint: '60 saniye' },
@@ -56,7 +58,7 @@ export function GamesScreen({ game }: { game?: GameTab }) {
   return (
     <div data-screen="games" className="space-y-4">
       <PageTitle title="Oyun salonu" icon="target" subtitle="Oynayarak öğren: kelime, dinleme ve konuşma oyunları tek yerde." />
-      <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
+      <div className="flex flex-wrap gap-2" role="tablist">
         {GAMES.map((g) => (
           <button key={g.id} type="button" role="tab" aria-selected={tab === g.id} data-game-tab={g.id} onClick={() => setTab(g.id)} title={g.hint}
             className={cx('flex shrink-0 items-center gap-2 rounded-2xl border px-3 py-2 text-left', tab === g.id ? 'border-acc bg-acc/12 shadow-[0_0_14px_-5px_var(--wc-acc)]' : 'border-line bg-panel-2 hover:border-acc/40')}>
@@ -72,6 +74,7 @@ export function GamesScreen({ game }: { game?: GameTab }) {
       {tab === 'streamer' && <Streamer />}
       {tab === 'subtitle' && <Subtitles />}
       {tab === 'story' && <Story />}
+      {tab === 'categories' && <Categories />}
     </div>
   );
 }

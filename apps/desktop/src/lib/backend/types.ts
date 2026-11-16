@@ -61,7 +61,7 @@ export interface Backend {
   markDailyWord(wordId: string, learn: boolean): Promise<{ state: UserState; xp: number }>;
   /** Kelime oyunu sonucunu kaydeder (istatistik + günlük sınırlı XP). */
   setPandaGear(ids: string[]): Promise<UserState>;
-  recordGame(game: GameId, result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number }): Promise<{ state: UserState; xp: number }>;
+  recordGame(game: GameId, result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number; category?: string }): Promise<{ state: UserState; xp: number }>;
   saveNote(note: Partial<Note> & { title: string; body: string }): Promise<UserState>;
   deleteNote(id: string): Promise<UserState>;
 

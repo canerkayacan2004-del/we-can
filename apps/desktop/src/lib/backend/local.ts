@@ -310,11 +310,11 @@ export class LocalBackend implements Backend {
     return next;
   }
 
-  async recordGame(game: GameId, result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number }) {
+  async recordGame(game: GameId, result: { won: boolean; tries?: number; daily?: boolean; streak?: number; score?: number; category?: string }) {
     if (game !== 'wordle' && game !== 'scramble' && !ARCADE_GAMES.includes(game as never)) throw new BackendError('Geçersiz oyun.');
     const userId = this.currentUserId();
     const now = new Date();
-    const out = this.run(() => recordGame(this.load(userId), game, { won: !!result.won, tries: Number(result.tries) || undefined, daily: !!result.daily, streak: Number(result.streak) || 0, score: Math.min(10000, Number(result.score) || 0) }, now, dayKey(now)));
+    const out = this.run(() => recordGame(this.load(userId), game, { won: !!result.won, tries: Number(result.tries) || undefined, daily: !!result.daily, streak: Number(result.streak) || 0, score: Math.min(10000, Number(result.score) || 0), category: typeof result.category === 'string' ? result.category : undefined }, now, dayKey(now)));
     this.save(userId, out.state);
     return out;
   }

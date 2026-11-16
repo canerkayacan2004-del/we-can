@@ -36,7 +36,7 @@ export function shuffle<T>(list: T[]): T[] {
 export function useRecordGame() {
   const { backend, setState } = useApp();
   const [error, setError] = useState('');
-  const record = async (game: GameId, result: { won: boolean; score?: number }) => {
+  const record = async (game: GameId, result: { won: boolean; score?: number; category?: string }) => {
     try { const out = await backend.recordGame(game, result); setState(out.state); return out.xp; } catch (err) { setError(errorMessage(err)); return 0; }
   };
   return { record, error };
