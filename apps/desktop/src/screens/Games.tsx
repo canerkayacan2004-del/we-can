@@ -11,6 +11,9 @@ import { Notice, PageTitle, SpeakButton, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { playSound } from '../lib/sound.ts';
 import { SpeedRound } from './arcade/SpeedRound.tsx';
+import { Dictation } from './arcade/Dictation.tsx';
+import { Streamer } from './arcade/Streamer.tsx';
+import { Subtitles } from './arcade/Subtitles.tsx';
 
 const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 
@@ -41,6 +44,9 @@ const GAMES: { id: GameTab; emoji: string; label: string; hint: string }[] = [
   { id: 'wordle', emoji: '🟩', label: 'Wordle', hint: '5 harfli kelimeyi bul' },
   { id: 'scramble', emoji: '🔤', label: 'Kelime Avı', hint: 'Harfleri diz' },
   { id: 'speed', emoji: '⚡', label: 'Hızlı tur', hint: '60 saniye' },
+  { id: 'dictation', emoji: '🎧', label: 'Dikte yarışı', hint: 'Dinle ve yaz' },
+  { id: 'streamer', emoji: '🔴', label: 'Yayıncı modu', hint: 'Sohbete cevap ver' },
+  { id: 'subtitle', emoji: '🎬', label: 'Altyazı görevi', hint: 'Dinle, altyazıyı seç' },
 ];
 
 export function GamesScreen({ game }: { game?: GameTab }) {
@@ -60,6 +66,9 @@ export function GamesScreen({ game }: { game?: GameTab }) {
       {tab === 'wordle' && <Wordle />}
       {tab === 'scramble' && <Scramble />}
       {tab === 'speed' && <SpeedRound />}
+      {tab === 'dictation' && <Dictation />}
+      {tab === 'streamer' && <Streamer />}
+      {tab === 'subtitle' && <Subtitles />}
     </div>
   );
 }

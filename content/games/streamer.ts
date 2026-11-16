@@ -1,0 +1,22 @@
+// Yayıncı modu: canlı yayın sohbetine en doğal İngilizce cevabı seç.
+// Biçim: chat mesajı, kullanıcı adı, seçenekler (ilki en iyi cevap), kısa açıklama.
+export interface ChatItem { user: string; message: string; tr: string; options: string[]; why: string }
+
+export const STREAM_CHAT: ChatItem[] = [
+  { user: 'nightowl_92', message: 'Just followed! Love the stream 🔥', tr: 'Takip ettim! Yayını çok sevdim', options: ['Thanks for the follow, welcome in!', 'Thank you for follow me.', 'Yes, I am stream.'], why: '"Thanks for the follow" yayıncıların kalıbıdır; "follow me" kısmı dil bilgisi olarak hatalı.' },
+  { user: 'luna_plays', message: 'What rank are you?', tr: 'Hangi ranktesin?', options: ['I\'m Gold 2 right now, trying to climb!', 'I am rank.', 'Rank is good, thanks.'], why: '"Right now" ve "trying to climb" (yükselmeye çalışıyorum) doğal bir cevap.' },
+  { user: 'mike_tv', message: 'How long have you been streaming?', tr: 'Ne zamandır yayın yapıyorsun?', options: ['About two months now.', 'I streaming two months.', 'Two months ago I stream.'], why: 'Süre sorulduğunda kısa "About two months now." en doğalı.' },
+  { user: 'sara_k', message: 'Can you play a ranked game next?', tr: 'Sıradaki maç dereceli olabilir mi?', options: ['Sure, let\'s queue up ranked after this one!', 'Okay ranked I play.', 'No problem, I am ranked.'], why: '"Queue up" = maça sıraya girmek, oyun yayınlarında çok kullanılır.' },
+  { user: 'xX_Blade_Xx', message: 'that play was insane!!', tr: 'O oyun inanılmazdı!!', options: ['Haha thanks, I got lucky there!', 'Yes, I am insane.', 'Thank you, the play is insane.'], why: '"I got lucky" alçakgönüllü ve doğal; "I am insane" anlamı tamamen değiştirir.' },
+  { user: 'tomas_br', message: 'Where are you from?', tr: 'Nerelisin?', options: ['I\'m from Istanbul, Turkey!', 'I am Istanbul.', 'From I am Turkey.'], why: '"I\'m from…" kalıbı; "I am Istanbul" "Ben İstanbul\'um" demek olur.' },
+  { user: 'emma_gg', message: 'Your English is really good btw', tr: 'Bu arada İngilizcen gerçekten iyi', options: ['Aw, thank you! I\'m still learning.', 'Yes, my English is very good.', 'Thanks, you too English.'], why: 'İltifata teşekkür + "still learning" samimi ve doğal.' },
+  { user: 'dan_the_man', message: 'brb getting snacks', tr: 'Hemen dönerim, atıştırmalık alıyorum', options: ['No worries, enjoy your snacks!', 'Why are you go?', 'Bring me too.'], why: '"brb" = be right back. "No worries" rahat bir cevap.' },
+  { user: 'kira_77', message: 'What headset do you use?', tr: 'Hangi kulaklığı kullanıyorsun?', options: ['It\'s in the panel below the stream!', 'I use the headset.', 'Headset is my.'], why: 'Yayıncılar ekipmanı genelde "panels below" kısmında listeler.' },
+  { user: 'ghost_rider', message: 'gg', tr: 'İyi oyundu', options: ['GG! Thanks for hanging out.', 'What is gg?', 'Yes gg, bye.'], why: '"GG" = good game; "thanks for hanging out" izleyiciye teşekkür kalıbı.' },
+  { user: 'ana_lima', message: 'Is this your first time playing this game?', tr: 'Bu oyunu ilk kez mi oynuyorsun?', options: ['Yeah, it\'s my first playthrough, no spoilers please!', 'Yes, first time I play.', 'I play first.'], why: '"Playthrough" = oyunu baştan sona oynama; "no spoilers" çok kullanılır.' },
+  { user: 'chris_p', message: 'You should try a harder difficulty', tr: 'Daha zor bir zorluk seviyesi denemelisin', options: ['Maybe next time, I\'m still getting the hang of it.', 'No, difficult is hard.', 'I should try harder me.'], why: '"Get the hang of it" = alışmak, işi kapmak.' },
+  { user: 'mod_bot', message: 'Reminder: be nice in chat!', tr: 'Hatırlatma: sohbette nazik olun!', options: ['Thanks, mods! Let\'s keep it friendly.', 'Okay bot.', 'I am nice.'], why: 'Moderatörlere teşekkür etmek yayın kültürünün bir parçası.' },
+  { user: 'lea_m', message: 'When do you stream next?', tr: 'Bir sonraki yayın ne zaman?', options: ['Friday at 9 PM Turkey time!', 'Next stream Friday will.', 'I stream when Friday.'], why: 'Gün + saat + saat dilimi en net cevap.' },
+  { user: 'big_mike', message: 'can u say hi to my friend Joe?', tr: 'Arkadaşım Joe\'ya selam verebilir misin?', options: ['Hey Joe, welcome to the stream!', 'Hi your friend.', 'Joe is hello.'], why: 'Shout-out kalıbı: "Hey X, welcome to the stream!"' },
+  { user: 'yuki_s', message: 'I have to go now, bye!', tr: 'Şimdi gitmem lazım, görüşürüz!', options: ['Thanks for stopping by, see you next time!', 'Why you go?', 'Bye, go.'], why: '"Thanks for stopping by" = uğradığın için teşekkürler.' },
+];
