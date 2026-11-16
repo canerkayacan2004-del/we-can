@@ -16,9 +16,13 @@ const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 const PUBLIC_KEYS = ['WECAN_SUPABASE_URL', 'WECAN_SUPABASE_ANON_KEY'];
 function readPublicConfig() {
   const cfg = {};
-  const envPath = path.join(root, '.env');
-  if (!fs.existsSync(envPath)) return cfg;
-  for (const line of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
+  // public.env: depoda duran herkese acik ayarlar. .env (varsa) bunlarin ustune yazar.
+  const lines = [];
+  for (const name of ['public.env', '.env']) {
+    const p = path.join(root, name);
+    if (fs.existsSync(p)) lines.push(...fs.readFileSync(p, 'utf8').split(/\r?\n/));
+  }
+  for (const line of lines) {
     const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
     if (!m) continue;
     const [, key, value] = m;
