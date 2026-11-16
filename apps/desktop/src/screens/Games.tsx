@@ -14,6 +14,7 @@ import { SpeedRound } from './arcade/SpeedRound.tsx';
 import { Dictation } from './arcade/Dictation.tsx';
 import { Streamer } from './arcade/Streamer.tsx';
 import { Subtitles } from './arcade/Subtitles.tsx';
+import { Story } from './arcade/Story.tsx';
 
 const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 
@@ -41,6 +42,7 @@ function randomIndex(n: number, avoid?: number) {
 
 export type GameTab = 'wordle' | 'scramble' | 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'story';
 const GAMES: { id: GameTab; emoji: string; label: string; hint: string }[] = [
+  { id: 'story', emoji: '📖', label: 'Hikaye modu', hint: "Londra'da 7 gün" },
   { id: 'wordle', emoji: '🟩', label: 'Wordle', hint: '5 harfli kelimeyi bul' },
   { id: 'scramble', emoji: '🔤', label: 'Kelime Avı', hint: 'Harfleri diz' },
   { id: 'speed', emoji: '⚡', label: 'Hızlı tur', hint: '60 saniye' },
@@ -69,6 +71,7 @@ export function GamesScreen({ game }: { game?: GameTab }) {
       {tab === 'dictation' && <Dictation />}
       {tab === 'streamer' && <Streamer />}
       {tab === 'subtitle' && <Subtitles />}
+      {tab === 'story' && <Story />}
     </div>
   );
 }
