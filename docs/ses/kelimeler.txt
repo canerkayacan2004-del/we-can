@@ -1,0 +1,257 @@
+apple
+bread
+water
+house
+family
+friend
+work
+eat
+drink
+sleep
+big
+small
+happy
+tired
+cheap
+expensive
+morning
+night
+today
+tomorrow
+street
+ticket
+money
+shop
+buy
+open
+close
+help
+like
+want
+know
+go
+come
+live
+phone
+car
+room
+door
+teacher
+student
+weather
+hot
+cold
+left
+right
+near
+price
+breakfast
+always
+sometimes
+borrow
+lend
+decide
+forget
+remember
+arrive
+leave
+book
+cancel
+delay
+luggage
+receipt
+neighbour
+rent
+furniture
+quiet
+crowded
+dangerous
+healthy
+ill
+medicine
+appointment
+boring
+exciting
+invite
+celebrate
+improve
+practise
+mistake
+answer
+explain
+agree
+already
+yet
+ever
+abroad
+journey
+view
+salary
+colleague
+meeting
+customer
+recipe
+bake
+download
+screen
+team
+win
+lose
+probably
+achieve
+afford
+avoid
+complain
+convince
+deal with
+look forward to
+run out of
+get used to
+take part in
+opportunity
+experience
+advice
+attitude
+confident
+reliable
+available
+convenient
+efficient
+responsible
+deposit
+landlord
+tenant
+property
+neighbourhood
+commute
+deadline
+schedule
+purpose
+suggest
+require
+reduce
+increase
+compare
+recommend
+eventually
+actually
+although
+unless
+whereas
+brief
+obvious
+similar
+familiar
+subtitle
+streaming
+edit
+audience
+skill
+goal
+acknowledge
+anticipate
+assess
+assume
+emphasise
+negotiate
+postpone
+tackle
+undergo
+withdraw
+bring up
+come up with
+put off
+turn down
+figure out
+consequence
+drawback
+investment
+mortgage
+valuation
+feature
+issue
+approach
+evidence
+trend
+crucial
+reluctant
+thorough
+vague
+spacious
+outdated
+sustainable
+nevertheless
+furthermore
+regardless
+in terms of
+on the other hand
+take into account
+make sense
+keep up with
+albeit
+ambiguous
+articulate
+compelling
+comprehensive
+detrimental
+feasible
+inevitable
+meticulous
+prevalent
+subtle
+tentative
+undermine
+endorse
+mitigate
+scrutinise
+leverage
+streamline
+discrepancy
+incentive
+leeway
+premise
+stakeholder
+bottleneck
+by and large
+to a large extent
+in the long run
+bear in mind
+hit the ground running
+a far cry from
+on the fence
+nuance
+notwithstanding
+whereby
+thereby
+quintessential
+ubiquitous
+ephemeral
+pragmatic
+candid
+convoluted
+innocuous
+tenuous
+unprecedented
+wry
+exacerbate
+circumvent
+corroborate
+epitomise
+relinquish
+substantiate
+juxtapose
+dichotomy
+caveat
+paradigm
+propensity
+repercussion
+zeitgeist
+in a nutshell
+the elephant in the room
+beat around the bush
+cut corners
+a double-edged sword
+by the same token
+tongue-in-cheek
+vicarious
+sanguine

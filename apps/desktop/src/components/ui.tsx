@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { canSpeak, speak } from '../lib/tts.ts';
+import { canSpeak, hasRecording, speak } from '../lib/tts.ts';
 import { Icon } from './Icon.tsx';
 
 export function cx(...parts: (string | false | null | undefined)[]): string {
@@ -56,7 +56,7 @@ export function ProgressBar({ value, max, color = 'bg-acc', height = 'h-3' }: { 
 }
 
 export function SpeakButton({ text, label = 'Dinle', slow = false }: { text: string; label?: string; slow?: boolean }) {
-  if (!canSpeak()) return null;
+  if (!canSpeak() && !hasRecording(text)) return null;
   return (
     <button type="button" className="btn btn-ghost btn-sm" onClick={() => speak(text, slow ? 0.7 : 0.95)} title="Bilgisayar sesiyle oku">
       <Icon name="volume" size={16} /> {label}

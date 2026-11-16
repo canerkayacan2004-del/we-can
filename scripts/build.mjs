@@ -68,6 +68,18 @@ export async function buildCss({ prod = false } = {}) {
   fs.writeFileSync(path.join(outDir, 'app.css'), css);
 }
 
+/** apps/desktop/src/assets/audio içindeki kayıtlar (dosya adı = metnin sade hali, ör. how-much-is-it.mp3). */
+function listAudio() {
+  const dir = path.join(srcDir, 'assets', 'audio');
+  if (!fs.existsSync(dir)) return {};
+  const out = {};
+  for (const f of fs.readdirSync(dir)) {
+    const m = /^([a-z0-9-]+)\.(mp3|ogg|wav|m4a)$/.exec(f);
+    if (m) out[m[1]] = f;
+  }
+  return out;
+}
+
 export function copyHtml() {
   fs.mkdirSync(outDir, { recursive: true });
   fs.copyFileSync(path.join(srcDir, 'index.html'), path.join(outDir, 'index.html'));
@@ -93,6 +105,7 @@ export function esbuildOptions({ prod = false } = {}) {
       'process.env.NODE_ENV': JSON.stringify(prod ? 'production' : 'development'),
       __APP_VERSION__: JSON.stringify(pkg.version),
       __WECAN_CONFIG__: JSON.stringify(readPublicConfig()),
+      __AUDIO_FILES__: JSON.stringify(listAudio()),
     },
   };
 }
