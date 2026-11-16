@@ -7,6 +7,7 @@ import { errorMessage, useApp } from '../lib/app.tsx';
 import { setSoundEnabled, playSound } from '../lib/sound.ts';
 import { ACCENTS, THEMES, applyAppearance, isHexColor, themeById } from '../lib/theme.ts';
 import { WIDGET_TR } from './Dashboard.tsx';
+import { LangSwitch } from '../components/LangSwitch.tsx';
 
 declare const __APP_VERSION__: string;
 
@@ -46,6 +47,14 @@ export function SettingsScreen() {
     <div data-screen="settings" className="space-y-6">
       <PageTitle title="Ayarlar" icon="settings" subtitle="Görünümü kendine göre düzenle. Değişiklikler anında uygulanır ve hesabına kaydedilir." />
       {error && <Notice tone="error">{error}</Notice>}
+
+      <section className="card flex flex-wrap items-center justify-between gap-4" data-settings-lang>
+        <div>
+          <p className="section-title mb-1">🌐 Uygulama dili</p>
+          <p className="text-sm text-fg-2">Menüler ve düğmeler bu dilde görünür. Ders açıklamaları Türkçe kalır.</p>
+        </div>
+        <LangSwitch size="lg" />
+      </section>
 
       <section className="card">
         <p className="section-title"><Icon name="palette" size={20} className="text-acc" /> Tema</p>

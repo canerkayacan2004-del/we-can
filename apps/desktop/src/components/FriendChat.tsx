@@ -1,4 +1,5 @@
 // Arkadaşla sohbet: mesajlar Supabase'de, yalnızca karşılıklı arkadaşlar arasında. Açıkken birkaç saniyede bir yenilenir.
+import { uiLocale } from '../lib/i18n.ts';
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../lib/app.tsx';
 import { loadMessages, sendMessage } from '../lib/social.ts';
@@ -60,7 +61,7 @@ export function FriendChat({ friend, onClose }: { friend: FriendRow; onClose: ()
           <div key={m.id} className={cx('flex', m.mine ? 'justify-end' : 'justify-start')}>
             <div className={cx('max-w-[75%] rounded-2xl px-3 py-2 text-sm', m.mine ? 'rounded-br-md bg-acc text-on-acc' : 'rounded-bl-md bg-panel-3 text-fg')} data-chat-msg={m.mine ? 'mine' : 'theirs'}>
               <p className="whitespace-pre-wrap break-words">{m.body}</p>
-              <p className={cx('mt-0.5 text-right text-[0.65rem]', m.mine ? 'text-on-acc/70' : 'text-fg-3')}>{new Date(m.created_at).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</p>
+              <p className={cx('mt-0.5 text-right text-[0.65rem]', m.mine ? 'text-on-acc/70' : 'text-fg-3')}>{new Date(m.created_at).toLocaleTimeString(uiLocale(), { hour: '2-digit', minute: '2-digit' })}</p>
             </div>
           </div>
         ))}

@@ -1,3 +1,4 @@
+import { uiLocale } from '../lib/i18n.ts';
 import { QUESTS, RULES, dayKey, dayStats, dueReviews, mistakeExerciseIds } from '@core/engine.ts';
 import type { UserState } from '@core/types.ts';
 import { Icon } from '../components/Icon.tsx';
@@ -51,7 +52,7 @@ export function PlannerScreen() {
   const today = dayKey(new Date());
   return (
     <div data-screen="planner">
-      <PageTitle title="Çalışma planı" icon="calendar" subtitle={new Date().toLocaleDateString('tr-TR', { weekday: 'long', day: 'numeric', month: 'long' })} />
+      <PageTitle title="Çalışma planı" icon="calendar" subtitle={new Date().toLocaleDateString(uiLocale(), { weekday: 'long', day: 'numeric', month: 'long' })} />
       <div className="mb-5 flex gap-1 rounded-2xl border border-line bg-panel-2 p-1 sm:w-fit">
         {([['today', 'Bugün'], ['week', 'Bu hafta']] as const).map(([id, label]) => (
           <button key={id} type="button" data-plan-tab={id} onClick={() => setTab(id)}
@@ -115,7 +116,7 @@ function WeekPlan() {
           <section key={d.day} data-week-day={d.weekday} className={cx('card', d.isToday && 'card-glow', !d.planned && 'opacity-60')}>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-black text-fg">{WEEKDAY_LONG[d.weekday]}{d.isToday && <span className="ml-2 text-xs text-acc">bugün</span>}</p>
-              <span className="text-xs text-fg-3">{new Date(`${d.day}T12:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}</span>
+              <span className="text-xs text-fg-3">{new Date(`${d.day}T12:00:00`).toLocaleDateString(uiLocale(), { day: 'numeric', month: 'short' })}</span>
             </div>
             {!d.planned ? <p className="text-sm text-fg-3">Dinlenme günü {d.doneMinutes > 0 && `· yine de ${d.doneMinutes} dk çalıştın 💪`}</p>
               : d.isPast ? (

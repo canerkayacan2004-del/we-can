@@ -1,4 +1,5 @@
 // Arkadaşlar: arkadaş kodu ile ekleme ve arkadaşların seviye / XP / seri sıralaması.
+import { uiLocale } from '../lib/i18n.ts';
 import { useEffect, useState } from 'react';
 import { currentLevel, dayKey, effectiveStreak } from '@core/engine.ts';
 import { UserAvatar } from '../components/Avatar.tsx';
@@ -172,7 +173,7 @@ export function FriendsScreen() {
                 <UserAvatar name={r.display_name} src={r.avatar} size={42} />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-bold text-fg">{r.display_name}{r.user_id === 'me' && <span className="ml-2 text-xs font-semibold text-acc">sen</span>}</p>
-                  <p className="text-xs text-fg-3">{r.user_id === 'me' ? 'şimdi' : `güncelleme: ${new Date(r.updated_at).toLocaleDateString('tr-TR')}`}</p>
+                  <p className="text-xs text-fg-3">{r.user_id === 'me' ? 'şimdi' : `güncelleme: ${new Date(r.updated_at).toLocaleDateString(uiLocale())}`}</p>
                 </div>
                 <span className="chip bg-acc/12 text-acc" title="Seviye">{r.level}</span>
                 <span className="chip bg-[#ff7a3d]/15 text-[#ff9a62]" title="Seri"><Icon name="flame" size={14} /> {r.streak}</span>
@@ -220,7 +221,7 @@ export function FriendsScreen() {
               const won = finished && (d.my_score! > d.their_score! || (d.my_score === d.their_score && (d.my_ms ?? 0) < (d.their_ms ?? 0)));
               return (
                 <li key={d.id} className="flex items-center gap-3 py-2.5 text-sm" data-duel={d.id}>
-                  <span className="flex-1 text-fg"><b>{d.friend_name}</b> <span className="text-fg-3">· {d.level} · {new Date(d.created_at).toLocaleDateString('tr-TR')}</span></span>
+                  <span className="flex-1 text-fg"><b>{d.friend_name}</b> <span className="text-fg-3">· {d.level} · {new Date(d.created_at).toLocaleDateString(uiLocale())}</span></span>
                   {finished && <span className={cx('chip text-xs', won ? 'bg-acc/15 text-acc' : 'bg-bad/15 text-bad')}>{d.my_score}–{d.their_score} {won ? 'kazandın' : 'kaybettin'}</span>}
                   {!finished && d.i_challenged && <span className="chip bg-panel-3 text-xs text-fg-2">Sen {d.my_score}/10 · rakip bekleniyor</span>}
                   {myTurn && <button className="btn btn-primary btn-sm" data-action="answer-duel" onClick={() => { setDuelResult(null); setChatWith(null); setDuel({ friend: null, seed: d.seed, level: d.level, answering: d }); }}>Oyna</button>}

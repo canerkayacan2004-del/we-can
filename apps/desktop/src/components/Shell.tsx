@@ -7,6 +7,7 @@ import type { Route } from '../lib/app.tsx';
 import { curriculum } from '../lib/content.ts';
 import { UserAvatar } from './Avatar.tsx';
 import { GoalCelebration } from './GoalCelebration.tsx';
+import { LangSwitch } from './LangSwitch.tsx';
 import { Icon } from './Icon.tsx';
 import { Logo, Mascot, cx } from './ui.tsx';
 
@@ -91,6 +92,7 @@ export function Shell({ children }: { children: ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex shrink-0 items-center justify-end gap-3 border-b border-line bg-panel/60 px-8 py-3 backdrop-blur max-[1100px]:px-4">
+          <LangSwitch />
           <span className="chip bg-acc/12 text-acc" title="Şu anki seviye"><Icon name="target" size={16} /> {currentLevel(state, curriculum)}</span>
           <span className="chip bg-[#ff7a3d]/15 text-[#ff9a62]" title="Günlük seri" data-stat="streak"><Icon name="flame" size={16} /> {streak}</span>
           <span className="chip bg-gold/12 text-gold" title="Toplam XP" data-stat="xp"><Icon name="bolt" size={16} /> {state.stats.totalXp} XP</span>

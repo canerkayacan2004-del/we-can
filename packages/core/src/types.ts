@@ -193,6 +193,8 @@ export interface Appearance {
   sound: boolean;
   /** Ana panoda görünen bölümler. */
   dashboard: string[];
+  /** Arayüz dili. */
+  lang?: 'tr' | 'en';
 }
 
 export const DASHBOARD_WIDGETS = [

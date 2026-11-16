@@ -244,6 +244,7 @@ export class LocalBackend implements Backend {
       motion: !!appearance.motion,
       sound: !!appearance.sound,
       dashboard: (appearance.dashboard ?? []).filter((w) => (DASHBOARD_WIDGETS as readonly string[]).includes(w)),
+      lang: appearance.lang === 'en' ? 'en' : 'tr',
     };
     return this.save(userId, { ...state, profile: { ...state.profile, appearance: clean } });
   }

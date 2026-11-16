@@ -1,3 +1,4 @@
+import { uiLocale } from '../lib/i18n.ts';
 import { useState } from 'react';
 import type { Note } from '@core/types.ts';
 import { Icon } from '../components/Icon.tsx';
@@ -83,7 +84,7 @@ export function NotebookScreen() {
               {n.tag && <span className="chip mt-1 w-fit bg-acc/12 text-xs text-acc">{n.tag}</span>}
               <p className="mt-2 flex-1 whitespace-pre-line text-sm text-fg-2">{n.body}</p>
               <div className="mt-3 flex items-center justify-between text-xs text-fg-3">
-                <span>{new Date(n.updatedAt).toLocaleDateString('tr-TR')}</span>
+                <span>{new Date(n.updatedAt).toLocaleDateString(uiLocale())}</span>
                 {confirmDelete === n.id ? (
                   <span className="flex gap-2">
                     <button className="btn btn-ghost btn-sm" onClick={() => setConfirmDelete(null)}>Vazgeç</button>

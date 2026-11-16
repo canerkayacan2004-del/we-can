@@ -1,3 +1,4 @@
+import { uiLocale } from '../lib/i18n.ts';
 import { BADGES, QUESTS, RULES, STREAK_MILESTONES, dayKey, effectiveStreak } from '@core/engine.ts';
 import { Icon } from '../components/Icon.tsx';
 import { PageTitle, ProgressBar, StatTile, cx } from '../components/ui.tsx';
@@ -61,7 +62,7 @@ export function AchievementsScreen() {
                 <p className="text-4xl">{badge.icon}</p>
                 <p className="mt-1 font-extrabold text-fg">{badge.titleTr}</p>
                 <p className="text-xs text-fg-2">{badge.descTr}</p>
-                {at && <p className="mt-1 text-xs font-bold text-acc">{new Date(at).toLocaleDateString('tr-TR')}</p>}
+                {at && <p className="mt-1 text-xs font-bold text-acc">{new Date(at).toLocaleDateString(uiLocale())}</p>}
               </div>
             );
           })}

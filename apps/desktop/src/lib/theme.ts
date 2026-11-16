@@ -1,3 +1,4 @@
+import { setUiLang } from './i18n.ts';
 // Tema sistemi. Renkler CSS değişkenleri olarak uygulanır; bütün ekranlar bu değişkenleri kullanır.
 // Yeni tema eklemek için THEMES listesine bir kayıt eklemek yeterlidir.
 import type { Appearance } from '@core/types.ts';
@@ -77,6 +78,7 @@ export function applyAppearance(appearance: Appearance): void {
   root.dataset.fx = theme.fx ?? 'none';
   root.dataset.motion = appearance.motion ? 'on' : 'off';
   root.style.colorScheme = theme.dark ? 'dark' : 'light';
+  setUiLang(appearance.lang);
   try {
     localStorage.setItem(LAST_KEY, JSON.stringify(appearance));
   } catch {

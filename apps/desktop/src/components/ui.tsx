@@ -1,3 +1,4 @@
+import { uiLocale } from '../lib/i18n.ts';
 import type React from 'react';
 import type { ReactNode } from 'react';
 import { canSpeak, hasRecording, speak } from '../lib/tts.ts';
@@ -131,7 +132,7 @@ export function StatTile({ label, value, sub, icon, tone = 'text-acc' }: { label
 
 export function formatDay(day: string): string {
   const [y, m, d] = day.split('-').map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
+  return new Date(y, m - 1, d).toLocaleDateString(uiLocale(), { day: 'numeric', month: 'long' });
 }
 
 export function formatMinutes(seconds: number): string {

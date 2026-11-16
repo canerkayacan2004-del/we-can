@@ -1,3 +1,4 @@
+import { uiLocale } from '../lib/i18n.ts';
 import { currentLevel, dayKey, dayStats, lastDays, levelProgress, skillAccuracy, totals } from '@core/engine.ts';
 import { LEVELS, SKILLS } from '@core/types.ts';
 import type { Skill, UserState } from '@core/types.ts';
@@ -97,7 +98,7 @@ export function AnalyticsScreen() {
             <tbody>
               {recent.map((a, i) => (
                 <tr key={i}>
-                  <td>{new Date(a.at).toLocaleString('tr-TR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</td>
+                  <td>{new Date(a.at).toLocaleString(uiLocale(), { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</td>
                   <td><b className="text-fg">{a.lessonCode}</b> <span className="text-fg-3">{getLessonMeta(a.lessonCode)?.title}</span></td>
                   <td className={a.score >= 80 ? 'text-good' : a.score >= 60 ? 'text-warn' : 'text-bad'}>%{a.score}</td>
                   <td>{a.correct}/{a.total}</td>

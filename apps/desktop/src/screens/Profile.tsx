@@ -1,3 +1,4 @@
+import { uiLocale } from '../lib/i18n.ts';
 import { useState } from 'react';
 import { RULES, aiAllowance, currentLevel, dayKey, dayStats, lastDays, totals } from '@core/engine.ts';
 import { Bars } from '../components/charts.tsx';
@@ -71,7 +72,7 @@ export function ProfileScreen() {
         <div className="flex-1">
           <p className="text-2xl font-black text-fg">{state.profile.displayName}</p>
           <p className="text-fg-2">{state.profile.goal || 'Hedef seçilmedi'} · Haftada {state.profile.studyDays.length} gün × {state.profile.dailyMinutes} dk · {STUDY_TIME_LABELS[state.profile.studyTime].label}</p>
-          <p className="mt-1 text-sm text-fg-3">Üyelik: {new Date(state.profile.createdAt).toLocaleDateString('tr-TR')} · Plan: {state.profile.plan === 'premium' ? 'Premium' : 'Ücretsiz'}</p>
+          <p className="mt-1 text-sm text-fg-3">Üyelik: {new Date(state.profile.createdAt).toLocaleDateString(uiLocale())} · Plan: {state.profile.plan === 'premium' ? 'Premium' : 'Ücretsiz'}</p>
         </div>
         <div className="text-center"><p className="text-sm text-fg-3">Seviye</p><p className="text-4xl font-black text-acc">{currentLevel(state, curriculum)}</p></div>
       </section>

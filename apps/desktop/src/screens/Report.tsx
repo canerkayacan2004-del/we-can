@@ -1,4 +1,5 @@
 // Haftalık ilerleme raporu ve hata analizi.
+import { uiLocale } from '../lib/i18n.ts';
 import { dayKey } from '@core/engine.ts';
 import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, ProgressBar, StatTile, cx } from '../components/ui.tsx';
@@ -40,7 +41,7 @@ export function ReportScreen() {
 
   return (
     <div data-screen="report" className="space-y-5">
-      <PageTitle title="Haftalık rapor" icon="chart" subtitle={`Hafta başı: ${new Date(`${w.start}T12:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })}`} />
+      <PageTitle title="Haftalık rapor" icon="chart" subtitle={`Hafta başı: ${new Date(`${w.start}T12:00:00`).toLocaleDateString(uiLocale(), { day: 'numeric', month: 'long' })}`} />
 
       <div className="grid gap-4 md:grid-cols-4" data-week-stats>
         <StatTile label="Çalışma süresi" value={`${w.minutes} dk`} icon="clock" sub={delta(w.minutes, l.minutes, ' dk') ?? undefined} />
