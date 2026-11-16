@@ -109,3 +109,136 @@ grant execute on function public.social_sync(text, text, integer, integer, integ
 grant execute on function public.social_add_friend(text) to authenticated;
 grant execute on function public.social_friends() to authenticated;
 grant execute on function public.social_remove_friend(uuid) to authenticated;
+
+-- ============ Arkadaşlarla sohbet ============
+-- Yalnızca karşılıklı arkadaşlar birbirine yazabilir. Mesajlar 90 gün sonra silinir.
+create table if not exists public.friend_messages (
+  id bigint generated always as identity primary key,
+  sender uuid not null references auth.users (id) on delete cascade,
+  receiver uuid not null references auth.users (id) on delete cascade,
+  body text not null check (char_length(body) between 1 and 500),
+  created_at timestamptz not null default now(),
+  read_at timestamptz
+);
+create index if not exists friend_messages_pair on public.friend_messages (least(sender, receiver), greatest(sender, receiver), id);
+create index if not exists friend_messages_unread on public.friend_messages (receiver) where read_at is null;
+alter table public.friend_messages enable row level security;
+revoke all on public.friend_messages from anon, authenticated;
+
+create or replace function public.social_send_message(p_to uuid, p_body text)
+returns bigint language plpgsql security definer set search_path = public as $$
+declare
+  me uuid := auth.uid();
+  body text := trim(coalesce(p_body, ''));
+  new_id bigint;
+begin
+  if me is null then raise exception 'Oturum gerekli'; end if;
+  if char_length(body) = 0 then raise exception 'Boş mesaj gönderilemez'; end if;
+  if char_length(body) > 500 then raise exception 'Mesaj en fazla 500 karakter olabilir'; end if;
+  if not exists (select 1 from public.friendships where user_id = me and friend_id = p_to) then raise exception 'Yalnızca arkadaşlarına mesaj gönderebilirsin'; end if;
+  if (select count(*) from public.friend_messages where sender = me and created_at > now() - interval '1 minute') >= 20 then
+    raise exception 'Çok hızlı mesaj gönderiyorsun, biraz bekle';
+  end if;
+  delete from public.friend_messages where created_at < now() - interval '90 days';
+  insert into public.friend_messages (sender, receiver, body) values (me, p_to, body) returning id into new_id;
+  return new_id;
+end;
+$$;
+
+-- Bir arkadaşla son mesajlar (p_after verilirse yalnızca daha yeniler). Gelen mesajları okundu işaretler.
+create or replace function public.social_messages(p_friend uuid, p_after bigint default 0)
+returns table (id bigint, mine boolean, body text, created_at timestamptz)
+language plpgsql security definer set search_path = public as $$
+declare me uuid := auth.uid();
+begin
+  if me is null then raise exception 'Oturum gerekli'; end if;
+  update public.friend_messages m set read_at = now() where m.receiver = me and m.sender = p_friend and m.read_at is null;
+  return query
+    select x.id, x.mine, x.body, x.created_at from (
+      select m.id, m.sender = me as mine, m.body, m.created_at
+      from public.friend_messages m
+      where ((m.sender = me and m.receiver = p_friend) or (m.sender = p_friend and m.receiver = me)) and m.id > coalesce(p_after, 0)
+      order by m.id desc limit 100
+    ) x order by x.id;
+end;
+$$;
+
+-- Arkadaş başına okunmamış mesaj sayısı.
+create or replace function public.social_unread()
+returns table (friend_id uuid, unread integer)
+language sql security definer set search_path = public stable as $$
+  select sender, count(*)::int from public.friend_messages where receiver = auth.uid() and read_at is null group by sender;
+$$;
+
+-- ============ Kelime düellosu ============
+-- Meydan okuyan önce oynar; rakip aynı soruları (aynı tohum) çözer. Skor 0-10, süre milisaniye.
+create table if not exists public.friend_duels (
+  id uuid primary key default gen_random_uuid(),
+  challenger uuid not null references auth.users (id) on delete cascade,
+  opponent uuid not null references auth.users (id) on delete cascade,
+  seed integer not null check (seed between 1 and 2000000000),
+  level text not null check (level in ('A1', 'A2', 'B1', 'B2', 'C1', 'C2')),
+  challenger_score integer not null check (challenger_score between 0 and 10),
+  challenger_ms integer not null check (challenger_ms between 0 and 3600000),
+  opponent_score integer check (opponent_score between 0 and 10),
+  opponent_ms integer check (opponent_ms between 0 and 3600000),
+  created_at timestamptz not null default now(),
+  answered_at timestamptz
+);
+alter table public.friend_duels enable row level security;
+revoke all on public.friend_duels from anon, authenticated;
+
+create or replace function public.social_duel_create(p_friend uuid, p_seed integer, p_level text, p_score integer, p_ms integer)
+returns uuid language plpgsql security definer set search_path = public as $$
+declare me uuid := auth.uid(); new_id uuid;
+begin
+  if me is null then raise exception 'Oturum gerekli'; end if;
+  if not exists (select 1 from public.friendships where user_id = me and friend_id = p_friend) then raise exception 'Yalnızca arkadaşlarına meydan okuyabilirsin'; end if;
+  if (select count(*) from public.friend_duels where challenger = me and created_at > now() - interval '1 day') >= 30 then raise exception 'Bugünlük düello sınırına ulaştın'; end if;
+  insert into public.friend_duels (challenger, opponent, seed, level, challenger_score, challenger_ms)
+  values (me, p_friend, p_seed, p_level, p_score, p_ms) returning id into new_id;
+  return new_id;
+end;
+$$;
+
+create or replace function public.social_duel_answer(p_id uuid, p_score integer, p_ms integer)
+returns void language plpgsql security definer set search_path = public as $$
+declare me uuid := auth.uid();
+begin
+  if me is null then raise exception 'Oturum gerekli'; end if;
+  update public.friend_duels set opponent_score = p_score, opponent_ms = p_ms, answered_at = now()
+  where id = p_id and opponent = me and opponent_score is null;
+  if not found then raise exception 'Bu düello bulunamadı ya da zaten oynandı'; end if;
+end;
+$$;
+
+create or replace function public.social_duels()
+returns table (id uuid, i_challenged boolean, friend_id uuid, friend_name text, seed integer, level text,
+               my_score integer, my_ms integer, their_score integer, their_ms integer, created_at timestamptz)
+language sql security definer set search_path = public stable as $$
+  select d.id, d.challenger = auth.uid(),
+         case when d.challenger = auth.uid() then d.opponent else d.challenger end,
+         p.display_name, d.seed, d.level,
+         case when d.challenger = auth.uid() then d.challenger_score else d.opponent_score end,
+         case when d.challenger = auth.uid() then d.challenger_ms else d.opponent_ms end,
+         case when d.challenger = auth.uid() then d.opponent_score else d.challenger_score end,
+         case when d.challenger = auth.uid() then d.opponent_ms else d.challenger_ms end,
+         d.created_at
+  from public.friend_duels d
+  join public.social_profiles p on p.user_id = case when d.challenger = auth.uid() then d.opponent else d.challenger end
+  where d.challenger = auth.uid() or d.opponent = auth.uid()
+  order by d.created_at desc limit 30;
+$$;
+
+revoke all on function public.social_send_message(uuid, text) from public, anon;
+revoke all on function public.social_messages(uuid, bigint) from public, anon;
+revoke all on function public.social_unread() from public, anon;
+revoke all on function public.social_duel_create(uuid, integer, text, integer, integer) from public, anon;
+revoke all on function public.social_duel_answer(uuid, integer, integer) from public, anon;
+revoke all on function public.social_duels() from public, anon;
+grant execute on function public.social_send_message(uuid, text) to authenticated;
+grant execute on function public.social_messages(uuid, bigint) to authenticated;
+grant execute on function public.social_unread() to authenticated;
+grant execute on function public.social_duel_create(uuid, integer, text, integer, integer) to authenticated;
+grant execute on function public.social_duel_answer(uuid, integer, integer) to authenticated;
+grant execute on function public.social_duels() to authenticated;

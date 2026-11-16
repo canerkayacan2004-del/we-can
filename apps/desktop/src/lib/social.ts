@@ -68,3 +68,32 @@ export function backgroundSocialSync(localUserId: string, state: UserState): voi
   } catch { return; }
   syncSocialProfile(localUserId, state).catch(() => { /* çevrim dışıysa sonra denenir */ });
 }
+
+// ---------- Sohbet ----------
+export interface ChatMessage { id: number; mine: boolean; body: string; created_at: string }
+
+export function sendMessage(localUserId: string, friendId: string, body: string): Promise<number> {
+  return cloudRpc<number>(localUserId, 'social_send_message', { p_to: friendId, p_body: body.slice(0, 500) });
+}
+export function loadMessages(localUserId: string, friendId: string, after = 0): Promise<ChatMessage[]> {
+  return cloudRpc<ChatMessage[]>(localUserId, 'social_messages', { p_friend: friendId, p_after: after });
+}
+export async function unreadCounts(localUserId: string): Promise<Record<string, number>> {
+  const rows = await cloudRpc<{ friend_id: string; unread: number }[]>(localUserId, 'social_unread', {});
+  return Object.fromEntries(rows.map((r) => [r.friend_id, r.unread]));
+}
+
+// ---------- Düello ----------
+export interface DuelRow {
+  id: string; i_challenged: boolean; friend_id: string; friend_name: string; seed: number; level: string;
+  my_score: number | null; my_ms: number | null; their_score: number | null; their_ms: number | null; created_at: string;
+}
+export function createDuel(localUserId: string, friendId: string, seed: number, level: string, score: number, ms: number): Promise<string> {
+  return cloudRpc<string>(localUserId, 'social_duel_create', { p_friend: friendId, p_seed: seed, p_level: level, p_score: score, p_ms: ms });
+}
+export function answerDuel(localUserId: string, id: string, score: number, ms: number): Promise<void> {
+  return cloudRpc<void>(localUserId, 'social_duel_answer', { p_id: id, p_score: score, p_ms: ms });
+}
+export function listDuels(localUserId: string): Promise<DuelRow[]> {
+  return cloudRpc<DuelRow[]>(localUserId, 'social_duels', {});
+}
