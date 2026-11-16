@@ -97,7 +97,7 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
   );
 }
 
-export function StatTile({ label, value, sub, icon, tone = 'text-acc' }: { label: string; value: ReactNode; sub?: string; icon?: string; tone?: string }) {
+export function StatTile({ label, value, sub, icon, tone = 'text-acc' }: { label: string; value: ReactNode; sub?: ReactNode; icon?: string; tone?: string }) {
   return (
     <div className="card flex items-center gap-4 p-4">
       {icon && <span className={cx('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-panel-3', tone)}><Icon name={icon} size={22} /></span>}

@@ -2,7 +2,9 @@ import { QUESTS, RULES, dayKey, dayStats, dueReviews, mistakeExerciseIds } from 
 import type { UserState } from '@core/types.ts';
 import { Icon } from '../components/Icon.tsx';
 import { PageTitle, ProgressBar, cx } from '../components/ui.tsx';
+import { useState } from 'react';
 import { useApp } from '../lib/app.tsx';
+import { WEEKDAY_LONG, weeklyPlan } from '../lib/insights.ts';
 import type { Route } from '../lib/app.tsx';
 import { nextLessonCode } from './Dashboard.tsx';
 
@@ -43,12 +45,20 @@ export function buildPlan(state: UserState): PlanTask[] {
 
 export function PlannerScreen() {
   const { state, go } = useApp();
+  const [tab, setTab] = useState<'today' | 'week'>('today');
   const tasks = buildPlan(state);
   const done = tasks.filter((t) => t.done).length;
   const today = dayKey(new Date());
   return (
     <div data-screen="planner">
-      <PageTitle title="Günlük plan" icon="calendar" subtitle={new Date().toLocaleDateString('tr-TR', { weekday: 'long', day: 'numeric', month: 'long' })} />
+      <PageTitle title="Çalışma planı" icon="calendar" subtitle={new Date().toLocaleDateString('tr-TR', { weekday: 'long', day: 'numeric', month: 'long' })} />
+      <div className="mb-5 flex gap-1 rounded-2xl border border-line bg-panel-2 p-1 sm:w-fit">
+        {([['today', 'Bugün'], ['week', 'Bu hafta']] as const).map(([id, label]) => (
+          <button key={id} type="button" data-plan-tab={id} onClick={() => setTab(id)}
+            className={cx('flex-1 rounded-xl px-5 py-2 text-sm font-bold sm:flex-none', tab === id ? 'bg-acc text-on-acc' : 'text-fg-2 hover:text-fg')}>{label}</button>
+        ))}
+      </div>
+      {tab === 'week' ? <WeekPlan /> : <>
       <div className="card mb-5">
         <div className="mb-2 flex items-center justify-between">
           <p className="font-bold text-fg">Bugünün ilerlemesi</p>
@@ -78,6 +88,53 @@ export function PlannerScreen() {
             <div className="mt-2 flex items-center gap-2"><ProgressBar value={q.progress} max={q.target} color="bg-gold" height="h-2" /><span className="text-xs text-fg-3">{q.progress}/{q.target}</span></div>
             <p className="mt-2 text-xs text-gold">+{RULES.xpQuest} XP</p>
           </div>
+        ))}
+      </div>
+      </>}
+    </div>
+  );
+}
+
+function WeekPlan() {
+  const { state, go } = useApp();
+  const today = dayKey(new Date());
+  const week = weeklyPlan(state, today);
+  const planned = week.filter((d) => d.planned);
+  const met = week.filter((d) => d.planned && d.goalMet).length;
+  return (
+    <div data-week-plan>
+      <div className="card mb-5 flex flex-wrap items-center gap-4">
+        <div className="flex-1">
+          <p className="font-bold text-fg">Bu haftanın hedefi: {planned.length} gün × {state.profile.dailyMinutes} dk = {planned.length * state.profile.dailyMinutes} dakika</p>
+          <p className="text-sm text-fg-2">Plan; sıradaki derslerinden, tekrar kartlarından ve en zayıf becerinden otomatik oluşur. Günleri Profil'den değiştirebilirsin.</p>
+        </div>
+        <span className="font-mono-num text-2xl font-black text-acc">{met}/{planned.length}</span>
+      </div>
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {week.map((d) => (
+          <section key={d.day} data-week-day={d.weekday} className={cx('card', d.isToday && 'card-glow', !d.planned && 'opacity-60')}>
+            <div className="mb-2 flex items-center justify-between">
+              <p className="font-black text-fg">{WEEKDAY_LONG[d.weekday]}{d.isToday && <span className="ml-2 text-xs text-acc">bugün</span>}</p>
+              <span className="text-xs text-fg-3">{new Date(`${d.day}T12:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}</span>
+            </div>
+            {!d.planned ? <p className="text-sm text-fg-3">Dinlenme günü {d.doneMinutes > 0 && `· yine de ${d.doneMinutes} dk çalıştın 💪`}</p>
+              : d.isPast ? (
+                <p className={cx('text-sm font-semibold', d.goalMet ? 'text-acc' : 'text-fg-2')}>{d.goalMet ? '✓ Hedef tamam' : '○ Hedef tamamlanmadı'} · {d.doneMinutes} dk</p>
+              ) : (
+                <ul className="space-y-1.5">
+                  {d.tasks.map((t) => (
+                    <li key={t.id}>
+                      <button type="button" onClick={() => go(t.route)} className="flex w-full items-center gap-2 rounded-lg px-1 py-1 text-left text-sm hover:bg-panel-2">
+                        <Icon name={t.icon} size={15} className="shrink-0 text-acc" />
+                        <span className="flex-1 truncate text-fg">{t.title}</span>
+                        <span className="text-xs text-fg-3">{t.minutes} dk</span>
+                      </button>
+                    </li>
+                  ))}
+                  {d.isToday && <li className="pt-1 text-xs text-fg-3">Bugün: {d.doneMinutes} / {state.profile.dailyMinutes} dk</li>}
+                </ul>
+              )}
+          </section>
         ))}
       </div>
     </div>

@@ -21,7 +21,8 @@ export type Route =
   | { name: 'status' }
   | { name: 'friends' }
   | { name: 'daily' }
-  | { name: 'games' };
+  | { name: 'games' }
+  | { name: 'report' };
 
 export interface AppContextValue {
   backend: Backend;

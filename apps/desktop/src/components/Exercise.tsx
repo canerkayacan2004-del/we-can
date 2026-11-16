@@ -60,7 +60,7 @@ function Choices({ options, answer, value, onChange, locked, grade }: { options:
   return (
     <div className="grid gap-3">
       {options.map((option, i) => (
-        <button key={i} type="button" data-option={i} disabled={locked} className={cx('option', choiceClass(i, answer, value, grade))} onClick={() => onChange(i)}>
+        <button key={i} type="button" data-option={i} data-option-value={option} disabled={locked} className={cx('option', choiceClass(i, answer, value, grade))} onClick={() => onChange(i)}>
           <span className="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-lg border border-line-2 text-sm text-fg-3">{i + 1}</span>
           {option}
         </button>

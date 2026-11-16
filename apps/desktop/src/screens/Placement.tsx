@@ -101,7 +101,7 @@ export function PlacementScreen() {
           <h2 className="mb-6 text-3xl font-extrabold text-fg">{question.prompt}</h2>
           <div className="grid gap-3">
             {question.options.map((option, i) => (
-              <button key={i} type="button" data-option={i} className="option" onClick={() => choose(i)}>{option}</button>
+              <button key={i} type="button" data-option={i} data-option-value={option} className="option" onClick={() => choose(i)}>{option}</button>
             ))}
             <button type="button" data-option="skip" className="option border-dashed text-fg-3" onClick={() => choose(null)}>Bilmiyorum</button>
           </div>
