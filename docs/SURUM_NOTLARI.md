@@ -1,10 +1,11 @@
-## We Can 0.3.0
+## We Can 0.3.1
 
-**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.0.exe` dosyasını indir ve çalıştır.
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.1.exe` dosyasını indir ve çalıştır.
 Windows "bilgisayarınızı korudu" uyarısı verirse: **Ek bilgi → Yine de çalıştır** (uygulama henüz dijital imzalı değil).
 Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
 
 ### Bu sürümde
+- **Üst çubukta canlı saat ve tarih** (saniyeli), solda günün saatine göre selamlama (Günaydın / İyi günler / İyi akşamlar / İyi geceler)
 - **Yeni tasarım:** siyah-neon yeşil tema, panda maskot, dar ekrana uyum
 - **Türkçe / İngilizce arayüz:** sağ üstteki TR / EN düğmesi
 - **Öğrenme merkezi:** günün 10 kelimesi, günün cümlesi, seviyeye göre dizi-film, kitap ve oyun önerileri, kelime paketleri

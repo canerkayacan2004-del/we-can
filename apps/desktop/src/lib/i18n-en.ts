@@ -858,6 +858,10 @@ Bir konu seç: önce kelimelere göz at, sonra emojiden İngilizcesini seç ya d
 Başka kategori ⇒ Another category
 seçmeli ⇒ multiple choice
 yazarak ⇒ typing
+Günaydın ⇒ Good morning
+İyi günler ⇒ Good afternoon
+İyi akşamlar ⇒ Good evening
+İyi geceler ⇒ Good night
 `;
 
 const PATTERNS = `
