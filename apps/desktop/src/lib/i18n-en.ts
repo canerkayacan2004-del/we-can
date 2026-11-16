@@ -862,6 +862,7 @@ Günaydın ⇒ Good morning
 İyi günler ⇒ Good afternoon
 İyi akşamlar ⇒ Good evening
 İyi geceler ⇒ Good night
+📍 İstanbul · Hava durumu ⇒ 📍 Istanbul · Weather
 `;
 
 const PATTERNS = `
@@ -927,6 +928,8 @@ Cümle {} / {} ⇒ Sentence {} / {}
 {} / {} doğru altyazı ⇒ {} / {} correct subtitles
 {} / {} puan ⇒ {} / {} points
 {} replik ⇒ {} lines
+Rüzgar {} km/s ⇒ Wind {} km/h
+Veri: Open-Meteo · {} ⇒ Data: Open-Meteo · {}
 {} kelime · {} ⇒ {} words · {}
 {} ifade · {}+ ⇒ {} phrases · {}+
 {} · {} ⇒ {} · {}

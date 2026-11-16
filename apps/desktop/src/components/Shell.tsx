@@ -9,6 +9,7 @@ import { UserAvatar } from './Avatar.tsx';
 import { GoalCelebration } from './GoalCelebration.tsx';
 import { LangSwitch } from './LangSwitch.tsx';
 import { Greeting, LiveClock } from './Clock.tsx';
+import { WeatherChip } from './Weather.tsx';
 import { Icon } from './Icon.tsx';
 import { Logo, Mascot, cx } from './ui.tsx';
 
@@ -92,8 +93,9 @@ export function Shell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex shrink-0 items-center justify-end gap-3 border-b border-line bg-panel/60 px-8 py-3 backdrop-blur max-[1100px]:px-4">
+        <header className="relative z-30 flex shrink-0 items-center justify-end gap-3 border-b border-line bg-panel/60 px-8 py-3 backdrop-blur max-[1100px]:px-4">
           <Greeting name={state.profile.displayName} />
+          <WeatherChip />
           <LiveClock />
           <LangSwitch />
           <span className="chip bg-acc/12 text-acc" title="Şu anki seviye"><Icon name="target" size={16} /> {currentLevel(state, curriculum)}</span>
