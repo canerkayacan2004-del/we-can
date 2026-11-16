@@ -1,0 +1,257 @@
+apple / elma
+bread / ekmek
+water / su
+house / ev
+family / aile
+friend / arkadaş
+work / çalışmak; iş
+eat / yemek
+drink / içmek
+sleep / uyumak
+big / büyük
+small / küçük
+happy / mutlu
+tired / yorgun
+cheap / ucuz
+expensive / pahalı
+morning / sabah
+night / gece
+today / bugün
+tomorrow / yarın
+street / sokak
+ticket / bilet
+money / para
+shop / dükkân; alışveriş yapmak
+buy / satın almak
+open / açmak; açık
+close / kapatmak
+help / yardım etmek; yardım
+like / sevmek, hoşlanmak
+want / istemek
+know / bilmek
+go / gitmek
+come / gelmek
+live / yaşamak, oturmak
+phone / telefon
+car / araba
+room / oda
+door / kapı
+teacher / öğretmen
+student / öğrenci
+weather / hava (durumu)
+hot / sıcak
+cold / soğuk
+left / sol; sola
+right / sağ; doğru
+near / yakın
+price / fiyat
+breakfast / kahvaltı
+always / her zaman
+sometimes / bazen
+borrow / ödünç almak
+lend / ödünç vermek
+decide / karar vermek
+forget / unutmak
+remember / hatırlamak
+arrive / varmak, gelmek
+leave / ayrılmak; bırakmak
+book / rezervasyon yapmak
+cancel / iptal etmek
+delay / gecikme; ertelemek
+luggage / bagaj
+receipt / fiş, makbuz
+neighbour / komşu
+rent / kira; kiralamak
+furniture / mobilya
+quiet / sessiz, sakin
+crowded / kalabalık
+dangerous / tehlikeli
+healthy / sağlıklı
+ill / hasta
+medicine / ilaç
+appointment / randevu
+boring / sıkıcı
+exciting / heyecan verici
+invite / davet etmek
+celebrate / kutlamak
+improve / geliştirmek, gelişmek
+practise / pratik yapmak
+mistake / hata
+answer / cevap; cevaplamak
+explain / açıklamak
+agree / katılmak, aynı fikirde olmak
+already / zaten, çoktan
+yet / henüz
+ever / hiç (soru)
+abroad / yurt dışında
+journey / yolculuk
+view / manzara
+salary / maaş
+colleague / iş arkadaşı
+meeting / toplantı
+customer / müşteri
+recipe / yemek tarifi
+bake / fırında pişirmek
+download / indirmek
+screen / ekran
+team / takım
+win / kazanmak
+lose / kaybetmek
+probably / muhtemelen
+achieve / başarmak, elde etmek
+afford / parası yetmek, karşılayabilmek
+avoid / kaçınmak
+complain / şikâyet etmek
+convince / ikna etmek
+deal with / ilgilenmek, halletmek
+look forward to / dört gözle beklemek
+run out of / tükenmek, bitmek
+get used to / alışmak
+take part in / katılmak
+opportunity / fırsat
+experience / deneyim; yaşamak
+advice / tavsiye
+attitude / tutum
+confident / kendinden emin
+reliable / güvenilir
+available / müsait, mevcut
+convenient / uygun, elverişli
+efficient / verimli
+responsible / sorumlu
+deposit / depozito, kaparo
+landlord / ev sahibi
+tenant / kiracı
+property / mülk, gayrimenkul
+neighbourhood / mahalle, semt
+commute / işe gidip gelmek
+deadline / son teslim tarihi
+schedule / program, takvim
+purpose / amaç
+suggest / önermek
+require / gerektirmek
+reduce / azaltmak
+increase / artmak, artırmak
+compare / karşılaştırmak
+recommend / tavsiye etmek
+eventually / sonunda
+actually / aslında
+although / -e rağmen
+unless / eğer … -mezse
+whereas / oysa, -iken
+brief / kısa, öz
+obvious / açık, belli
+similar / benzer
+familiar / tanıdık
+subtitle / altyazı
+streaming / canlı yayın, akış
+edit / düzenlemek, kurgulamak
+audience / izleyici kitlesi
+skill / beceri
+goal / hedef
+acknowledge / kabul etmek, tanımak
+anticipate / öngörmek, beklemek
+assess / değerlendirmek
+assume / varsaymak
+emphasise / vurgulamak
+negotiate / pazarlık etmek, müzakere etmek
+postpone / ertelemek
+tackle / üstesinden gelmeye çalışmak
+undergo / geçirmek, maruz kalmak
+withdraw / geri çekmek; para çekmek
+bring up / gündeme getirmek; yetiştirmek
+come up with / (fikir) bulmak
+put off / ertelemek
+turn down / reddetmek
+figure out / çözmek, anlamak
+consequence / sonuç (genelde olumsuz)
+drawback / dezavantaj
+investment / yatırım
+mortgage / konut kredisi, ipotek
+valuation / değerleme, ekspertiz
+feature / özellik
+issue / sorun, mesele
+approach / yaklaşım
+evidence / kanıt
+trend / eğilim, akım
+crucial / çok önemli, kritik
+reluctant / isteksiz
+thorough / titiz, ayrıntılı
+vague / belirsiz, muğlak
+spacious / ferah, geniş
+outdated / modası geçmiş, eski
+sustainable / sürdürülebilir
+nevertheless / yine de, buna rağmen
+furthermore / ayrıca, üstelik
+regardless / ne olursa olsun
+in terms of / açısından
+on the other hand / öte yandan
+take into account / hesaba katmak
+make sense / mantıklı olmak
+keep up with / yetişmek, ayak uydurmak
+albeit / her ne kadar … olsa da
+ambiguous / çift anlamlı, muğlak
+articulate / derdini iyi anlatan; dile getirmek
+compelling / ikna edici, çarpıcı
+comprehensive / kapsamlı
+detrimental / zararlı
+feasible / uygulanabilir
+inevitable / kaçınılmaz
+meticulous / son derece titiz
+prevalent / yaygın
+subtle / ince, belli belirsiz
+tentative / geçici, kesinleşmemiş
+undermine / baltalamak, zayıflatmak
+endorse / desteklemek, onaylamak
+mitigate / hafifletmek
+scrutinise / dikkatle incelemek
+leverage / kaldıraç olarak kullanmak; avantaj
+streamline / sadeleştirmek, verimli hâle getirmek
+discrepancy / tutarsızlık
+incentive / teşvik
+leeway / hareket alanı, esneklik
+premise / öncül; mülk, bina
+stakeholder / paydaş
+bottleneck / darboğaz
+by and large / genel olarak
+to a large extent / büyük ölçüde
+in the long run / uzun vadede
+bear in mind / aklında tutmak
+hit the ground running / hızlı ve etkili başlamak
+a far cry from / …den çok farklı
+on the fence / kararsız
+nuance / nüans, ince fark
+notwithstanding / …e rağmen
+whereby / ki bununla, sayesinde
+thereby / böylece
+quintessential / tam bir örneği olan, özü
+ubiquitous / her yerde bulunan
+ephemeral / kısa ömürlü, geçici
+pragmatic / pragmatik, gerçekçi
+candid / açık sözlü
+convoluted / karmaşık, dolambaçlı
+innocuous / zararsız
+tenuous / zayıf, cılız
+unprecedented / eşi görülmemiş
+wry / alaycı, buruk (gülümseme)
+exacerbate / kötüleştirmek
+circumvent / atlatmak, etrafından dolaşmak
+corroborate / doğrulamak
+epitomise / simgesi olmak
+relinquish / bırakmak, vazgeçmek
+substantiate / kanıtlamak, temellendirmek
+juxtapose / yan yana koymak (karşılaştırmak için)
+dichotomy / ikilik, keskin ayrım
+caveat / çekince, uyarı
+paradigm / paradigma, model
+propensity / eğilim
+repercussion / yankı, (dolaylı) sonuç
+zeitgeist / çağın ruhu
+in a nutshell / kısaca
+the elephant in the room / herkesin bildiği ama konuşmadığı sorun
+beat around the bush / lafı dolandırmak
+cut corners / işi baştan savma yapmak
+a double-edged sword / iki ucu keskin kılıç
+by the same token / aynı mantıkla
+tongue-in-cheek / şaka yollu, alaycı
+vicarious / başkası aracılığıyla yaşanan
+sanguine / iyimser
