@@ -1,0 +1,51 @@
+# We Can - Windows kurulum dosyasini derleyip GitHub Release olarak yayinlar.
+# Tetikleyici: "v" ile baslayan bir etiket (ornek: v0.2.2). Etiket package.json surumuyle ayni olmalidir.
+name: Windows surumu yayinla
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Surum kontrolu
+        shell: pwsh
+        run: |
+          $ver = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          "VERSION=$ver" | Out-File -FilePath $env:GITHUB_ENV -Append
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$ver") {
+            throw "Etiket ($env:GITHUB_REF_NAME) package.json surumuyle (v$ver) ayni degil."
+          }
+
+      - name: Paketleri kur
+        run: npm install --no-audit --no-fund
+
+      - name: Testler
+        run: npm test
+
+      - name: Arayuzu derle
+        run: node scripts/build.mjs --prod
+
+      - name: Kurulum dosyasini olustur
+        run: npx --yes electron-builder@26 --win --publish never
+
+      - name: Release yayinla
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: We Can ${{ env.VERSION }}
+          body_path: docs/SURUM_NOTLARI.md
+          files: release/We-Can-Kurulum-${{ env.VERSION }}.exe
+          make_latest: true
