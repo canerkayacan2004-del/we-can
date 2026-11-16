@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RULES, aiAllowance, currentLevel, dayKey, dayStats, lastDays, totals } from '@core/engine.ts';
 import { Bars } from '../components/charts.tsx';
+import { AvatarPicker } from '../components/Avatar.tsx';
 import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, StatTile, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
@@ -24,7 +25,6 @@ export function ProfileScreen() {
   const conv = aiAllowance(state, 'conversation', today);
   const writing = aiAllowance(state, 'writing', today);
   const t = totals(state);
-  const initial = state.profile.displayName.trim().charAt(0).toLocaleUpperCase('tr-TR') || '?';
   const weeks = Array.from({ length: 8 }, (_, w) => {
     const days = lastDays(today, 56).slice(w * 7, w * 7 + 7);
     return { label: w === 7 ? 'Bu hafta' : `-${7 - w}`, value: days.reduce((n, d) => n + dayStats(state, d).xp, 0), highlight: w === 7 };
@@ -63,7 +63,10 @@ export function ProfileScreen() {
       {message && <Notice tone={message.tone}>{message.text}</Notice>}
 
       <section className="card card-glow flex flex-wrap items-center gap-6">
-        <span className="flex h-20 w-20 items-center justify-center rounded-full bg-acc text-4xl font-black text-on-acc">{initial}</span>
+        <AvatarPicker name={state.profile.displayName} src={state.profile.avatar} onChange={async (avatar) => {
+          setState(await backend.saveProfile({ avatar }));
+          setMessage({ tone: 'success', text: avatar ? 'Profil fotoğrafın güncellendi.' : 'Profil fotoğrafın kaldırıldı.' });
+        }} />
         <div className="flex-1">
           <p className="text-2xl font-black text-fg">{state.profile.displayName}</p>
           <p className="text-fg-2">{state.profile.goal || 'Hedef seçilmedi'} · Haftada {state.profile.studyDays.length} gün × {state.profile.dailyMinutes} dk · {STUDY_TIME_LABELS[state.profile.studyTime].label}</p>

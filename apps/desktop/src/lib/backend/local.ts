@@ -217,6 +217,11 @@ export class LocalBackend implements Backend {
       if (!days.length) throw new BackendError('En az bir çalışma günü seçmelisin.');
       profile.studyDays = days;
     }
+    if (patch.avatar !== undefined) {
+      if (patch.avatar === null || patch.avatar === '') profile.avatar = null;
+      else if (typeof patch.avatar === 'string' && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(patch.avatar) && patch.avatar.length <= 120_000) profile.avatar = patch.avatar;
+      else throw new BackendError('Fotoğraf kaydedilemedi: geçersiz veya çok büyük görsel.');
+    }
     if (patch.studyTime !== undefined) {
       if (!STUDY_TIMES.includes(patch.studyTime)) throw new BackendError('Geçersiz çalışma zamanı.');
       profile.studyTime = patch.studyTime;

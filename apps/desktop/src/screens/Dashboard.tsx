@@ -63,9 +63,9 @@ export function DashboardScreen() {
     <div data-screen="dashboard" className="space-y-5">
       {/* Karşılama */}
       <div className="grid gap-5 lg:grid-cols-[1fr_300px]">
-        <section className="card card-glow relative overflow-hidden p-7" data-widget="hero">
-          <Skyline />
-          <div className="relative md:max-w-[62%]">
+        <section className="card card-glow relative min-h-[300px] overflow-hidden p-7" data-widget="hero">
+          <HeroArt />
+          <div className="relative md:max-w-[58%]">
             <h1 className="text-3xl font-black text-fg">Tekrar hoş geldin, <span className="text-acc">{state.profile.displayName}</span>! 👋</h1>
             <p className="mt-1 text-lg text-fg-2">Bugün de bir adım ileri gidelim.</p>
             <div className="mt-6 flex flex-wrap items-center gap-6">
@@ -147,30 +147,13 @@ export function DashboardScreen() {
   );
 }
 
-function Skyline() {
-  // Özgün, basit bir şehir silueti (dekoratif).
+function HeroArt() {
+  // Kapak görseli: sağ tarafta panda, sola doğru koyu geçiş (yazılar okunur kalsın).
   return (
-    <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[40%] md:block" aria-hidden="true">
-      <svg viewBox="0 0 400 220" className="absolute bottom-0 right-0 h-full w-full" preserveAspectRatio="xMaxYMax meet">
-        <defs>
-          <linearGradient id="sky-fade" x1="0" x2="1">
-            <stop offset="0" stopColor="var(--wc-panel)" stopOpacity="1" />
-            <stop offset="0.45" stopColor="var(--wc-panel)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <g fill="var(--wc-acc)" opacity="0.12">
-          <rect x="60" y="150" width="40" height="70" /><rect x="105" y="130" width="30" height="90" />
-          <rect x="140" y="160" width="50" height="60" /><rect x="265" y="140" width="45" height="80" />
-          <rect x="315" y="120" width="35" height="100" /><rect x="355" y="155" width="45" height="65" />
-          <path d="M200 220V70l15-25 15 25v150z" /><rect x="203" y="80" width="24" height="24" rx="12" opacity="0.6" />
-          <path d="M215 20v25" stroke="var(--wc-acc)" strokeWidth="2" />
-        </g>
-        <circle cx="215" cy="92" r="9" fill="none" stroke="var(--wc-acc)" strokeOpacity="0.5" strokeWidth="2" />
-        <rect width="400" height="220" fill="url(#sky-fade)" />
-      </svg>
-      <p className="absolute bottom-6 right-6 rotate-[-6deg] text-right font-script text-xl leading-snug text-acc/90">
-        Better English,<br />a brighter you.
-      </p>
+    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+      <img src="assets/hero.jpg" alt="" draggable={false} className="absolute inset-y-0 right-0 h-full w-full object-cover object-[70%_38%] md:w-[72%]" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, var(--wc-panel) 0%, var(--wc-panel) 28%, color-mix(in oklab, var(--wc-panel) 80%, transparent) 42%, color-mix(in oklab, var(--wc-panel) 25%, transparent) 62%, transparent 80%)' }} />
+      <div className="absolute inset-x-0 bottom-0 h-16" style={{ background: 'linear-gradient(0deg, var(--wc-panel), transparent)' }} />
     </div>
   );
 }

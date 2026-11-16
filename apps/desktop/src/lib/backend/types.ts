@@ -32,7 +32,7 @@ export type AiReply =
   | { ok: true; text: string; correctionsTr?: string[]; finished?: boolean }
   | { ok: false; reason: 'not_connected' | 'quota' | 'error'; messageTr: string };
 
-export type ProfilePatch = Partial<Pick<Profile, 'displayName' | 'goal' | 'dailyMinutes' | 'interests' | 'hobbies' | 'studyDays' | 'studyTime' | 'onboardingDone'>>;
+export type ProfilePatch = Partial<Pick<Profile, 'displayName' | 'goal' | 'dailyMinutes' | 'interests' | 'hobbies' | 'studyDays' | 'studyTime' | 'avatar' | 'onboardingDone'>>;
 
 export interface Backend {
   status(): ServiceStatus;

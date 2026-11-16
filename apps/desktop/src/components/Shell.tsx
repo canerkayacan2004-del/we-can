@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { backgroundSocialSync } from '../lib/social.ts';
 import { currentLevel, dayKey, dueReviews, effectiveStreak, mistakeExerciseIds } from '@core/engine.ts';
 import { useApp } from '../lib/app.tsx';
 import type { Route } from '../lib/app.tsx';
 import { curriculum } from '../lib/content.ts';
+import { UserAvatar } from './Avatar.tsx';
 import { Icon } from './Icon.tsx';
 import { Logo, Mascot, cx } from './ui.tsx';
 
@@ -13,6 +16,7 @@ const NAV: { route: Route; label: string; icon: string; group?: string }[] = [
   { route: { name: 'vocab' }, label: 'Kelime defteri', icon: 'book' },
   { route: { name: 'audio' }, label: 'Dinleme odası', icon: 'headphones' },
   { route: { name: 'ai' }, label: 'AI öğretmen', icon: 'bot' },
+  { route: { name: 'friends' }, label: 'Arkadaşlar', icon: 'user' },
   { route: { name: 'analytics' }, label: 'Gelişim', icon: 'chart', group: 'Araçlar' },
   { route: { name: 'planner' }, label: 'Günlük plan', icon: 'calendar' },
   { route: { name: 'notebook' }, label: 'Not defterim', icon: 'notebook' },
@@ -21,13 +25,14 @@ const NAV: { route: Route; label: string; icon: string; group?: string }[] = [
 ];
 
 export function Shell({ children }: { children: ReactNode }) {
-  const { state, route, go, backend } = useApp();
+  const { state, route, go, backend, session } = useApp();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => backgroundSocialSync(session.userId, state), [state.stats.totalXp, state.profile.avatar, state.profile.displayName]);
   const today = dayKey(new Date());
   const due = dueReviews(state, today).length + mistakeExerciseIds(state).length;
   const streak = effectiveStreak(state, today);
   const status = backend.status();
   const active = route.name === 'unit' ? 'map' : route.name === 'practice' ? 'review' : route.name === 'status' ? 'settings' : route.name;
-  const initial = state.profile.displayName.trim().charAt(0).toLocaleUpperCase('tr-TR') || '?';
 
   return (
     <div className="flex h-full">
@@ -71,7 +76,7 @@ export function Shell({ children }: { children: ReactNode }) {
         )}
 
         <button type="button" onClick={() => go({ name: 'profile' })} className="mt-2 flex cursor-pointer items-center gap-3 rounded-2xl border border-line bg-panel-2 p-2.5 text-left hover:bg-panel-3 max-[1100px]:justify-center" data-nav="profile" title="Profil">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-acc text-lg font-black text-on-acc">{initial}</span>
+          <UserAvatar name={state.profile.displayName} src={state.profile.avatar} size={40} />
           <span className="min-w-0 max-[1100px]:hidden">
             <span className="block truncate font-bold text-fg">{state.profile.displayName}</span>
             <span className="block text-xs text-acc">{currentLevel(state, curriculum)} · {streak > 0 ? `🔥 ${streak} gün` : state.profile.plan === 'premium' ? 'Premium' : 'Ücretsiz plan'}</span>

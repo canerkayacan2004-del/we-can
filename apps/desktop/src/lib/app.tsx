@@ -18,7 +18,8 @@ export type Route =
   | { name: 'achievements' }
   | { name: 'profile' }
   | { name: 'settings' }
-  | { name: 'status' };
+  | { name: 'status' }
+  | { name: 'friends' };
 
 export interface AppContextValue {
   backend: Backend;

@@ -119,3 +119,49 @@ export function cloudAiChat(localUserId: string, lessonCode: string, messages: C
 export function cloudAiWriting(localUserId: string, lessonCode: string, taskId: string, text: string): Promise<AiReply> {
   return callFunction(localUserId, { kind: 'writing', lessonCode, taskId, text });
 }
+
+export class CloudError extends Error {
+  constructor(message: string, readonly code: 'not_connected' | 'not_installed' | 'offline' | 'server' | 'rejected') {
+    super(message);
+  }
+}
+
+/** Supabase veritabanı fonksiyonu (RPC) çağırır. Oturum yoksa anonim oturum açar. */
+export async function cloudRpc<T>(localUserId: string, fn: string, args: Record<string, unknown>, retried = false): Promise<T> {
+  const cfg = cloudAiConfig();
+  if (!cfg) throw new CloudError('Sunucu bağlantısı yapılandırılmadı.', 'not_connected');
+  let session: StoredSession;
+  try {
+    session = await ensureSession(localUserId);
+  } catch (err) {
+    if ((err as Error).message === 'ANON_DISABLED') throw new CloudError('Sunucuda anonim giriş kapalı.', 'server');
+    throw new CloudError('Sunucuya bağlanılamadı. İnternet bağlantını kontrol et.', 'offline');
+  }
+  let res: Response;
+  try {
+    res = await fetch(`${cfg.url}/rest/v1/rpc/${fn}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${session.accessToken}`, apikey: cfg.anonKey, 'content-type': 'application/json' },
+      body: JSON.stringify(args),
+    });
+  } catch {
+    throw new CloudError('Sunucuya bağlanılamadı. İnternet bağlantını kontrol et.', 'offline');
+  }
+  if (res.status === 401 && !retried) {
+    writeSession(localUserId, null);
+    return cloudRpc<T>(localUserId, fn, args, true);
+  }
+  const text = await res.text();
+  let data: unknown = null;
+  try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+  if (!res.ok) {
+    const msg = typeof data === 'object' && data && 'message' in data ? String((data as { message: unknown }).message) : '';
+    const code = typeof data === 'object' && data && 'code' in data ? String((data as { code: unknown }).code) : '';
+    if (res.status === 404 || code === 'PGRST202' || code === '42883') {
+      throw new CloudError('Bu özellik sunucuda henüz kurulmadı (Supabase SQL adımı bekleniyor).', 'not_installed');
+    }
+    if (code === 'P0001' && msg) throw new CloudError(msg, 'rejected');
+    throw new CloudError(`Sunucu hatası (${res.status}).`, 'server');
+  }
+  return data as T;
+}

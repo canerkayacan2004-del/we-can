@@ -7,34 +7,41 @@ export function cx(...parts: (string | false | null | undefined)[]): string {
 }
 
 /** We Can maskotu "Can": küçük, neşeli bir kıvılcım. Görseli buradan değiştirilebilir. */
+const MOOD_BADGE: Record<string, string> = { cheer: '🎉', sad: '💪', think: '💭' };
+
+/** We Can maskotu: kulaklıklı panda. Ruh hâli küçük bir rozetle gösterilir. */
 export function Mascot({ mood = 'happy', size = 96, className }: { mood?: 'happy' | 'cheer' | 'sad' | 'think'; size?: number; className?: string }) {
-  const mouth =
-    mood === 'cheer' ? <path d="M47 68c4 9 22 9 26 0z" fill="#1d1238" />
-    : mood === 'sad' ? <path d="M48 74c5-6 19-6 24 0" fill="none" stroke="#1d1238" strokeWidth="4" strokeLinecap="round" />
-    : mood === 'think' ? <path d="M50 71h20" fill="none" stroke="#1d1238" strokeWidth="4" strokeLinecap="round" />
-    : <path d="M48 68c5 7 19 7 24 0" fill="none" stroke="#1d1238" strokeWidth="4" strokeLinecap="round" />;
+  const badge = MOOD_BADGE[mood];
   return (
-    <svg viewBox="0 0 120 120" width={size} height={size} className={className} role="img" aria-label="We Can maskotu Can">
-      <circle cx="60" cy="58" r="44" fill="var(--wc-acc)" opacity="0.14" />
-      <path
-        d="M60 8c8 15 15 18 31 19-6 14-4 23 7 34-15 4-21 11-23 27-12-8-18-8-30 0-2-16-8-23-23-27 11-11 13-20 7-34 16-1 23-4 31-19z"
-        fill="#ffc83d" stroke="#c98f00" strokeWidth="4" strokeLinejoin="round"
-      />
-      <circle cx="47" cy="54" r="6" fill="#1d1238" />
-      <circle cx="73" cy="54" r="6" fill="#1d1238" />
-      <circle cx="49" cy="52" r="2" fill="#fff" />
-      <circle cx="75" cy="52" r="2" fill="#fff" />
-      <circle cx="38" cy="64" r="5" fill="#ff9d7a" opacity="0.7" />
-      <circle cx="82" cy="64" r="5" fill="#ff9d7a" opacity="0.7" />
-      {mouth}
+    <span className={cx('relative inline-block shrink-0', className)} style={{ width: size, height: size }} role="img" aria-label="We Can maskotu panda Can">
+      <img src="assets/panda.jpg" alt="" draggable={false} width={size} height={size}
+        className="h-full w-full rounded-full object-cover"
+        style={{ boxShadow: `0 0 0 ${Math.max(2, size / 28)}px var(--wc-acc), 0 0 ${Math.round(size / 3)}px -${Math.round(size / 10)}px var(--wc-acc)` }} />
+      {badge && size >= 56 && (
+        <span className="absolute -bottom-1 -right-1 flex items-center justify-center rounded-full border border-line-2 bg-panel" style={{ width: size / 2.6, height: size / 2.6, fontSize: size / 5 }}>{badge}</span>
+      )}
+    </span>
+  );
+}
+
+/** Kanatlı kitap simgesi + yazı. */
+export function LogoMark({ size = 28, className }: { size?: number; className?: string }) {
+  return (
+    <svg viewBox="0 0 64 56" width={size} height={size * 0.875} className={className} aria-hidden="true">
+      <g fill="none" stroke="var(--wc-acc)" strokeWidth="4.5" strokeLinejoin="round" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 4px var(--wc-acc))' }}>
+        <path d="M32 50 C24 40 12 36 4 36 V10 C14 10 25 15 32 26 Z" />
+        <path d="M32 50 C40 40 52 36 60 36 V10 C50 10 39 15 32 26 Z" />
+        <path d="M12 18 C18 19 24 22 28 27 M52 18 C46 19 40 22 36 27" />
+      </g>
     </svg>
   );
 }
 
-export function Logo({ size = 'text-2xl' }: { size?: string }) {
+export function Logo({ size = 'text-2xl', mark = false }: { size?: string; mark?: boolean }) {
   return (
-    <span className={cx('font-black tracking-tight', size)}>
-      <span className="text-fg">We</span><span className="text-acc">Can</span>
+    <span className={cx('inline-flex items-center gap-1.5 font-black tracking-tight', size)}>
+      {mark && <LogoMark size={26} />}
+      <span><span className="text-fg">We</span><span className="text-acc">Can</span></span>
     </span>
   );
 }

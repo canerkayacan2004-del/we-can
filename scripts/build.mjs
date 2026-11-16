@@ -71,6 +71,9 @@ export async function buildCss({ prod = false } = {}) {
 export function copyHtml() {
   fs.mkdirSync(outDir, { recursive: true });
   fs.copyFileSync(path.join(srcDir, 'index.html'), path.join(outDir, 'index.html'));
+  // Görseller (maskot, kapak) dist/assets altına kopyalanır.
+  const assets = path.join(srcDir, 'assets');
+  if (fs.existsSync(assets)) fs.cpSync(assets, path.join(outDir, 'assets'), { recursive: true });
 }
 
 export function esbuildOptions({ prod = false } = {}) {

@@ -222,6 +222,8 @@ export interface Profile {
   studyDays: number[];
   /** Tercih edilen çalışma zamanı */
   studyTime: StudyTime;
+  /** Profil fotoğrafı (küçültülmüş JPEG, data URL). Yoksa baş harf gösterilir. */
+  avatar?: string | null;
   onboardingDone: boolean;
   placementDone: boolean;
   placementLevel: LevelCode | null;
