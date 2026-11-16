@@ -56,6 +56,8 @@ export interface Backend {
   practiceSet(): Promise<Exercise[]>;
   completePractice(exerciseIds: string[], responses: Responses, seconds: number): Promise<{ state: UserState; result: PracticeResult }>;
   completeAudio(session: { correct: number; total: number; seconds: number }): Promise<{ state: UserState; xp: number }>;
+  /** Günlük kelime kartını tamamlar: learn=true ise deftere ve tekrara eklenir. */
+  markDailyWord(wordId: string, learn: boolean): Promise<{ state: UserState; xp: number }>;
   saveNote(note: Partial<Note> & { title: string; body: string }): Promise<UserState>;
   deleteNote(id: string): Promise<UserState>;
 

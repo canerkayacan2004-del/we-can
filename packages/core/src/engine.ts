@@ -349,6 +349,16 @@ function upsertReview(state: UserState, item: Omit<ReviewItem, 'step' | 'due' | 
   return true;
 }
 
+/** Dışarıdan (günlük kelime vb.) tekrar listesine kart ekler; varsa dokunmaz. */
+export function addReviewItem(state: UserState, item: Omit<ReviewItem, 'step' | 'due' | 'status' | 'createdAt'>, today: string, now: Date): boolean {
+  return upsertReview(state, item, today, now, false);
+}
+
+/** Bugünü aktif gün sayar (seri için). */
+export function markActive(state: UserState, today: string): void {
+  touchActivity(state, today);
+}
+
 // ---- Ders tamamlama ----
 export function completeLesson(
   input: UserState,

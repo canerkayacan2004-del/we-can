@@ -7,11 +7,13 @@ import { fileURLToPath } from 'node:url';
 import {
   addDays, aiAllowance, answerReview, completeAudio, completePractice, deleteNote, migrateState, mistakeExerciseIds, saveNote, applyPlacement, completeLesson, consumeAi, dayKey, dueReviews, effectiveStreak,
   gradeExercise, lessonUnlocked, newUserState, normalizeAnswer, scorePlacement, unitUnlocked, RULES, SRS_INTERVALS, shuffleExercises, seededRng,
+  pickDailyWords, markDailyWord, DAILY_WORDS_XP,
 } from '../src/index.ts';
 import type { Curriculum, LessonContent, Responses, UserState } from '../src/index.ts';
 import { lessonsA1U1 } from '../../../content/exercises/A1/unit01.ts';
 import { lessonsA1U2 } from '../../../content/exercises/A1/unit02.ts';
 import { placementQuestions } from '../../../content/placement.ts';
+import { WORD_BANK } from '../../../content/words/index.ts';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const curriculum: Curriculum = JSON.parse(fs.readFileSync(path.join(here, '../../../content/data/curriculum.json'), 'utf8'));
@@ -302,4 +304,46 @@ test('karıştırma: şıklar ve soru sırası karışır, puanlama özgün içe
     return 'options' in out && 'options' in ex && out.options.join('|') !== ex.options.join('|');
   });
   assert.ok(changed);
+});
+
+test('kelime bankası: her seviyede yeterli kelime, eksiksiz alanlar, benzersiz kimlik', () => {
+  const ids = new Set<string>();
+  for (const w of WORD_BANK) {
+    assert.ok(!ids.has(w.id), `tekrar eden kelime: ${w.id}`);
+    ids.add(w.id);
+    for (const f of [w.term, w.meaningTr, w.pos, w.exampleEn, w.exampleTr]) assert.ok(f && f.trim().length > 0, w.id);
+  }
+  for (const lvl of ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']) {
+    assert.ok(WORD_BANK.filter((w) => w.level === lvl).length >= 30, `${lvl} seviyesinde en az 30 kelime`);
+  }
+});
+
+test('günlük 10 kelime: 7 seviye + 3 üst seviye, gün içinde sabit, öğrenilenler atlanır, XP bir kez', () => {
+  const d = '2026-11-16';
+  const a = pickDailyWords(WORD_BANK, 'A2', d, new Set());
+  const b = pickDailyWords(WORD_BANK, 'A2', d, new Set());
+  assert.equal(a.length, 10);
+  assert.deepEqual(a.map((w) => w.id), b.map((w) => w.id));
+  assert.equal(a.filter((w) => w.level === 'A2').length, 7);
+  assert.equal(a.filter((w) => w.level === 'B1').length, 3);
+  const other = pickDailyWords(WORD_BANK, 'A2', '2026-11-17', new Set());
+  assert.notDeepEqual(other.map((w) => w.id), a.map((w) => w.id));
+  const known = new Set(a.slice(0, 5).map((w) => w.id));
+  assert.ok(pickDailyWords(WORD_BANK, 'A2', d, known).every((w) => !known.has(w.id)));
+  const c2 = pickDailyWords(WORD_BANK, 'C2', d, new Set());
+  assert.equal(c2.length, 10);
+
+  let state = newUserState('Test', day1);
+  const ids = a.map((w) => w.id);
+  let gained = 0;
+  for (const [i, w] of a.entries()) {
+    const out = markDailyWord(state, w, i % 2 === 0, ids, day1, d);
+    state = out.state; gained += out.xp;
+  }
+  assert.equal(gained, DAILY_WORDS_XP);
+  assert.equal(state.dailyWords?.learned.length, 5);
+  assert.equal(Object.keys(state.vocab).length, 5);
+  assert.equal(state.reviews.filter((r) => r.kind === 'vocab').length, 5);
+  assert.equal(markDailyWord(state, a[0], true, ids, day1, d).xp, 0);
+  assert.throws(() => markDailyWord(state, other.find((w) => !ids.includes(w.id))!, true, ids, day1, d), /listesinde değil/);
 });

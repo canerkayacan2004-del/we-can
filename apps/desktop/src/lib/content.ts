@@ -4,6 +4,12 @@ import curriculumJson from '@content/data/curriculum.json';
 import { lessonsA1U1, vocabA1U1 } from '@content/exercises/A1/unit01.ts';
 import { lessonsA1U2, vocabA1U2 } from '@content/exercises/A1/unit02.ts';
 import type { Curriculum, Exercise, LessonContent, LessonMeta, UnitMeta, VocabItem } from '@core/types.ts';
+import { pickDailyWords } from '@core/daily.ts';
+import { currentLevel, dayKey } from '@core/engine.ts';
+import type { UserState } from '@core/types.ts';
+import { WORD_BANK, bankWord } from '@content/words/index.ts';
+import type { BankWord } from '@content/words/index.ts';
+export type { BankWord };
 
 export const curriculum = curriculumJson as unknown as Curriculum;
 
@@ -20,7 +26,15 @@ export function getLessonContent(code: string): LessonContent | undefined {
   return lessonMap.get(code);
 }
 export function getVocabItem(id: string): VocabItem | undefined {
-  return vocabMap.get(id);
+  return vocabMap.get(id) ?? bankWord(id);
+}
+
+/** Bugünün 10 kelimesi (kullanıcıya ve güne göre sabit). */
+export function todaysWords(state: UserState, today = dayKey(new Date())): BankWord[] {
+  // Bugün öğrenilenler hâlâ "bilinmeyen" sayılır; böylece liste gün içinde değişmez.
+  const learnedToday = state.dailyWords?.date === today ? new Set(state.dailyWords.learned) : new Set<string>();
+  const known = new Set(Object.keys(state.vocab).filter((id) => !learnedToday.has(id)));
+  return pickDailyWords(WORD_BANK, currentLevel(state, curriculum), today, known, state.profile.createdAt);
 }
 export function getExercise(id: string): Exercise | undefined {
   return exerciseMap.get(id)?.exercise;

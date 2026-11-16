@@ -12,7 +12,8 @@ import type { Appearance, Exercise, Note, Responses, UserState } from '@core/typ
 import { DASHBOARD_WIDGETS, STUDY_TIMES } from '@core/types.ts';
 import { THEMES, isHexColor } from '../theme.ts';
 import { placementQuestions } from '@content/placement.ts';
-import { curriculum, getExercise, getLessonContent } from '../content.ts';
+import { curriculum, getExercise, getLessonContent, getVocabItem, todaysWords } from '../content.ts';
+import { markDailyWord } from '@core/daily.ts';
 import { BackendError } from './types.ts';
 import type { AiReply, Backend, ChatMessage, ProfilePatch, ServiceStatus, Session } from './types.ts';
 import { cloudAiChat, cloudAiConfig, cloudAiWriting } from './cloudAi.ts';
@@ -280,6 +281,19 @@ export class LocalBackend implements Backend {
     const userId = this.currentUserId();
     const exercises = exerciseIds.map((id) => getExercise(id)).filter((e): e is Exercise => !!e);
     const out = this.run(() => completePractice(this.load(userId), exercises, responses, new Date(), seconds));
+    this.save(userId, out.state);
+    return out;
+  }
+
+  async markDailyWord(wordId: string, learn: boolean) {
+    const userId = this.currentUserId();
+    const now = new Date();
+    const today = dayKey(now);
+    const state = this.load(userId);
+    const ids = todaysWords(state, today).map((w) => w.id);
+    const word = getVocabItem(wordId);
+    if (!word) throw new BackendError('Kelime bulunamadı.');
+    const out = this.run(() => markDailyWord(state, word, learn, ids, now, today));
     this.save(userId, out.state);
     return out;
   }

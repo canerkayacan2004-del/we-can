@@ -4,6 +4,9 @@
 
 export type LevelCode = 'A1' | 'A2' | 'B1' | 'B2';
 export const LEVELS: LevelCode[] = ['A1', 'A2', 'B1', 'B2'];
+/** Tüm CEFR seviyeleri (kelime bankası ve Gramer Akademisi C1–C2'yi de kapsar). */
+export type CefrLevel = LevelCode | 'C1' | 'C2';
+export const CEFR_LEVELS: CefrLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 export type Skill = 'grammar' | 'vocabulary' | 'reading' | 'listening' | 'writing' | 'speaking';
 export const SKILLS: Skill[] = ['listening', 'reading', 'speaking', 'writing', 'grammar', 'vocabulary'];
@@ -302,6 +305,8 @@ export interface UserState {
   version: 2;
   /** 0.3 tasarım geçişi yapıldı mı */
   designV3?: boolean;
+  /** Günlük 10 kelime: bugün görülen / öğrenilen kelimeler */
+  dailyWords?: { date: string; seen: string[]; learned: string[]; rewarded: boolean };
   profile: Profile;
   stats: { totalXp: number; streak: number; longestStreak: number; lastActiveDate: string | null };
   lessons: Record<string, LessonProgress>;

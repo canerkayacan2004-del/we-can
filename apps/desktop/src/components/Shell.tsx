@@ -13,6 +13,7 @@ const NAV: { route: Route; label: string; icon: string; group?: string }[] = [
   { route: { name: 'dashboard' }, label: 'Pano', icon: 'home' },
   { route: { name: 'map' }, label: 'Öğrenme haritası', icon: 'map' },
   { route: { name: 'review' }, label: 'Akıllı tekrar', icon: 'repeat' },
+  { route: { name: 'daily' }, label: 'Günün kelimeleri', icon: 'sparkles' },
   { route: { name: 'vocab' }, label: 'Kelime defteri', icon: 'book' },
   { route: { name: 'audio' }, label: 'Dinleme odası', icon: 'headphones' },
   { route: { name: 'ai' }, label: 'AI öğretmen', icon: 'bot' },

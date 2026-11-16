@@ -10,6 +10,7 @@ import { Icon } from '../components/Icon.tsx';
 import { Mascot, ProgressBar, Toggle, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { curriculum, getLessonContent, getLessonMeta, getUnit, getVocabItem } from '../lib/content.ts';
+import { todaysWords } from '../lib/content.ts';
 import { speak } from '../lib/tts.ts';
 import { buildPlan } from './Planner.tsx';
 
@@ -245,27 +246,28 @@ function PlannerCard() {
 function WordsCard() {
   const { state, go } = useApp();
   const today = dayKey(new Date());
-  const dueWords = dueReviews(state, today).filter((r) => r.kind === 'vocab').map((r) => getVocabItem(r.id.slice(2))).filter(Boolean);
-  const recent = Object.entries(state.vocab).sort((a, b) => b[1].addedAt.localeCompare(a[1].addedAt)).map(([id]) => getVocabItem(id)).filter(Boolean);
-  const words = (dueWords.length ? dueWords : recent).slice(0, 5);
+  const words = todaysWords(state, today);
+  const rec = state.dailyWords?.date === today ? state.dailyWords : null;
+  const seen = rec?.seen.length ?? 0;
+  const done = seen >= words.length;
+  const dueWords = dueReviews(state, today).filter((r) => r.kind === 'vocab').length;
   return (
     <section className="card lg:col-span-4" data-widget="words">
       <div className="flex items-center justify-between">
-        <p className="section-title">Bugünün kelimeleri</p>
-        <button className="btn btn-ghost btn-sm" onClick={() => go({ name: 'vocab' })}>Tümü <Icon name="arrowRight" size={14} /></button>
+        <p className="section-title">Günün 10 kelimesi</p>
+        <span className="font-mono-num text-sm font-bold text-acc">{seen}/{words.length}</span>
       </div>
-      {words.length === 0 ? <p className="text-sm text-fg-2">Kelime dersini tamamladığında kelimelerin burada görünür.</p> : (
-        <ul className="space-y-1.5">
-          {words.map((w) => w && (
-            <li key={w.id} className="flex items-center gap-2">
-              <button type="button" className="cursor-pointer text-acc" onClick={() => speak(w.term)} aria-label={`${w.term} dinle`}><Icon name="volume" size={16} /></button>
-              <span className="font-semibold text-fg">{w.term}</span>
-              <span className="text-sm text-fg-3">({w.meaningTr})</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {dueWords.length > 0 && <p className="mt-2 text-xs text-warn">{dueWords.length} kelimenin tekrar günü geldi.</p>}
+      <ul className="mb-3 flex flex-wrap gap-1.5">
+        {words.map((w) => (
+          <li key={w.id} className={cx('chip text-xs', rec?.seen.includes(w.id) ? 'bg-acc/15 text-acc' : 'bg-panel-3 text-fg-2')}>
+            <span className="font-black opacity-70">{w.level}</span> {w.term}
+          </li>
+        ))}
+      </ul>
+      <button className={cx('btn w-full', done ? 'btn-ghost' : 'btn-primary')} data-action="daily-words" onClick={() => go({ name: 'daily' })}>
+        {done ? 'Bugünkü kelimeler tamam ✓' : seen ? 'Devam et' : 'Başla'} <Icon name="arrowRight" size={16} />
+      </button>
+      {dueWords > 0 && <p className="mt-2 text-xs text-warn">{dueWords} kelimenin tekrar günü geldi.</p>}
     </section>
   );
 }
