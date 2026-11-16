@@ -17,6 +17,7 @@ import { DashboardScreen } from './screens/Dashboard.tsx';
 import { DailyWordsScreen } from './screens/DailyWords.tsx';
 import { GamesScreen } from './screens/Games.tsx';
 import { ReportScreen } from './screens/Report.tsx';
+import { HubScreen } from './screens/Hub.tsx';
 import { FriendsScreen } from './screens/Friends.tsx';
 import { LessonScreen } from './screens/Lesson.tsx';
 import { MapScreen } from './screens/Map.tsx';
@@ -126,6 +127,7 @@ export function App() {
         {route.name === 'daily' && <DailyWordsScreen />}
         {route.name === 'games' && <GamesScreen />}
         {route.name === 'report' && <ReportScreen />}
+        {route.name === 'hub' && <HubScreen key={route.tab ?? 'all'} tab={route.tab} />}
         {route.name === 'planner' && <PlannerScreen />}
         {route.name === 'achievements' && <AchievementsScreen />}
         {route.name === 'profile' && <ProfileScreen />}

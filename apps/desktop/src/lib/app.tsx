@@ -22,7 +22,8 @@ export type Route =
   | { name: 'friends' }
   | { name: 'daily' }
   | { name: 'games' }
-  | { name: 'report' };
+  | { name: 'report' }
+  | { name: 'hub'; tab?: 'all' | 'watch' | 'read' | 'play' | 'packs' };
 
 export interface AppContextValue {
   backend: Backend;

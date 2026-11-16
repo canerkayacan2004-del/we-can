@@ -13,11 +13,9 @@ import { Logo, Mascot, cx } from './ui.tsx';
 const NAV: { route: Route; label: string; icon: string; group?: string }[] = [
   { route: { name: 'dashboard' }, label: 'Pano', icon: 'home' },
   { route: { name: 'map' }, label: 'Öğrenme haritası', icon: 'map' },
+  { route: { name: 'hub' }, label: 'Öğrenme merkezi', icon: 'sparkles' },
   { route: { name: 'review' }, label: 'Akıllı tekrar', icon: 'repeat' },
-  { route: { name: 'daily' }, label: 'Günün kelimeleri', icon: 'sparkles' },
-  { route: { name: 'games' }, label: 'Kelime oyunları', icon: 'target' },
   { route: { name: 'vocab' }, label: 'Kelime defteri', icon: 'book' },
-  { route: { name: 'audio' }, label: 'Dinleme odası', icon: 'headphones' },
   { route: { name: 'ai' }, label: 'AI öğretmen', icon: 'bot' },
   { route: { name: 'friends' }, label: 'Arkadaşlar', icon: 'user' },
   { route: { name: 'analytics' }, label: 'Gelişim', icon: 'chart', group: 'Araçlar' },
@@ -36,7 +34,8 @@ export function Shell({ children }: { children: ReactNode }) {
   const due = dueReviews(state, today).length + mistakeExerciseIds(state).length;
   const streak = effectiveStreak(state, today);
   const status = backend.status();
-  const active = route.name === 'unit' ? 'map' : route.name === 'practice' ? 'review' : route.name === 'status' ? 'settings' : route.name;
+  const active = route.name === 'unit' ? 'map' : route.name === 'practice' ? 'review' : route.name === 'status' ? 'settings'
+    : route.name === 'daily' || route.name === 'games' || route.name === 'audio' ? 'hub' : route.name;
 
   return (
     <div className="flex h-full">
@@ -56,6 +55,7 @@ export function Shell({ children }: { children: ReactNode }) {
               <button
                 type="button"
                 data-nav={item.route.name}
+                aria-current={active === item.route.name ? 'page' : undefined}
                 title={item.label}
                 onClick={() => go(item.route)}
                 className={cx(
