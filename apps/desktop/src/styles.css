@@ -120,13 +120,17 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
     @apply w-full cursor-pointer rounded-2xl border-2 border-b-4 border-line-2 bg-panel-2 px-4 py-3 text-left text-base font-semibold text-fg transition-all hover:bg-panel-3;
   }
   .option:disabled { @apply cursor-default; }
-  .option-selected { @apply border-acc bg-acc/12 text-acc-2; }
-  .option-correct { @apply border-good bg-good/12 text-good; }
-  .option-wrong { @apply border-bad bg-bad/12 text-bad; }
   .tile {
     @apply cursor-pointer rounded-xl border-2 border-b-4 border-line-2 bg-panel-2 px-3 py-2 text-base font-semibold text-fg transition-all hover:bg-panel-3;
   }
   .tile:disabled { @apply cursor-default; }
+  /* Durum sınıfları .option ve .tile'dan SONRA gelmeli; yoksa kutu stilleri onları ezer. */
+  .option-selected, .tile.option-selected {
+    @apply border-acc bg-acc/15 text-acc-2;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--wc-acc) 45%, transparent), 0 0 18px -6px var(--wc-acc);
+  }
+  .option-correct { @apply border-good bg-good/12 text-good; }
+  .option-wrong { @apply border-bad bg-bad/12 text-bad; }
   .toggle { @apply relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full bg-line-2 transition-colors; }
   .toggle[aria-checked="true"] { @apply bg-acc; }
   .toggle > span { @apply inline-block h-5 w-5 translate-x-0.5 rounded-full bg-white transition-transform; }
@@ -137,3 +141,38 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
   .table-wc th { @apply border-b border-line px-3 py-2 font-semibold text-fg-3; }
   .table-wc td { @apply border-b border-line/60 px-3 py-2 text-fg-2; }
 }
+
+/* ---------- Neon tema efekt katmanı (html[data-fx="neon"]) ---------- */
+html[data-fx="neon"] body {
+  background-color: var(--wc-bg);
+  background-image:
+    radial-gradient(1200px 600px at 85% -10%, color-mix(in oklab, var(--wc-acc) 14%, transparent), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, color-mix(in oklab, var(--wc-info) 8%, transparent), transparent 60%),
+    linear-gradient(color-mix(in oklab, var(--wc-acc) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--wc-acc) 5%, transparent) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+  background-attachment: fixed;
+}
+html[data-fx="neon"] .card {
+  background: linear-gradient(160deg, color-mix(in oklab, var(--wc-panel-2) 92%, transparent), color-mix(in oklab, var(--wc-panel) 88%, transparent));
+  border-color: color-mix(in oklab, var(--wc-acc) 16%, var(--wc-line));
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--wc-acc) 10%, transparent), 0 18px 50px -30px #000;
+  backdrop-filter: blur(6px);
+}
+html[data-fx="neon"] .card:hover { border-color: color-mix(in oklab, var(--wc-acc) 30%, var(--wc-line)); }
+html[data-fx="neon"] .card-glow {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--wc-acc) 40%, transparent), 0 0 34px -10px color-mix(in oklab, var(--wc-acc) 70%, transparent), inset 0 1px 0 color-mix(in oklab, var(--wc-acc) 20%, transparent);
+}
+html[data-fx="neon"] .btn-primary,
+html[data-fx="neon"] .btn-success {
+  box-shadow: 0 0 22px -4px color-mix(in oklab, var(--wc-acc) 75%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+html[data-fx="neon"] .btn-primary:hover { box-shadow: 0 0 30px -2px color-mix(in oklab, var(--wc-acc) 90%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+html[data-fx="neon"] h1 { text-shadow: 0 0 24px color-mix(in oklab, var(--wc-acc) 22%, transparent); letter-spacing: -0.01em; }
+html[data-fx="neon"] .text-acc { text-shadow: 0 0 14px color-mix(in oklab, var(--wc-acc) 45%, transparent); }
+html[data-fx="neon"] [role="progressbar"] > div { box-shadow: 0 0 12px color-mix(in oklab, var(--wc-acc) 70%, transparent); }
+html[data-fx="neon"] .field { background: color-mix(in oklab, var(--wc-panel-2) 85%, transparent); }
+html[data-fx="neon"] .field:focus { box-shadow: 0 0 0 3px color-mix(in oklab, var(--wc-acc) 22%, transparent), 0 0 20px -6px var(--wc-acc); }
+html[data-fx="neon"] .section-title svg { filter: drop-shadow(0 0 6px color-mix(in oklab, var(--wc-acc) 70%, transparent)); }
+html[data-fx="neon"] ::selection { background: color-mix(in oklab, var(--wc-acc) 40%, transparent); }
+.font-mono-num { font-family: "Cascadia Code", "Consolas", ui-monospace, monospace; font-variant-numeric: tabular-nums; }

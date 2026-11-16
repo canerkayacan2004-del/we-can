@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { shuffleOptions, shuffled } from '@core/shuffle.ts';
 import type { PlacementResult } from '@core/engine.ts';
 import { LEVELS } from '@core/types.ts';
 import { placementQuestions } from '@content/placement.ts';
@@ -13,6 +14,12 @@ export function PlacementScreen() {
   const [result, setResult] = useState<PlacementResult | null>(null);
   const [pendingState, setPendingState] = useState<Parameters<typeof setState>[0] | null>(null);
   const [error, setError] = useState('');
+  // Seviyeler kolaydan zora sıralı kalır; her seviyenin içindeki sorular ve tüm şıklar karıştırılır.
+  const questions = useMemo(() => {
+    const order: string[] = [];
+    for (const q of placementQuestions) if (!order.includes(q.level)) order.push(q.level);
+    return order.flatMap((lvl) => shuffled(placementQuestions.filter((q) => q.level === lvl))).map((q) => shuffleOptions(q));
+  }, []);
 
   const submit = async (finalAnswers: Record<string, number> | null) => {
     try {
@@ -75,19 +82,19 @@ export function PlacementScreen() {
     );
   }
 
-  const question = placementQuestions[index];
+  const { question, perm } = questions[index];
   const choose = (option: number | null) => {
-    const next = option === null ? answers : { ...answers, [question.id]: option };
+    const next = option === null ? answers : { ...answers, [question.id]: perm[option] };
     setAnswers(next);
-    if (index === placementQuestions.length - 1) void submit(next);
+    if (index === questions.length - 1) void submit(next);
     else setIndex(index + 1);
   };
 
   return (
     <div className="flex h-full flex-col bg-panel" data-screen="placement-test">
       <header className="flex items-center gap-4 px-8 py-5">
-        <div className="flex-1"><ProgressBar value={index} max={placementQuestions.length} color="bg-acc" /></div>
-        <span className="text-sm font-bold text-fg-2">{index + 1} / {placementQuestions.length}</span>
+        <div className="flex-1"><ProgressBar value={index} max={questions.length} color="bg-acc" /></div>
+        <span className="text-sm font-bold text-fg-2">{index + 1} / {questions.length}</span>
       </header>
       <main className="flex-1 overflow-y-auto px-8 py-6">
         <div className="mx-auto max-w-2xl animate-pop" key={question.id} data-question={question.id}>

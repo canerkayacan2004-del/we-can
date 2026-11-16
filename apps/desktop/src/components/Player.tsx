@@ -1,6 +1,7 @@
 // Alıştırma oynatıcı: derslerde, ünite sınavlarında ve hata telafisinde ortak kullanılır.
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { checkWriting, gradeExercise } from '@core/grading.ts';
+import { shuffleExercises } from '@core/shuffle.ts';
 import type { Grade } from '@core/grading.ts';
 import type { Exercise, Responses, ResponseValue } from '@core/types.ts';
 import { playSound } from '../lib/sound.ts';
@@ -12,12 +13,17 @@ interface PlayerProps {
   exercises: Exercise[];
   /** Sınav modunda anında geri bildirim verilmez. */
   exam: boolean;
+  /** Soru sırası da karıştırılsın mı (sınav ve tekrar). Şıklar her zaman karıştırılır. */
+  shuffleOrder?: boolean;
   onFinish: (responses: Responses, seconds: number) => void;
   onQuit: () => void;
   error?: string;
 }
 
-export function Player({ exercises, exam, onFinish, onQuit, error }: PlayerProps) {
+export function Player({ exercises: source, exam, shuffleOrder, onFinish, onQuit, error }: PlayerProps) {
+  // Şıklar (ve istenirse soru sırası) her açılışta yeniden karıştırılır.
+  const set = useMemo(() => shuffleExercises(source, { order: shuffleOrder ?? exam }), [source, shuffleOrder, exam]);
+  const exercises = set.exercises;
   const [index, setIndex] = useState(0);
   const [responses, setResponses] = useState<Responses>({});
   const [grade, setGrade] = useState<Grade | null>(null);
@@ -53,7 +59,7 @@ export function Player({ exercises, exam, onFinish, onQuit, error }: PlayerProps
     setGrade(null);
     if (isLast) {
       playSound('finish');
-      onFinish(finalResponses, Math.min(3600, Math.round((Date.now() - started.current) / 1000)));
+      onFinish(set.toOriginal(finalResponses), Math.min(3600, Math.round((Date.now() - started.current) / 1000)));
     } else setIndex(index + 1);
   };
   const check = () => {

@@ -9,7 +9,7 @@ import {
   migrateState, mistakeExerciseIds, newUserState, saveNote, scorePlacement,
 } from '@core/engine.ts';
 import type { Appearance, Exercise, Note, Responses, UserState } from '@core/types.ts';
-import { DASHBOARD_WIDGETS } from '@core/types.ts';
+import { DASHBOARD_WIDGETS, STUDY_TIMES } from '@core/types.ts';
 import { THEMES, isHexColor } from '../theme.ts';
 import { placementQuestions } from '@content/placement.ts';
 import { curriculum, getExercise, getLessonContent } from '../content.ts';
@@ -209,7 +209,18 @@ export class LocalBackend implements Backend {
     }
     if (patch.goal !== undefined) profile.goal = patch.goal.slice(0, 200);
     if (patch.dailyMinutes !== undefined) profile.dailyMinutes = Math.min(120, Math.max(5, Math.round(patch.dailyMinutes)));
-    if (patch.interests !== undefined) profile.interests = patch.interests.slice(0, 10);
+    const cleanList = (list: unknown[]) => [...new Set(list.filter((x): x is string => typeof x === 'string').map((x) => x.trim().slice(0, 40)).filter(Boolean))].slice(0, 24);
+    if (patch.interests !== undefined) profile.interests = cleanList(patch.interests);
+    if (patch.hobbies !== undefined) profile.hobbies = cleanList(patch.hobbies);
+    if (patch.studyDays !== undefined) {
+      const days = [...new Set(patch.studyDays.filter((d) => Number.isInteger(d) && d >= 0 && d <= 6))].sort();
+      if (!days.length) throw new BackendError('En az bir çalışma günü seçmelisin.');
+      profile.studyDays = days;
+    }
+    if (patch.studyTime !== undefined) {
+      if (!STUDY_TIMES.includes(patch.studyTime)) throw new BackendError('Geçersiz çalışma zamanı.');
+      profile.studyTime = patch.studyTime;
+    }
     if (patch.onboardingDone !== undefined) profile.onboardingDone = patch.onboardingDone;
     return this.save(userId, { ...state, profile });
   }
@@ -218,7 +229,7 @@ export class LocalBackend implements Backend {
     const userId = this.currentUserId();
     const state = this.load(userId);
     const clean: Appearance = {
-      theme: THEMES.some((t) => t.id === appearance.theme) ? appearance.theme : 'emerald',
+      theme: THEMES.some((t) => t.id === appearance.theme) ? appearance.theme : 'neon',
       accent: isHexColor(appearance.accent) ? appearance.accent : null,
       scale: Math.min(1.2, Math.max(0.9, Number(appearance.scale) || 1)),
       motion: !!appearance.motion,

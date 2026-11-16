@@ -136,6 +136,9 @@ export function newUserState(displayName: string, now: Date): UserState {
       goal: '',
       dailyMinutes: 30,
       interests: [],
+      hobbies: [],
+      studyDays: [0, 1, 2, 3, 4],
+      studyTime: 'evening',
       onboardingDone: false,
       placementDone: false,
       placementLevel: null,
@@ -168,6 +171,14 @@ export function migrateState(raw: any): UserState {
   state.version = 2;
   state.profile = { ...base.profile, ...(raw?.profile ?? {}) };
   state.profile.appearance = { ...DEFAULT_APPEARANCE, ...(raw?.profile?.appearance ?? {}) };
+  // 0.3 tasarım güncellemesi: eski varsayılan temayı kullananlar bir kez yeni Neon temaya geçer.
+  if (!raw?.designV3) {
+    if (!raw?.profile?.appearance?.theme || raw.profile.appearance.theme === 'emerald') state.profile.appearance.theme = 'neon';
+    state.designV3 = true;
+  }
+  if (!Array.isArray(state.profile.hobbies)) state.profile.hobbies = [];
+  if (!Array.isArray(state.profile.studyDays) || !state.profile.studyDays.length) state.profile.studyDays = [0, 1, 2, 3, 4];
+  if (!state.profile.studyTime) state.profile.studyTime = 'evening';
   if (!Array.isArray(state.profile.appearance.dashboard)) state.profile.appearance.dashboard = [...DEFAULT_APPEARANCE.dashboard];
   state.study = raw?.study ?? {};
   state.skills = { ...emptySkills(), ...(raw?.skills ?? {}) };

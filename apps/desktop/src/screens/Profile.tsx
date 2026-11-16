@@ -6,14 +6,16 @@ import { Notice, PageTitle, StatTile, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { curriculum } from '../lib/content.ts';
 import { ProgressTable } from './Analytics.tsx';
-import { GOALS, INTERESTS, MINUTES } from './Onboarding.tsx';
+import { ProfileFields, STUDY_TIME_LABELS } from '../components/ProfileFields.tsx';
+import type { ProfileFieldValues } from '../components/ProfileFields.tsx';
 
 export function ProfileScreen() {
   const { state, session, backend, setState, signOut } = useApp();
   const [name, setName] = useState(state.profile.displayName);
-  const [goal, setGoal] = useState(state.profile.goal);
-  const [interests, setInterests] = useState(state.profile.interests);
-  const [minutes, setMinutes] = useState(state.profile.dailyMinutes);
+  const p = state.profile;
+  const [fields, setFields] = useState<ProfileFieldValues>({
+    goal: p.goal, interests: p.interests, hobbies: p.hobbies, dailyMinutes: p.dailyMinutes, studyDays: p.studyDays, studyTime: p.studyTime,
+  });
   const [message, setMessage] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [password, setPassword] = useState('');
@@ -22,7 +24,6 @@ export function ProfileScreen() {
   const conv = aiAllowance(state, 'conversation', today);
   const writing = aiAllowance(state, 'writing', today);
   const t = totals(state);
-  const toggle = (item: string) => setInterests(interests.includes(item) ? interests.filter((i) => i !== item) : [...interests, item]);
   const initial = state.profile.displayName.trim().charAt(0).toLocaleUpperCase('tr-TR') || '?';
   const weeks = Array.from({ length: 8 }, (_, w) => {
     const days = lastDays(today, 56).slice(w * 7, w * 7 + 7);
@@ -31,7 +32,7 @@ export function ProfileScreen() {
 
   const save = async () => {
     try {
-      setState(await backend.saveProfile({ displayName: name, goal, interests, dailyMinutes: minutes }));
+      setState(await backend.saveProfile({ displayName: name, ...fields }));
       setMessage({ tone: 'success', text: 'Profilin kaydedildi.' });
     } catch (err) {
       setMessage({ tone: 'error', text: errorMessage(err) });
@@ -65,7 +66,7 @@ export function ProfileScreen() {
         <span className="flex h-20 w-20 items-center justify-center rounded-full bg-acc text-4xl font-black text-on-acc">{initial}</span>
         <div className="flex-1">
           <p className="text-2xl font-black text-fg">{state.profile.displayName}</p>
-          <p className="text-fg-2">{state.profile.goal || 'Hedef seçilmedi'} · Günde {state.profile.dailyMinutes} dakika</p>
+          <p className="text-fg-2">{state.profile.goal || 'Hedef seçilmedi'} · Haftada {state.profile.studyDays.length} gün × {state.profile.dailyMinutes} dk · {STUDY_TIME_LABELS[state.profile.studyTime].label}</p>
           <p className="mt-1 text-sm text-fg-3">Üyelik: {new Date(state.profile.createdAt).toLocaleDateString('tr-TR')} · Plan: {state.profile.plan === 'premium' ? 'Premium' : 'Ücretsiz'}</p>
         </div>
         <div className="text-center"><p className="text-sm text-fg-3">Seviye</p><p className="text-4xl font-black text-acc">{currentLevel(state, curriculum)}</p></div>
@@ -95,18 +96,7 @@ export function ProfileScreen() {
           <label className="label" htmlFor="pname">Görünen ad</label>
           <input id="pname" className="field max-w-sm" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
-        <div>
-          <p className="label">Hedef</p>
-          <div className="flex flex-wrap gap-2">{GOALS.map((g) => <button key={g} type="button" className={cx('tile', goal === g && 'option-selected')} onClick={() => setGoal(g)}>{g}</button>)}</div>
-        </div>
-        <div>
-          <p className="label">İlgi alanları</p>
-          <div className="flex flex-wrap gap-2">{INTERESTS.map((i) => <button key={i} type="button" className={cx('tile', interests.includes(i) && 'option-selected')} onClick={() => toggle(i)}>{i}</button>)}</div>
-        </div>
-        <div>
-          <p className="label">Günlük hedef süre</p>
-          <div className="flex flex-wrap gap-2">{MINUTES.map((m) => <button key={m} type="button" className={cx('tile', minutes === m && 'option-selected')} onClick={() => setMinutes(m)}>{m} dakika</button>)}</div>
-        </div>
+        <ProfileFields value={fields} onChange={setFields} />
         <button className="btn btn-primary" data-action="profile-save" onClick={save}>Kaydet</button>
       </section>
 

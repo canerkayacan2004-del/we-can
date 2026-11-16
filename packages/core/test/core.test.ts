@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   addDays, aiAllowance, answerReview, completeAudio, completePractice, deleteNote, migrateState, mistakeExerciseIds, saveNote, applyPlacement, completeLesson, consumeAi, dayKey, dueReviews, effectiveStreak,
-  gradeExercise, lessonUnlocked, newUserState, normalizeAnswer, scorePlacement, unitUnlocked, RULES, SRS_INTERVALS,
+  gradeExercise, lessonUnlocked, newUserState, normalizeAnswer, scorePlacement, unitUnlocked, RULES, SRS_INTERVALS, shuffleExercises, seededRng,
 } from '../src/index.ts';
 import type { Curriculum, LessonContent, Responses, UserState } from '../src/index.ts';
 import { lessonsA1U1 } from '../../../content/exercises/A1/unit01.ts';
@@ -267,5 +267,39 @@ test('eski kayıt yükseltmesi eksik alanları doldurur', () => {
   assert.equal(m.version, 2);
   assert.deepEqual(m.study, {});
   assert.equal(m.skills.listening.total, 0);
-  assert.equal(m.profile.appearance.theme, 'emerald');
+  assert.equal(m.profile.appearance.theme, 'neon');
+  assert.deepEqual(m.profile.studyDays, [0, 1, 2, 3, 4]);
+  assert.deepEqual(m.profile.hobbies, []);
+  // Eski varsayılan tema bir kez Neon'a geçer; sonra kullanıcının seçimine dokunulmaz.
+  const chose = migrateState({ ...m, profile: { ...m.profile, appearance: { ...m.profile.appearance, theme: 'emerald' } } });
+  assert.equal(chose.profile.appearance.theme, 'emerald');
+  const legacy = migrateState({ ...old, profile: { ...(old.profile as object), appearance: { theme: 'emerald' } } });
+  assert.equal(legacy.profile.appearance.theme, 'neon');
+});
+
+test('karıştırma: şıklar ve soru sırası karışır, puanlama özgün içerikle doğru kalır', () => {
+  for (const content of [...lessonsA1U1, ...lessonsA1U2]) {
+    for (let seed = 1; seed <= 5; seed++) {
+      const set = shuffleExercises(content.exercises, { order: true }, seededRng(seed * 97 + content.code.length));
+      assert.equal(set.exercises.length, content.exercises.length);
+      assert.deepEqual(new Set(set.exercises.map((e) => e.id)), new Set(content.exercises.map((e) => e.id)));
+      // Karışık ekranda doğru şıkkı seçen kullanıcı, özgün içerikte de doğru sayılmalı.
+      const shownCorrect = answers({ ...content, exercises: set.exercises });
+      const original = set.toOriginal(shownCorrect);
+      for (const ex of content.exercises) {
+        const g = gradeExercise(ex, original[ex.id] ?? null);
+        if (g.gradable) assert.equal(g.correct, true, `${content.code} ${ex.id} seed ${seed}`);
+      }
+      // Bilgi kartları başta kalır.
+      const firstNonInfo = set.exercises.findIndex((e) => e.type !== 'info');
+      assert.ok(set.exercises.slice(firstNonInfo).every((e) => e.type !== 'info'));
+    }
+  }
+  // En az bir sorunun şık sırası gerçekten değişmeli.
+  const ex = lessonsA1U1[0].exercises.find((e) => e.type === 'mcq')!;
+  const changed = [1, 2, 3, 4, 5, 6].some((seed) => {
+    const out = shuffleExercises([ex], { order: false }, seededRng(seed)).exercises[0];
+    return 'options' in out && 'options' in ex && out.options.join('|') !== ex.options.join('|');
+  });
+  assert.ok(changed);
 });

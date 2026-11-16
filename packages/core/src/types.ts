@@ -198,7 +198,7 @@ export const DASHBOARD_WIDGETS = [
 ] as const;
 
 export const DEFAULT_APPEARANCE: Appearance = {
-  theme: 'emerald',
+  theme: 'neon',
   accent: null,
   scale: 1,
   motion: true,
@@ -207,11 +207,21 @@ export const DEFAULT_APPEARANCE: Appearance = {
 };
 
 // ---- Kullanıcı durumu ----
+export type StudyTime = 'morning' | 'noon' | 'evening' | 'night' | 'flexible';
+export const STUDY_TIMES: readonly StudyTime[] = ['morning', 'noon', 'evening', 'night', 'flexible'];
+
 export interface Profile {
   displayName: string;
   goal: string;
   dailyMinutes: number;
+  /** İngilizce öğrenme konuları (iş, seyahat, emlak…) */
   interests: string[];
+  /** Kişisel hobiler (müzik, oyun, spor…) — örnekler ve AI dersleri buna göre seçilir. */
+  hobbies: string[];
+  /** Çalışma günleri: 0 = Pazartesi … 6 = Pazar */
+  studyDays: number[];
+  /** Tercih edilen çalışma zamanı */
+  studyTime: StudyTime;
   onboardingDone: boolean;
   placementDone: boolean;
   placementLevel: LevelCode | null;
@@ -288,6 +298,8 @@ export interface Note {
 
 export interface UserState {
   version: 2;
+  /** 0.3 tasarım geçişi yapıldı mı */
+  designV3?: boolean;
   profile: Profile;
   stats: { totalXp: number; streak: number; longestStreak: number; lastActiveDate: string | null };
   lessons: Record<string, LessonProgress>;

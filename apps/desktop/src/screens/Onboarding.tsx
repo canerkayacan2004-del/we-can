@@ -1,25 +1,26 @@
 import { useState } from 'react';
+import { ProfileFields } from '../components/ProfileFields.tsx';
+import type { ProfileFieldValues } from '../components/ProfileFields.tsx';
 import { Mascot, Notice, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { THEMES, applyAppearance } from '../lib/theme.ts';
 
-export const GOALS = ['Günlük hayatta rahat konuşmak', 'Seyahatte derdimi anlatmak', 'İş hayatında kullanmak', 'Sınava veya okula hazırlanmak'];
-export const INTERESTS = ['Günlük sohbet', 'Seyahat', 'İş hayatı', 'Emlak sektörü', 'Teknoloji', 'Sosyal hayat'];
-export const MINUTES = [10, 20, 30, 45];
+export { GOALS, INTERESTS, MINUTES } from '../components/ProfileFields.tsx';
 
 export function OnboardingScreen() {
   const { backend, state, setState } = useApp();
-  const [goal, setGoal] = useState(state.profile.goal || GOALS[0]);
-  const [interests, setInterests] = useState<string[]>(state.profile.interests);
-  const [minutes, setMinutes] = useState(state.profile.dailyMinutes);
+  const p = state.profile;
+  const [fields, setFields] = useState<ProfileFieldValues>({
+    goal: p.goal || 'Günlük hayatta rahat konuşmak', interests: p.interests, hobbies: p.hobbies,
+    dailyMinutes: p.dailyMinutes, studyDays: p.studyDays, studyTime: p.studyTime,
+  });
   const [error, setError] = useState('');
   const [theme, setTheme] = useState(state.profile.appearance.theme);
-  const toggle = (item: string) => setInterests(interests.includes(item) ? interests.filter((i) => i !== item) : [...interests, item]);
 
   const save = async () => {
     try {
       await backend.saveAppearance({ ...state.profile.appearance, theme, accent: null });
-      setState(await backend.saveProfile({ goal, interests, dailyMinutes: minutes, onboardingDone: true }));
+      setState(await backend.saveProfile({ ...fields, onboardingDone: true }));
     } catch (err) {
       setError(errorMessage(err));
     }
@@ -36,36 +37,10 @@ export function OnboardingScreen() {
           </div>
         </div>
 
-        <section className="card mt-6">
-          <h2 className="mb-3 text-lg font-extrabold">1. İngilizceyi en çok ne için istiyorsun?</h2>
-          <div className="grid gap-2">
-            {GOALS.map((g) => (
-              <button key={g} type="button" className={cx('option', goal === g && 'option-selected')} onClick={() => setGoal(g)}>{g}</button>
-            ))}
-          </div>
-        </section>
+        <div className="mt-6"><ProfileFields numbered value={fields} onChange={setFields} /></div>
 
         <section className="card mt-4">
-          <h2 className="mb-1 text-lg font-extrabold">2. Hangi konular ilgini çekiyor?</h2>
-          <p className="mb-3 text-sm text-fg-2">Birden fazla seçebilirsin. Örnekler ve senaryolar buna göre ağırlıklandırılır.</p>
-          <div className="flex flex-wrap gap-2">
-            {INTERESTS.map((i) => (
-              <button key={i} type="button" data-interest={i} className={cx('tile', interests.includes(i) && 'option-selected')} onClick={() => toggle(i)}>{i}</button>
-            ))}
-          </div>
-        </section>
-
-        <section className="card mt-4">
-          <h2 className="mb-3 text-lg font-extrabold">3. Günde ne kadar zaman ayırabilirsin?</h2>
-          <div className="flex flex-wrap gap-2">
-            {MINUTES.map((m) => (
-              <button key={m} type="button" className={cx('tile', minutes === m && 'option-selected')} onClick={() => setMinutes(m)}>{m} dakika</button>
-            ))}
-          </div>
-        </section>
-
-        <section className="card mt-4">
-          <h2 className="mb-1 text-lg font-extrabold">4. Görünümünü seç</h2>
+          <h2 className="mb-1 text-lg font-extrabold">5. Görünümünü seç</h2>
           <p className="mb-3 text-sm text-fg-2">Sonra Ayarlar'dan istediğin zaman değiştirebilirsin.</p>
           <div className="flex flex-wrap gap-2">
             {THEMES.map((t) => (

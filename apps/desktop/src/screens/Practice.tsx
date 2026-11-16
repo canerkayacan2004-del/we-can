@@ -45,7 +45,7 @@ export function PracticeScreen() {
     );
   }
 
-  if (phase === 'play') return <Player exercises={exercises} exam={false} onFinish={finish} onQuit={() => go({ name: 'review' })} />;
+  if (phase === 'play') return <Player exercises={exercises} exam={false} shuffleOrder onFinish={finish} onQuit={() => go({ name: 'review' })} />;
 
   if (phase === 'summary' && result) {
     return (
