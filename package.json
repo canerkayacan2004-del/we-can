@@ -1,0 +1,62 @@
+{
+  "name": "we-can",
+  "version": "0.2.1",
+  "private": true,
+  "description": "We Can - Ingilizce ogrenme masaustu uygulamasi",
+  "author": "We Can",
+  "main": "apps/desktop/electron/main.cjs",
+  "scripts": {
+    "content": "node scripts/build-content.mjs",
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/build.mjs && electron .",
+    "dev": "node scripts/dev.mjs",
+    "test": "tsx --test packages/core/test/core.test.ts",
+    "typecheck": "tsc --noEmit",
+    "dist": "node scripts/build.mjs --prod && npx --yes electron-builder@26 --win --publish never"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "electron": "^45.2.1",
+    "esbuild": "^0.28.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3"
+  },
+  "build": {
+    "appId": "com.wecan.app",
+    "productName": "We Can",
+    "directories": {
+      "output": "release",
+      "buildResources": "apps/desktop/build"
+    },
+    "files": [
+      "apps/desktop/electron/**/*",
+      "apps/desktop/dist/**/*",
+      "apps/desktop/build/icon.png",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "apps/desktop/build/icon.ico",
+      "signAndEditExecutable": true
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "We Can",
+      "artifactName": "We-Can-Kurulum-${version}.${ext}",
+      "language": "1055",
+      "installerIcon": "apps/desktop/build/icon.ico",
+      "uninstallerIcon": "apps/desktop/build/icon.ico",
+      "perMachine": false,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "publish": null
+  }
+}

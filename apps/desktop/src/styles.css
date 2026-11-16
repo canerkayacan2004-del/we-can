@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/* We Can görsel kimliği. Renkler tema sisteminden (lib/theme.ts) CSS değişkeni olarak gelir. */
+:root {
+  --wc-bg: #050907; --wc-panel: #0b120f; --wc-panel-2: #101a15; --wc-panel-3: #16231c;
+  --wc-line: #1a2a22; --wc-line-2: #26392f;
+  --wc-fg: #e8f5ee; --wc-fg-2: #a1b7ab; --wc-fg-3: #687d72;
+  --wc-acc: #22d37a; --wc-on-acc: #06120b;
+  --wc-good: #22d37a; --wc-on-good: #06120b; --wc-bad: #ff5c6c; --wc-warn: #ffb547; --wc-gold: #ffc23d; --wc-info: #4fb3ff;
+  --wc-acc-2: color-mix(in oklab, var(--wc-acc) 72%, white);
+  --wc-acc-3: color-mix(in oklab, var(--wc-acc) 62%, black);
+  --wc-scale: 1;
+}
+
+@theme {
+  --font-sans: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-script: "Segoe Script", "Brush Script MT", cursive;
+
+  --color-bg: var(--wc-bg);
+  --color-panel: var(--wc-panel);
+  --color-panel-2: var(--wc-panel-2);
+  --color-panel-3: var(--wc-panel-3);
+  --color-line: var(--wc-line);
+  --color-line-2: var(--wc-line-2);
+  --color-fg: var(--wc-fg);
+  --color-fg-2: var(--wc-fg-2);
+  --color-fg-3: var(--wc-fg-3);
+  --color-acc: var(--wc-acc);
+  --color-acc-2: var(--wc-acc-2);
+  --color-acc-3: var(--wc-acc-3);
+  --color-on-acc: var(--wc-on-acc);
+  --color-good: var(--wc-good);
+  --color-on-good: var(--wc-on-good);
+  --color-bad: var(--wc-bad);
+  --color-warn: var(--wc-warn);
+  --color-gold: var(--wc-gold);
+  --color-info: var(--wc-info);
+
+  --animate-pop: pop 0.35s ease-out;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-shake: shake 0.35s ease-in-out;
+  --animate-rise: rise 0.5s ease-out both;
+  --animate-confetti: confetti 1.6s ease-in forwards;
+  --animate-ring: ring 1.8s ease-out infinite;
+
+  @keyframes pop {
+    0% { transform: scale(0.9); opacity: 0; }
+    70% { transform: scale(1.03); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  @keyframes rise {
+    from { transform: translateY(8px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes ring {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--wc-acc) 55%, transparent); }
+    100% { box-shadow: 0 0 0 18px transparent; }
+  }
+  @keyframes confetti {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(420px) rotate(540deg); opacity: 0; }
+  }
+}
+
+html { font-size: calc(16px * var(--wc-scale)); }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 500px at 15% -10%, color-mix(in oklab, var(--wc-acc) 9%, transparent), transparent 70%),
+    radial-gradient(700px 500px at 110% 110%, color-mix(in oklab, var(--wc-acc) 6%, transparent), transparent 70%),
+    var(--wc-bg);
+  color: var(--wc-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+input, textarea { user-select: text; }
+::selection { background: color-mix(in oklab, var(--wc-acc) 35%, transparent); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--wc-line-2); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-track { background: transparent; }
+:focus-visible { outline: 2px solid var(--wc-acc); outline-offset: 2px; }
+
+html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border-b-4 px-5 py-3 text-base font-bold transition-all duration-100 select-none cursor-pointer;
+  }
+  .btn:active:not(:disabled) { transform: translateY(2px); border-bottom-width: 2px; }
+  .btn:disabled { @apply cursor-not-allowed opacity-45; }
+  .btn-primary { @apply border-acc-3 bg-acc text-on-acc hover:brightness-110; }
+  .btn-success { @apply border-acc-3 bg-good text-on-good hover:brightness-110; }
+  .btn-sun { @apply border-gold/60 bg-gold text-black hover:brightness-110; }
+  .btn-danger { @apply border-bad/60 bg-bad text-white hover:brightness-110; }
+  .btn-ghost { @apply border-2 border-b-4 border-line-2 bg-panel-2 text-fg hover:bg-panel-3; }
+  .btn-sm { @apply rounded-xl px-3 py-1.5 text-sm; }
+
+  .card { @apply rounded-3xl border border-line bg-panel p-5; }
+  .card-glow { box-shadow: 0 0 0 1px color-mix(in oklab, var(--wc-acc) 18%, transparent), 0 10px 40px -20px color-mix(in oklab, var(--wc-acc) 45%, transparent); }
+  .field {
+    @apply w-full rounded-2xl border-2 border-line-2 bg-panel-2 px-4 py-3 text-base text-fg outline-none transition-colors placeholder:text-fg-3 focus:border-acc;
+  }
+  .label { @apply mb-1 block text-sm font-semibold text-fg-2; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-semibold; }
+  .option {
+    @apply w-full cursor-pointer rounded-2xl border-2 border-b-4 border-line-2 bg-panel-2 px-4 py-3 text-left text-base font-semibold text-fg transition-all hover:bg-panel-3;
+  }
+  .option:disabled { @apply cursor-default; }
+  .option-selected { @apply border-acc bg-acc/12 text-acc-2; }
+  .option-correct { @apply border-good bg-good/12 text-good; }
+  .option-wrong { @apply border-bad bg-bad/12 text-bad; }
+  .tile {
+    @apply cursor-pointer rounded-xl border-2 border-b-4 border-line-2 bg-panel-2 px-3 py-2 text-base font-semibold text-fg transition-all hover:bg-panel-3;
+  }
+  .tile:disabled { @apply cursor-default; }
+  .toggle { @apply relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full bg-line-2 transition-colors; }
+  .toggle[aria-checked="true"] { @apply bg-acc; }
+  .toggle > span { @apply inline-block h-5 w-5 translate-x-0.5 rounded-full bg-white transition-transform; }
+  .toggle[aria-checked="true"] > span { @apply translate-x-5.5; }
+  .section-title { @apply mb-3 flex items-center gap-2 text-lg font-extrabold text-fg; }
+  .muted { @apply text-fg-2; }
+  .table-wc { @apply w-full text-left text-sm; }
+  .table-wc th { @apply border-b border-line px-3 py-2 font-semibold text-fg-3; }
+  .table-wc td { @apply border-b border-line/60 px-3 py-2 text-fg-2; }
+}

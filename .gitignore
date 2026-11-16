@@ -1,0 +1,5 @@
+node_modules
+apps/desktop/dist/
+release/
+.runtime/
+*.log
