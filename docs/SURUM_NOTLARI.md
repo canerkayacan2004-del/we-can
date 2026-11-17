@@ -1,3 +1,11 @@
+## We Can 0.3.8
+
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.8.exe` dosyasını indir ve çalıştır.
+Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
+
+### Bu sürümde
+- **İş görüşmesi paketleri:** Öğrenme merkezi → Kelime paketleri altında "Havayolu mülakatı" ve "TV kanalı mülakatı"; gerçek mülakat soruları, örnek cevaplar ve sektör kelimeleri (20'şer ifade)
+
 ## We Can 0.3.7
 
 **Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.7.exe` dosyasını indir ve çalıştır.
