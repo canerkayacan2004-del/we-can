@@ -1,10 +1,11 @@
-## We Can 0.3.3
+## We Can 0.3.4
 
-**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.3.exe` dosyasını indir ve çalıştır.
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.4.exe` dosyasını indir ve çalıştır.
 Windows "bilgisayarınızı korudu" uyarısı verirse: **Ek bilgi → Yine de çalıştır** (uygulama henüz dijital imzalı değil).
 Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
 
 ### Bu sürümde
+- **A1, A2 ve B1 ünitelerinin tamamı artık oynanabilir:** 30 ünite × 5 ders (gramer, konuşma, kelime ve okuma, senaryo ve yazma, ünite sınavı)
 - **C1 ve C2 seviyeleri haritada:** C1'de 12, C2'de 10 ünite (toplam 64 ünite, 320 ders). B2 bitince sırayla açılır.
 - **357 yeni kelime:** kelime bankası 614 kelimeye çıktı (A1 120, A2 115, B1 109, B2 98, C1 90, C2 82)
 - **Hava durumu:** üst çubukta İstanbul'un havası İngilizce kelimelerle (tıklayınca 3 günlük tahmin, dinlenebilir cümle). Veri: Open-Meteo
