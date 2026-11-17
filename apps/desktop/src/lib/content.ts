@@ -14,7 +14,9 @@ import { PHRASES } from '@content/phrases.ts';
 import type { Phrase } from '@content/phrases.ts';
 import { CEFR_LEVELS } from '@core/types.ts';
 import { dailyIndex } from '@core/games.ts';
+import { INTERVIEW_SCENARIOS } from '@content/interview.ts';
 export type { BankWord };
+export { INTERVIEW_SCENARIOS };
 
 export const curriculum = curriculumJson as unknown as Curriculum;
 

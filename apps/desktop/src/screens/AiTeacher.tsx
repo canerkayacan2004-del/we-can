@@ -4,7 +4,7 @@ import { TEACHERS } from '@content/teachers.ts';
 import { Notice, PageTitle, cx } from '../components/ui.tsx';
 import { useApp } from '../lib/app.tsx';
 import type { ChatMessage } from '../lib/backend/types.ts';
-import { aiScenarioLessons, allLessons } from '../lib/content.ts';
+import { INTERVIEW_SCENARIOS, aiScenarioLessons, allLessons } from '../lib/content.ts';
 
 export function AiTeacherScreen() {
   const { backend, state, go } = useApp();
@@ -13,6 +13,7 @@ export function AiTeacherScreen() {
   const scenarios = aiScenarioLessons();
   const [activeCode, setActiveCode] = useState<string | null>(null);
   const active = scenarios.find((s) => s.code === activeCode);
+  const interview = INTERVIEW_SCENARIOS.find((s) => s.code === activeCode);
 
   return (
     <div data-screen="ai">
@@ -41,7 +42,30 @@ export function AiTeacherScreen() {
         ))}
       </div>
 
-      <h2 className="mb-3 text-xl font-black text-fg">Konuşma senaryoları</h2>
+      <h2 className="mb-1 text-xl font-black text-fg">Mülakat provası</h2>
+      <p className="mb-3 text-sm text-fg-2">AI öğretmen işe alım görevlisi olur, sana gerçek mülakat sorularını sorar ve sonunda hatalarını Türkçe açıklar. Önce kelime paketine göz atman iyi olur.</p>
+      <div className="mb-8 grid gap-3 md:grid-cols-2">
+        {INTERVIEW_SCENARIOS.map((s) => (
+          <div key={s.code} className="card" data-interview={s.code}>
+            <div className="flex items-start gap-4">
+              <span className="text-4xl leading-none">{s.emoji}</span>
+              <div className="min-w-0 flex-1">
+                <p className="font-extrabold text-fg">{s.ai.titleTr} <span className="text-sm font-normal text-fg-3">· {s.level}+ · {s.ai.maxTurns} tur</span></p>
+                <p className="text-sm text-fg-2">{s.ai.situationTr}</p>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button className="btn btn-primary" data-action="start-interview" disabled={!status.ai.connected || !allowance.allowed} onClick={() => setActiveCode(s.code)}>
+                {!status.ai.connected ? 'AI bağlı değil' : allowance.allowed ? 'Mülakata başla' : 'Bugünkü hak doldu'}
+              </button>
+              <button className="btn btn-ghost" onClick={() => go({ name: 'hub', tab: 'packs' })}>Kelime paketi</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {interview && <Chat key={interview.code} lessonCode={interview.code} opening={interview.ai.openingEn} maxTurns={interview.ai.maxTurns} onClose={() => setActiveCode(null)} />}
+
+      <h2 className="mb-3 mt-8 text-xl font-black text-fg">Konuşma senaryoları</h2>
       <div className="space-y-3">
         {scenarios.map((lesson) => (
           <div key={lesson.code} className="card flex items-center gap-4" data-scenario={lesson.code}>

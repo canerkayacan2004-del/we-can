@@ -29,6 +29,11 @@ for (const lesson of content.allLessons()) {
     if (ex.type === 'write') writing[ex.id] = { level, promptTr: ex.prompt };
   }
 }
+// Ders haritasına bağlı olmayan mülakat provaları
+for (const s of content.INTERVIEW_SCENARIOS) {
+  const a = s.ai;
+  scenarios[s.code] = { level: s.level, titleTr: a.titleTr, situationTr: a.situationTr, teacherRoleEn: a.teacherRoleEn, openingEn: a.openingEn, goalsTr: a.goalsTr, maxTurns: a.maxTurns };
+}
 
 const file = path.join(root, 'supabase/functions/ai-teacher/index.ts');
 const src = fs.readFileSync(file, 'utf8');

@@ -1,3 +1,12 @@
+## We Can 0.3.9
+
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.9.exe` dosyasını indir ve çalıştır.
+Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
+
+### Bu sürümde
+- **Mülakat provası:** AI öğretmen ekranında "Havayolu mülakatı" ve "TV kanalı mülakatı"; AI işe alım görevlisi olur, gerçek mülakat sorularını sorar ve sonunda hatalarını Türkçe açıklar
+- **AI öğretmen artık bütün derslerde:** A2–C2 konuşma senaryoları ve yazma görevleri sunucu tarafına eklendi (sunucu fonksiyonu güncellenince etkinleşir)
+
 ## We Can 0.3.8
 
 **Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.8.exe` dosyasını indir ve çalıştır.
