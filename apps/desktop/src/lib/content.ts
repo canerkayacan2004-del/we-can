@@ -3,6 +3,7 @@
 import curriculumJson from '@content/data/curriculum.json';
 import { lessonsA1U1, vocabA1U1 } from '@content/exercises/A1/unit01.ts';
 import { lessonsA1U2, vocabA1U2 } from '@content/exercises/A1/unit02.ts';
+import { GENERATED_LESSONS, GENERATED_VOCAB } from '@content/exercises/all.ts';
 import type { Curriculum, Exercise, LessonContent, LessonMeta, UnitMeta, VocabItem } from '@core/types.ts';
 import { pickDailyWords } from '@core/daily.ts';
 import { currentLevel, dayKey } from '@core/engine.ts';
@@ -17,8 +18,8 @@ export type { BankWord };
 
 export const curriculum = curriculumJson as unknown as Curriculum;
 
-const lessonList: LessonContent[] = [...lessonsA1U1, ...lessonsA1U2];
-const vocabList: VocabItem[] = [...vocabA1U1, ...vocabA1U2];
+const lessonList: LessonContent[] = [...lessonsA1U1, ...lessonsA1U2, ...GENERATED_LESSONS];
+const vocabList: VocabItem[] = [...vocabA1U1, ...vocabA1U2, ...GENERATED_VOCAB];
 
 const lessonMap = new Map(lessonList.map((l) => [l.code, l]));
 const vocabMap = new Map(vocabList.map((v) => [v.id, v]));
