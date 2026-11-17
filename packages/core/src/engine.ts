@@ -606,7 +606,8 @@ export function scorePlacement(questions: PlacementQuestion[], answers: Record<s
   }
   const mastered: LevelCode[] = [];
   let level: LevelCode = 'A1';
-  for (const l of LEVELS) {
+  // Yalnızca soru sorulan seviyeler değerlendirilir (seviye tespiti A1–B2 arasıdır).
+  for (const l of LEVELS.filter((x) => perLevel[x].total > 0)) {
     const { correct, total } = perLevel[l];
     level = l;
     if (total > 0 && correct / total >= 0.75) mastered.push(l);
@@ -621,7 +622,7 @@ export function applyPlacement(input: UserState, curriculum: Curriculum, result:
   if (result) {
     state.profile.placementLevel = result.level;
     for (const level of curriculum.levels) {
-      // Son seviye (B2) hiçbir zaman tümüyle atlanmaz; B2 ünite sınavlarıyla doğrulanır.
+      // Tespit edilen en üst seviye hiçbir zaman tümüyle atlanmaz; ünite sınavlarıyla doğrulanır. C1–C2 tespitle atlanmaz.
       if (!result.mastered.includes(level.code) || level.code === result.level) continue;
       for (const unit of level.units) {
         if (!state.units[unit.id]) state.units[unit.id] = { status: 'skipped' };
@@ -662,7 +663,7 @@ export function currentLevel(state: UserState, curriculum: Curriculum): LevelCod
     const s = state.units[unit.id]?.status;
     if (s !== 'passed' && s !== 'skipped') return unit.level;
   }
-  return 'B2';
+  return 'C2';
 }
 
 export function skillAccuracy(state: UserState): Record<Skill, number | null> {

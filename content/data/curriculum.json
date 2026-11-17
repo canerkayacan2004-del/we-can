@@ -2211,6 +2211,1164 @@
      ]
     }
    ]
+  },
+  {
+   "code": "C1",
+   "name": "Advanced",
+   "summary": "Uzun ve karmaşık metinleri anlar, örtük anlamları fark eder; akıcı ve doğal konuşur, sosyal, akademik ve iş hayatında dili esnek ve etkili kullanır; açık, iyi yapılandırılmış ve ayrıntılı metinler yazar.",
+   "units": [
+    {
+     "id": "C1.1",
+     "level": "C1",
+     "number": 1,
+     "title": "İleri zaman yapıları ve bakış açısı",
+     "scenario": "Sosyal",
+     "grammar": "perfect continuous biçimleri, future perfect continuous, geçmişte gelecek (was going to, was about to)",
+     "vocab": "zaman ve değişim ifadeleri (in the meantime, by then, over the years)",
+     "unitTask": "Hayatındaki önemli bir dönüm noktasını farklı zaman yapılarıyla 3 dakika anlatır.",
+     "lessons": [
+      {
+       "code": "C1.1.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "İleri zaman yapılarıyla olayların sırasını ve süresini incelikle anlatmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.1.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Geçmiş deneyimleri ve gelecek planlarını akıcı biçimde anlatmak",
+       "outcome": "3 dakikalık bir anlatıda en az 5 farklı zaman yapısını doğal kullanır"
+      },
+      {
+       "code": "C1.1.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Değişim ve zaman dili; bir biyografi metni",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.1.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir podcast için kişisel hikâyeni anlatmak",
+       "outcome": "3 dakikalık podcast girişi yapar; 250 kelimelik kişisel deneme yazar"
+      },
+      {
+       "code": "C1.1.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Hayatındaki önemli bir dönüm noktasını farklı zaman yapılarıyla 3 dakika anlatır.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.2",
+     "level": "C1",
+     "number": 2,
+     "title": "Devrik yapılar ve vurgu",
+     "scenario": "İş",
+     "grammar": "olumsuz başlangıçlı devrik cümleler (Never have I…, Not only… but also, Hardly… when), cleft yapılar",
+     "vocab": "vurgu zarfları (by no means, under no circumstances, little did I know)",
+     "unitTask": "Bir ürünü ya da projeyi devrik ve vurgulu yapılarla 2 dakika tanıtır.",
+     "lessons": [
+      {
+       "code": "C1.2.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Devrik yapılarla resmi ve etkili vurgu yapmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.2.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Vurgulu ve etkileyici konuşmak",
+       "outcome": "2 dakikalık tanıtımda en az 4 vurgu yapısı kullanır"
+      },
+      {
+       "code": "C1.2.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Vurgu dili; bir şirket açılış konuşması",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.2.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Yatırımcılara yeni bir projeyi tanıtmak",
+       "outcome": "3 dakikalık tanıtım yapar; 200 kelimelik basın bülteni yazar"
+      },
+      {
+       "code": "C1.2.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir ürünü ya da projeyi devrik ve vurgulu yapılarla 2 dakika tanıtır.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.3",
+     "level": "C1",
+     "number": 3,
+     "title": "Nüanslı fikir bildirme ve kaçamaklı dil",
+     "scenario": "Sosyal",
+     "grammar": "hedging (It would appear that, tends to, arguably), modal + perfect ile olasılık",
+     "vocab": "temkinli dil (to some extent, it could be argued, there is a case for)",
+     "unitTask": "Tartışmalı bir konuda dengeli ve temkinli bir görüş sunar.",
+     "lessons": [
+      {
+       "code": "C1.3.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Fikirleri kesin konuşmadan, temkinli dille ifade etmek",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.3.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Tartışmada kibar ama net karşı çıkmak",
+       "outcome": "4 dakikalık tartışmada en az 3 kez temkinli dil ve 2 kez kibar itiraz kullanır"
+      },
+      {
+       "code": "C1.3.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Akademik temkin dili; bir köşe yazısı",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.3.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir panelde tartışmalı bir konuyu tartışmak",
+       "outcome": "Panelde görüşünü gerekçelendirir; 300 kelimelik görüş yazısı yazar"
+      },
+      {
+       "code": "C1.3.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Tartışmalı bir konuda dengeli ve temkinli bir görüş sunar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.4",
+     "level": "C1",
+     "number": 4,
+     "title": "Akademik ve resmi yazı",
+     "scenario": "Eğitim",
+     "grammar": "isimleştirme (nominalisation), edilgen raporlama (It is believed that…), resmi bağlaçlar",
+     "vocab": "akademik kelime listesi (significant, framework, approach, evidence, criteria)",
+     "unitTask": "Bir konuda giriş, gelişme ve sonuç içeren 350 kelimelik akademik deneme yazar.",
+     "lessons": [
+      {
+       "code": "C1.4.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Fiilleri isimleştirerek resmi ve yoğun cümleler kurmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.4.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Bir araştırmayı sözlü olarak özetlemek",
+       "outcome": "2 dakikada bir makalenin ana bulgularını ve sınırlılıklarını aktarır"
+      },
+      {
+       "code": "C1.4.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Akademik kelimeler; bir araştırma özeti",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.4.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir sınav (IELTS/TOEFL tarzı) yazma görevi",
+       "outcome": "350 kelimelik akademik deneme yazar; öz değerlendirme listesini doldurur"
+      },
+      {
+       "code": "C1.4.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir konuda giriş, gelişme ve sonuç içeren 350 kelimelik akademik deneme yazar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.5",
+     "level": "C1",
+     "number": 5,
+     "title": "İkna ve retorik",
+     "scenario": "İş",
+     "grammar": "retorik sorular, üçlü yapılar, koşul ve varsayım cümleleri (Supposing…, Provided that…)",
+     "vocab": "ikna dili (compelling, undeniable, the bottom line is, let’s face it)",
+     "unitTask": "Bir fikri savunan 3 dakikalık ikna edici bir konuşma yapar.",
+     "lessons": [
+      {
+       "code": "C1.5.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Koşul ve varsayım yapılarıyla ikna edici argüman kurmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.5.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "İtirazlara anında cevap vermek",
+       "outcome": "3 itiraza duraksamadan ve ikna edici biçimde cevap verir"
+      },
+      {
+       "code": "C1.5.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Retorik araçlar; ünlü bir konuşmanın analizi (yazılı)",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.5.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir müşteriyi teklifini kabul etmeye ikna etmek",
+       "outcome": "Müzakere rol oyununu tamamlar; 250 kelimelik teklif e-postası yazar"
+      },
+      {
+       "code": "C1.5.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir fikri savunan 3 dakikalık ikna edici bir konuşma yapar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.6",
+     "level": "C1",
+     "number": 6,
+     "title": "Medya, haber ve eleştirel okuma",
+     "scenario": "Medya",
+     "grammar": "aktarma ve mesafe koyma (is said to, reportedly, according to), edilgen ileri yapılar",
+     "vocab": "haber dili (allegedly, sources say, breaking, coverage, bias)",
+     "unitTask": "Aynı haberin iki farklı sunumunu karşılaştırır ve taraflılığı belirler.",
+     "lessons": [
+      {
+       "code": "C1.6.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Habere mesafe koyan yapıları anlamak ve kullanmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.6.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Bir haberi tarafsız biçimde sunmak",
+       "outcome": "90 saniyelik tarafsız bir haber sunumu yapar"
+      },
+      {
+       "code": "C1.6.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Haber ve medya dili; iki farklı haber metni",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.6.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir yayın için haber bülteni hazırlamak",
+       "outcome": "2 dakikalık haber bülteni sunar; 250 kelimelik eleştirel yorum yazar"
+      },
+      {
+       "code": "C1.6.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Aynı haberin iki farklı sunumunu karşılaştırır ve taraflılığı belirler.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.7",
+     "level": "C1",
+     "number": 7,
+     "title": "Deyimsel dil ve mecaz",
+     "scenario": "Sosyal",
+     "grammar": "deyimlerin zaman ve kişiye göre çekimi, mecazi anlamlar",
+     "vocab": "iş ve günlük deyimler (cut to the chase, a blessing in disguise, the ball is in your court)",
+     "unitTask": "Bir hikâyeyi en az 6 deyimi doğru yerde kullanarak anlatır.",
+     "lessons": [
+      {
+       "code": "C1.7.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Deyimleri dil bilgisi yapısına doğru yerleştirmek",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.7.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Günlük konuşmada deyimleri doğal kullanmak",
+       "outcome": "Sohbette en az 5 deyimi bağlamına uygun kullanır"
+      },
+      {
+       "code": "C1.7.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Deyimler ve mecazlar; bir dizi sahnesi (yazılı)",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.7.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir arkadaşa tavsiye veren samimi bir sohbet",
+       "outcome": "Samimi bir tavsiye konuşması yapar; deyimli bir blog yazısı (250 kelime) yazar"
+      },
+      {
+       "code": "C1.7.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir hikâyeyi en az 6 deyimi doğru yerde kullanarak anlatır.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.8",
+     "level": "C1",
+     "number": 8,
+     "title": "Teknoloji ve gelecek tartışması",
+     "scenario": "Teknoloji",
+     "grammar": "gelecekte olasılık (is bound to, is likely to, is set to), karma koşullar",
+     "vocab": "teknoloji dili (cutting-edge, disruptive, data privacy, automation)",
+     "unitTask": "Yapay zekânın bir meslek üzerindeki etkisini artı ve eksileriyle tartışır.",
+     "lessons": [
+      {
+       "code": "C1.8.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Gelecekle ilgili farklı kesinlik derecelerini ifade etmek",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.8.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Teknik bir konuyu sade dille anlatmak",
+       "outcome": "Teknik bir kavramı 2 dakikada uzman olmayan birine anlatır"
+      },
+      {
+       "code": "C1.8.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Teknoloji dili; bir teknoloji makalesi",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.8.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir teknoloji ürününün lansmanında soruları yanıtlamak",
+       "outcome": "Lansman soru-cevabını tamamlar; 300 kelimelik ürün incelemesi yazar"
+      },
+      {
+       "code": "C1.8.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Yapay zekânın bir meslek üzerindeki etkisini artı ve eksileriyle tartışır.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.9",
+     "level": "C1",
+     "number": 9,
+     "title": "Müzakere ve diplomatik dil",
+     "scenario": "İş",
+     "grammar": "yumuşatma yapıları (I was wondering if…, Would it be possible…), geçmiş zamanla kibarlık",
+     "vocab": "müzakere dili (compromise, concession, counter-offer, deal-breaker)",
+     "unitTask": "Bir anlaşmazlıkta iki tarafı da memnun edecek bir uzlaşma önerir.",
+     "lessons": [
+      {
+       "code": "C1.9.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "İstek ve itirazları diplomatik biçimde yumuşatmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.9.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Gerilimli bir konuşmayı sakinleştirmek",
+       "outcome": "Gerilimli rol oyununda en az 4 yumuşatma ifadesi kullanır"
+      },
+      {
+       "code": "C1.9.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Müzakere dili; bir anlaşma yazışması",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.9.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir sözleşme koşullarını yeniden müzakere etmek",
+       "outcome": "Müzakereyi uzlaşmayla bitirir; 250 kelimelik resmi özet e-postası yazar"
+      },
+      {
+       "code": "C1.9.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir anlaşmazlıkta iki tarafı da memnun edecek bir uzlaşma önerir.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.10",
+     "level": "C1",
+     "number": 10,
+     "title": "Kültür, kimlik ve toplum",
+     "scenario": "Sosyal",
+     "grammar": "zenginleştirilmiş sıfat yan cümleleri, participle clauses (Having lived abroad, …)",
+     "vocab": "kültür ve toplum dili (heritage, stereotype, integration, diversity)",
+     "unitTask": "Kendi kültürünü yabancı birine önyargılardan arındırarak tanıtır.",
+     "lessons": [
+      {
+       "code": "C1.10.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Participle yapılarıyla cümleleri birleştirip akıcılaştırmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.10.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Hassas konularda saygılı konuşmak",
+       "outcome": "Hassas bir konuda 3 dakika saygılı ve dengeli konuşur"
+      },
+      {
+       "code": "C1.10.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Kültür dili; bir göçmenin anı yazısı",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.10.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Uluslararası bir öğrenci grubuna kültürünü tanıtmak",
+       "outcome": "3 dakikalık sunum yapar; 300 kelimelik kültürel karşılaştırma yazar"
+      },
+      {
+       "code": "C1.10.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Kendi kültürünü yabancı birine önyargılardan arındırarak tanıtır.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.11",
+     "level": "C1",
+     "number": 11,
+     "title": "Sanat, film ve eleştiri",
+     "scenario": "Medya",
+     "grammar": "değerlendirme dili, karşılaştırmanın ileri biçimleri (far more…, nowhere near as…)",
+     "vocab": "eleştiri dili (gripping, overrated, cinematography, pacing, plot twist)",
+     "unitTask": "Bir film ya da dizinin eleştirisini yazar ve sözlü olarak savunur.",
+     "lessons": [
+      {
+       "code": "C1.11.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "İleri karşılaştırma yapılarıyla nüanslı değerlendirme yapmak",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.11.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Bir eseri tutkuyla ama dengeli eleştirmek",
+       "outcome": "Bir eseri 2 dakika boyunca güçlü ve zayıf yönleriyle değerlendirir"
+      },
+      {
+       "code": "C1.11.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Eleştiri dili; bir film eleştirisi",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.11.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir video kanalı için eleştiri videosu hazırlamak",
+       "outcome": "2 dakikalık eleştiri videosu metnini okur; 300 kelimelik eleştiri yazar"
+      },
+      {
+       "code": "C1.11.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir film ya da dizinin eleştirisini yazar ve sözlü olarak savunur.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C1.12",
+     "level": "C1",
+     "number": 12,
+     "title": "C1 genel tekrar ve sunum",
+     "scenario": "İş ve Medya",
+     "grammar": "C1 dil bilgisi tekrarı, register (resmi/samimi) geçişleri",
+     "vocab": "C1 kelime tekrarı, sunum ve toparlama ifadeleri",
+     "unitTask": "Seçtiği bir konuda 5 dakikalık yapılandırılmış sunum yapar ve soruları yanıtlar.",
+     "lessons": [
+      {
+       "code": "C1.12.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "C1 yapılarını karışık alıştırmalarla pekiştirmek",
+       "outcome": "18 soruluk alıştırmada en az 14 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C1.12.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Resmi ve samimi dil arasında bilinçli geçiş yapmak",
+       "outcome": "Aynı mesajı resmi ve samimi iki biçimde aktarır"
+      },
+      {
+       "code": "C1.12.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Karışık C1 okuma ve kelime tekrarı",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C1.12.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir konferansta kısa konuşma yapmak",
+       "outcome": "5 dakikalık konferans konuşması yapar; 350 kelimelik özet rapor yazar"
+      },
+      {
+       "code": "C1.12.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Seçtiği bir konuda 5 dakikalık yapılandırılmış sunum yapar ve soruları yanıtlar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "C2",
+   "name": "Proficiency",
+   "summary": "Duyduğu ve okuduğu hemen her şeyi zahmetsizce anlar; karmaşık durumlarda bile ince anlam farklarını ayırt ederek akıcı, kesin ve kendiliğinden ifade eder; farklı üsluplarda ustalıkla yazar.",
+   "units": [
+    {
+     "id": "C2.1",
+     "level": "C2",
+     "number": 1,
+     "title": "Üslup ve ton ustalığı",
+     "scenario": "Medya",
+     "grammar": "register ve üslup kaydırma, ironi ve imâ yapıları",
+     "vocab": "üslup kelimeleri (tongue-in-cheek, wry, understated, scathing)",
+     "unitTask": "Aynı olayı üç farklı tonda (resmi, ironik, samimi) anlatır.",
+     "lessons": [
+      {
+       "code": "C2.1.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Üslup ve tonu bilinçli olarak değiştirmek",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.1.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "İroni ve imâyı anlamak ve kullanmak",
+       "outcome": "Bir konuşmadaki ironiyi fark eder ve aynı tonla cevap verir"
+      },
+      {
+       "code": "C2.1.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Üslup dili; bir mizah köşe yazısı",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.1.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Aynı haberi farklı kitleler için yeniden yazmak",
+       "outcome": "Üç farklı tonda 150’şer kelimelik metin yazar"
+      },
+      {
+       "code": "C2.1.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Aynı olayı üç farklı tonda (resmi, ironik, samimi) anlatır.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.2",
+     "level": "C2",
+     "number": 2,
+     "title": "İleri söylem ve metin bağlılığı",
+     "scenario": "Eğitim",
+     "grammar": "söylem belirleyicileri, ellipsis ve substitution, ileri bağlaçlar",
+     "vocab": "söylem dili (that said, be that as it may, by the same token, notwithstanding)",
+     "unitTask": "Karmaşık bir argümanı kusursuz bağlantılarla 400 kelimelik denemede sunar.",
+     "lessons": [
+      {
+       "code": "C2.2.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Eksiltme ve yerine koyma ile metni akıcı ve yoğun kılmak",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.2.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Uzun bir konuşmayı mantıklı biçimde yönlendirmek",
+       "outcome": "5 dakikalık konuşmada fikirleri net geçişlerle bağlar"
+      },
+      {
+       "code": "C2.2.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Söylem dili; akademik bir makale bölümü",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.2.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir dergi için analiz yazısı",
+       "outcome": "400 kelimelik analiz yazısı yazar ve 2 dakikada özetler"
+      },
+      {
+       "code": "C2.2.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Karmaşık bir argümanı kusursuz bağlantılarla 400 kelimelik denemede sunar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.3",
+     "level": "C2",
+     "number": 3,
+     "title": "Edebi dil ve anlatım",
+     "scenario": "Sanat",
+     "grammar": "edebi devrik yapılar, subjunctive (were he to…, be it…), arkaik ve edebi ifadeler",
+     "vocab": "edebi kelimeler (ephemeral, melancholy, serene, poignant)",
+     "unitTask": "Kısa bir öykü yazar ve yüksek sesle etkileyici biçimde okur.",
+     "lessons": [
+      {
+       "code": "C2.3.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Edebi yapıları tanımak ve yazıda kullanmak",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.3.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Bir metni duygu ve vurguyla okumak",
+       "outcome": "Bir paragrafı doğru tonlama ve duraklarla okur"
+      },
+      {
+       "code": "C2.3.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Edebi dil; klasik bir öyküden bölüm (telifsiz)",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.3.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Kısa öykü yarışmasına katılmak",
+       "outcome": "500 kelimelik kısa öykü yazar"
+      },
+      {
+       "code": "C2.3.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Kısa bir öykü yazar ve yüksek sesle etkileyici biçimde okur.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.4",
+     "level": "C2",
+     "number": 4,
+     "title": "Hukuk, sözleşme ve resmî metinler",
+     "scenario": "İş",
+     "grammar": "resmî edilgen yapılar, shall/may hukuk dili, koşul bağlaçları (in the event that, notwithstanding)",
+     "vocab": "hukuk dili (clause, liability, breach, terminate, hereby)",
+     "unitTask": "Bir sözleşme maddesini sade İngilizceye çevirir ve risklerini açıklar.",
+     "lessons": [
+      {
+       "code": "C2.4.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Resmî ve hukuki cümle yapılarını çözümlemek",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.4.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Karmaşık bir metni sade dille açıklamak",
+       "outcome": "Bir sözleşme maddesini 1 dakikada sade dille anlatır"
+      },
+      {
+       "code": "C2.4.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Hukuk dili; örnek bir hizmet sözleşmesi",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.4.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir freelance sözleşmesini incelemek ve değişiklik önermek",
+       "outcome": "Değişiklik önerilerini içeren 250 kelimelik resmi e-posta yazar"
+      },
+      {
+       "code": "C2.4.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir sözleşme maddesini sade İngilizceye çevirir ve risklerini açıklar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.5",
+     "level": "C2",
+     "number": 5,
+     "title": "İnce anlam farkları ve eş anlamlılar",
+     "scenario": "Sosyal",
+     "grammar": "collocation incelikleri, eş anlamlıların bağlama göre seçimi",
+     "vocab": "yakın anlamlı kelime çiftleri (affect/effect, imply/infer, continual/continuous)",
+     "unitTask": "Bir metindeki 10 kelime seçimini daha doğal karşılıklarıyla düzeltir.",
+     "lessons": [
+      {
+       "code": "C2.5.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Yakın anlamlı kelimeleri bağlama göre doğru seçmek",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.5.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Kelime seçimiyle anlamı ve tonu ayarlamak",
+       "outcome": "Aynı fikri üç farklı tonda kelime seçimleriyle ifade eder"
+      },
+      {
+       "code": "C2.5.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Collocation ve eş anlamlılar; editörlük metni",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.5.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir metni yayına hazırlamak (redaksiyon)",
+       "outcome": "300 kelimelik metni düzeltir ve değişiklikleri gerekçelendirir"
+      },
+      {
+       "code": "C2.5.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir metindeki 10 kelime seçimini daha doğal karşılıklarıyla düzeltir.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.6",
+     "level": "C2",
+     "number": 6,
+     "title": "Tartışma ve münazara",
+     "scenario": "Sosyal",
+     "grammar": "karşı argüman yapıları (Granted, …; Admittedly, …), ileri koşul ve varsayım",
+     "vocab": "münazara dili (rebuttal, concede, fallacy, premise, counterargument)",
+     "unitTask": "Resmi bir münazarada bir tarafı savunur ve rakibin argümanlarını çürütür.",
+     "lessons": [
+      {
+       "code": "C2.6.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Karşı argümanı kabul edip çürüten yapılar kurmak",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.6.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Anlık çürütme ve mantık hatası yakalama",
+       "outcome": "Rakibin 2 argümanındaki mantık hatasını belirtir ve çürütür"
+      },
+      {
+       "code": "C2.6.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Münazara dili; bir münazara transkripti",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.6.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Resmi bir münazaraya katılmak",
+       "outcome": "4 dakikalık münazara konuşması yapar; 350 kelimelik görüş yazısı yazar"
+      },
+      {
+       "code": "C2.6.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Resmi bir münazarada bir tarafı savunur ve rakibin argümanlarını çürütür.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.7",
+     "level": "C2",
+     "number": 7,
+     "title": "Kültürel referanslar ve mizah",
+     "scenario": "Medya",
+     "grammar": "kelime oyunları, eksiltili konuşma dili, argo ve kayıt farkı",
+     "vocab": "kültürel referanslar ve mizah dili (pun, deadpan, banter, in-joke)",
+     "unitTask": "Bir stand-up veya dizi sahnesindeki mizahı ve kültürel referansları açıklar.",
+     "lessons": [
+      {
+       "code": "C2.7.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Konuşma dilindeki eksiltileri ve argoyu anlamak",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.7.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Esprili ve doğal sohbet etmek",
+       "outcome": "Samimi sohbette espriye uygun cevap verir"
+      },
+      {
+       "code": "C2.7.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Mizah dili; bir dizi sahnesi metni (özgün)",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.7.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir yayında izleyicilerle esprili sohbet etmek",
+       "outcome": "Esprili bir yayın açılışı yapar; 200 kelimelik mizahi blog yazar"
+      },
+      {
+       "code": "C2.7.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir stand-up veya dizi sahnesindeki mizahı ve kültürel referansları açıklar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.8",
+     "level": "C2",
+     "number": 8,
+     "title": "Liderlik ve kurumsal iletişim",
+     "scenario": "İş",
+     "grammar": "yönlendirme ve geri bildirim yapıları, dolaylı eleştiri",
+     "vocab": "kurumsal dil (stakeholder, alignment, deliverable, roadmap, accountability)",
+     "unitTask": "Bir ekibe zor bir haberi verir ve yeni bir yol haritası sunar.",
+     "lessons": [
+      {
+       "code": "C2.8.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Eleştiriyi yapıcı ve dolaylı biçimde iletmek",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.8.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Toplantı yönetmek ve tartışmayı toparlamak",
+       "outcome": "10 dakikalık toplantı simülasyonunu yönetir ve kararla bitirir"
+      },
+      {
+       "code": "C2.8.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Kurumsal dil; bir CEO mektubu",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.8.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir krizde ekibe açıklama yapmak",
+       "outcome": "3 dakikalık açıklama yapar; 300 kelimelik iç duyuru yazar"
+      },
+      {
+       "code": "C2.8.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir ekibe zor bir haberi verir ve yeni bir yol haritası sunar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.9",
+     "level": "C2",
+     "number": 9,
+     "title": "Simultane düşünme: çeviri ve aktarım",
+     "scenario": "İş ve Medya",
+     "grammar": "Türkçe-İngilizce yapı farkları, anlam odaklı çeviri",
+     "vocab": "çeviri zorlukları (false friends, deyim karşılıkları, kültürel uyarlama)",
+     "unitTask": "Bir Türkçe metni doğal bir İngilizceyle uyarlar ve tercihlerini açıklar.",
+     "lessons": [
+      {
+       "code": "C2.9.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "Türkçe yapıları birebir değil anlamıyla aktarmak",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.9.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Anlık özetleyerek aktarma (ardıl çeviri)",
+       "outcome": "Duyduğu 1 dakikalık konuşmayı İngilizce özetleyerek aktarır"
+      },
+      {
+       "code": "C2.9.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Çeviri tuzakları; iki dilli metin karşılaştırması",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.9.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Bir video için altyazı uyarlaması yapmak",
+       "outcome": "2 dakikalık videonun altyazısını uyarlar ve 5 tercihini gerekçelendirir"
+      },
+      {
+       "code": "C2.9.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Bir Türkçe metni doğal bir İngilizceyle uyarlar ve tercihlerini açıklar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    },
+    {
+     "id": "C2.10",
+     "level": "C2",
+     "number": 10,
+     "title": "C2 ustalık projesi",
+     "scenario": "Serbest",
+     "grammar": "tüm seviyelerin dil bilgisi tekrarı ve hata avı",
+     "vocab": "C2 kelime tekrarı, kişisel uzmanlık alanı kelimeleri",
+     "unitTask": "Kendi seçtiği alanda 7 dakikalık uzman sunumu yapar ve zor soruları yanıtlar.",
+     "lessons": [
+      {
+       "code": "C2.10.1",
+       "number": 1,
+       "kind": "grammar",
+       "title": "Gramer",
+       "goal": "İleri yapıları karışık ve zor alıştırmalarla pekiştirmek",
+       "outcome": "20 soruluk alıştırmada en az 16 doğru; konuyu kendi örnekleriyle 5 cümlede kullanır"
+      },
+      {
+       "code": "C2.10.2",
+       "number": 2,
+       "kind": "speaking",
+       "title": "Konuşma",
+       "goal": "Hazırlıksız, uzun ve akıcı konuşma",
+       "outcome": "Rastgele bir konuda 4 dakika hazırlıksız konuşur"
+      },
+      {
+       "code": "C2.10.3",
+       "number": 3,
+       "kind": "vocab",
+       "title": "Kelime ve okuma",
+       "goal": "Karışık C2 okuma ve kelime tekrarı",
+       "outcome": "16 ifadeden 13’ünü bağlamında kullanır; metnin ana fikrini, yazarın tutumunu ve 3 çıkarımı doğru belirler"
+      },
+      {
+       "code": "C2.10.4",
+       "number": 4,
+       "kind": "scenario",
+       "title": "Senaryo ve yazma",
+       "goal": "Uzmanlık alanında bir sunum ve soru-cevap",
+       "outcome": "7 dakikalık sunum yapar; 500 kelimelik uzman makalesi yazar"
+      },
+      {
+       "code": "C2.10.5",
+       "number": 5,
+       "kind": "exam",
+       "title": "Tekrar ve ünite değerlendirmesi",
+       "goal": "Kendi seçtiği alanda 7 dakikalık uzman sunumu yapar ve zor soruları yanıtlar.",
+       "outcome": "Mini sınavda %80 ve üzeri alınır ve ünite görevi tamamlanır."
+      }
+     ]
+    }
+   ]
   }
  ]
 }

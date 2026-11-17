@@ -211,6 +211,26 @@ test('seviye tespit: alt seviyeler yeterliyse atlanır, B2 hiçbir zaman tümüy
   const t = applyPlacement(newUserState('Test', day1), curriculum, top, day1);
   assert.equal(t.units['B1.12'].status, 'skipped');
   assert.equal(t.units['B2.1'], undefined);
+  // C1–C2 seviye tespitiyle atlanmaz; B2 bitmeden kilitlidir.
+  assert.equal(t.units['C1.1'], undefined);
+  assert.equal(unitUnlocked(t, curriculum, 'C1.1'), false);
+});
+
+test('müfredat: A1–C2 altı seviye, 64 ünite, her ünitede 5 ders ve benzersiz kodlar', () => {
+  assert.deepEqual(curriculum.levels.map((l) => l.code), ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
+  const units = curriculum.levels.flatMap((l) => l.units);
+  assert.equal(units.length, 64);
+  assert.equal(curriculum.levels.find((l) => l.code === 'C1')!.units.length, 12);
+  assert.equal(curriculum.levels.find((l) => l.code === 'C2')!.units.length, 10);
+  const codes = units.flatMap((u) => u.lessons.map((x) => x.code));
+  assert.equal(codes.length, 320);
+  assert.equal(new Set(codes).size, 320);
+  for (const u of units) assert.deepEqual(u.lessons.map((x) => x.kind), ['grammar', 'speaking', 'vocab', 'scenario', 'exam']);
+  // C1.1, B2.12 geçilince açılır
+  const s = newUserState('Test', day1);
+  for (const u of units) if (u.level !== 'C1' && u.level !== 'C2') s.units[u.id] = { status: 'passed' } as never;
+  assert.equal(unitUnlocked(s, curriculum, 'C1.1'), true);
+  assert.equal(unitUnlocked(s, curriculum, 'C2.1'), false);
 });
 
 test('AI kullanım hakkı: ücretsiz planda günlük sınır, ertesi gün sıfırlanır', () => {

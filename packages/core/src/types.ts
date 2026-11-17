@@ -2,10 +2,10 @@
 // Bu klasördeki kod hem masaüstü istemcide hem de sunucu fonksiyonlarında kullanılacak
 // şekilde saf TypeScript olarak yazılmıştır (tarayıcıya veya Node'a özel hiçbir şey içermez).
 
-export type LevelCode = 'A1' | 'A2' | 'B1' | 'B2';
-export const LEVELS: LevelCode[] = ['A1', 'A2', 'B1', 'B2'];
+export type LevelCode = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+export const LEVELS: LevelCode[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 /** Tüm CEFR seviyeleri (kelime bankası ve Gramer Akademisi C1–C2'yi de kapsar). */
-export type CefrLevel = LevelCode | 'C1' | 'C2';
+export type CefrLevel = LevelCode;
 export const CEFR_LEVELS: CefrLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 export type Skill = 'grammar' | 'vocabulary' | 'reading' | 'listening' | 'writing' | 'speaking';

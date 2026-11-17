@@ -34,7 +34,7 @@ export function AuthScreen({ backend, onSession }: { backend: Backend; onSession
         <Mascot size={160} mood="cheer" className="relative animate-float" />
         <p className="relative mt-8 font-script text-2xl text-acc">Better English, a brighter you.</p>
         <h1 className="relative mt-6 text-5xl font-black text-fg">We<span className="text-acc">Can</span></h1>
-        <p className="relative mt-3 max-w-sm text-lg text-fg-2">Türkçe açıklamalarla, adım adım İngilizce. A1'den B2'ye 42 ünite, 210 ders.</p>
+        <p className="relative mt-3 max-w-sm text-lg text-fg-2">Türkçe açıklamalarla, adım adım İngilizce. A1'den C2'ye 64 ünite, 320 ders.</p>
       </div>
       <div className="flex flex-1 items-center justify-center overflow-y-auto px-8 py-10">
         <form className="w-full max-w-md" onSubmit={submit} data-screen="auth">

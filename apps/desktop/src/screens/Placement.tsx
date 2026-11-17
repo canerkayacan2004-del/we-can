@@ -65,7 +65,7 @@ export function PlacementScreen() {
         <p className="mt-4 text-sm font-bold uppercase tracking-wide text-acc">Başlangıç seviyen</p>
         <h1 className="text-6xl font-black text-acc" data-result="level">{result.level}</h1>
         <div className="mt-6 grid w-full max-w-xl grid-cols-4 gap-3">
-          {LEVELS.map((level) => (
+          {LEVELS.filter((l) => result.perLevel[l].total > 0).map((level) => (
             <div key={level} className={cx('card py-3', result.mastered.includes(level) && level !== result.level && 'border-good/40 bg-good/10')}>
               <p className="font-black text-fg">{level}</p>
               <p className="text-sm text-fg-2">{result.perLevel[level].correct} / {result.perLevel[level].total}</p>

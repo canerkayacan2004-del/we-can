@@ -597,8 +597,8 @@ Bu e-posta ile zaten bir hesap var. Giriş yapmayı dene. ⇒ An account with th
 Mevcut şifre hatalı. ⇒ Current password is wrong.
 Şifre hatalı. Hesap silinmedi. ⇒ Wrong password. Account not deleted.
 Oturum bulunamadı. Lütfen yeniden giriş yap. ⇒ Session not found. Please sign in again.
-Türkçe açıklamalarla, adım adım İngilizce. A1'den B2'ye 42 ünite, 210 ders. ⇒ English step by step, explained in Turkish. 42 units and 210 lessons from A1 to B2.
-A1'den B2'ye 4 seviye, 42 ünite, 210 ders. ⇒ 4 levels from A1 to B2, 42 units, 210 lessons.
+Türkçe açıklamalarla, adım adım İngilizce. A1'den C2'ye 64 ünite, 320 ders. ⇒ English step by step, explained in Turkish. 64 units and 320 lessons from A1 to C2.
+A1'den C2'ye 6 seviye, 64 ünite, 320 ders. C1 ve C2, B2 bitince açılır. ⇒ 6 levels from A1 to C2, 64 units, 320 lessons. C1 and C2 open after B2.
 İlerlemen hesabına kaydedilir. ⇒ Your progress is saved to your account.
 Bulut hesabı henüz bağlı olmadığı için hesap ve ilerleme yalnızca bu bilgisayarda saklanır. E-posta doğrulaması ve şifre sıfırlama bu modda yoktur; şifreni unutma. ⇒ The cloud account isn't connected yet, so your account and progress are only stored on this computer. There's no email verification or password reset in this mode — don't forget your password.
 We Can açılıyor… ⇒ We Can is starting…
@@ -863,6 +863,32 @@ Günaydın ⇒ Good morning
 İyi akşamlar ⇒ Good evening
 İyi geceler ⇒ Good night
 📍 İstanbul · Hava durumu ⇒ 📍 Istanbul · Weather
+İleri zaman yapıları ve bakış açısı ⇒ Advanced tenses and perspective
+Devrik yapılar ve vurgu ⇒ Inversion and emphasis
+Nüanslı fikir bildirme ve kaçamaklı dil ⇒ Nuanced opinions and hedging
+Akademik ve resmi yazı ⇒ Academic and formal writing
+İkna ve retorik ⇒ Persuasion and rhetoric
+Medya, haber ve eleştirel okuma ⇒ Media, news and critical reading
+Deyimsel dil ve mecaz ⇒ Idiomatic and figurative language
+Teknoloji ve gelecek tartışması ⇒ Technology and the future
+Müzakere ve diplomatik dil ⇒ Negotiation and diplomatic language
+Kültür, kimlik ve toplum ⇒ Culture, identity and society
+Sanat, film ve eleştiri ⇒ Art, film and criticism
+C1 genel tekrar ve sunum ⇒ C1 review and presentation
+Üslup ve ton ustalığı ⇒ Mastering style and tone
+İleri söylem ve metin bağlılığı ⇒ Advanced discourse and cohesion
+Edebi dil ve anlatım ⇒ Literary language and narrative
+Hukuk, sözleşme ve resmî metinler ⇒ Law, contracts and official texts
+İnce anlam farkları ve eş anlamlılar ⇒ Fine shades of meaning and synonyms
+Tartışma ve münazara ⇒ Debate
+Kültürel referanslar ve mizah ⇒ Cultural references and humour
+Liderlik ve kurumsal iletişim ⇒ Leadership and corporate communication
+Simultane düşünme: çeviri ve aktarım ⇒ Thinking in two languages: translation and mediation
+C2 ustalık projesi ⇒ C2 mastery project
+Medya ⇒ Media
+Sanat ⇒ Art
+Serbest ⇒ Open topic
+İş ve Medya ⇒ Work and media
 `;
 
 const PATTERNS = `

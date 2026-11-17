@@ -22,7 +22,7 @@ export function MapScreen() {
   const { state, go } = useApp();
   return (
     <div data-screen="map">
-      <PageTitle title="Öğrenme haritası" icon="map" subtitle="A1'den B2'ye 4 seviye, 42 ünite, 210 ders." />
+      <PageTitle title="Öğrenme haritası" icon="map" subtitle="A1'den C2'ye 6 seviye, 64 ünite, 320 ders. C1 ve C2, B2 bitince açılır." />
       <div className="mb-6">
         <Notice tone="info">Şu an <b>{readyUnitCount()}</b> ünitenin alıştırmaları hazır. Diğer ünitelerin hedeflerini görebilirsin; içerikleri eklendikçe açılır.</Notice>
       </div>
