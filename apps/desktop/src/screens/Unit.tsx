@@ -1,4 +1,4 @@
-import { lessonUnlocked, unitUnlocked } from '@core/engine.ts';
+import { lessonUnlocked, startTestOut, unitUnlocked } from '@core/engine.ts';
 import { TEACHERS } from '@content/teachers.ts';
 import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, cx } from '../components/ui.tsx';
@@ -9,7 +9,7 @@ const KIND_TR = { grammar: 'Gramer', speaking: 'Konuşma', vocab: 'Kelime ve bec
 const STATUS_TR = { passed: 'Ünite geçildi', reinforce: 'Pekiştirme gerekli', failed: 'Sınav tekrarlanmalı', skipped: 'Seviye tespitiyle atlandı' } as const;
 
 export function UnitScreen({ unitId }: { unitId: string }) {
-  const { state, go } = useApp();
+  const { state, go, setState } = useApp();
   const unit = getUnit(unitId);
   if (!unit) return <Notice tone="error">Ünite bulunamadı.</Notice>;
   const unlocked = unitUnlocked(state, curriculum, unit.id);
@@ -36,6 +36,15 @@ export function UnitScreen({ unitId }: { unitId: string }) {
           className="card mb-5 flex w-full items-center gap-4 p-4 text-left hover:border-bad/50">
           <span className="text-4xl leading-none">👾</span>
           <span className="flex-1"><b className="block text-fg">Boss savaşı</b><span className="text-sm text-fg-3">Ünitenin sorularıyla süreli savaş · 3 kalp · kazanırsan +8 XP</span></span>
+          <Icon name="arrowRight" size={18} className="text-fg-3" />
+        </button>
+      )}
+
+      {unlocked && hasContent && progress?.status !== 'passed' && progress?.status !== 'skipped' && !state.testOut?.[unit.id] && (
+        <button type="button" data-action="test-out" onClick={() => { setState(startTestOut(state, unit.id)); go({ name: 'lesson', code: `${unit.id}.${unit.lessons.length}` }); }}
+          className="card mb-5 flex w-full items-center gap-4 p-4 text-left hover:border-acc/50">
+          <span className="text-4xl leading-none">⏭</span>
+          <span className="flex-1"><b className="block text-fg">Bu konuyu biliyorum</b><span className="text-sm text-fg-3">Dersleri atla, doğrudan ünite sınavına gir · %80 alırsan ünite geçilir</span></span>
           <Icon name="arrowRight" size={18} className="text-fg-3" />
         </button>
       )}

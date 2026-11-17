@@ -28,8 +28,8 @@ export function Greeting({ name }: { name: string }) {
 export function LiveClock() {
   const now = useNow();
   const loc = uiLocale();
-  const time = now.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  const date = now.toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const time = now.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit' });
+  const date = now.toLocaleDateString(loc, { weekday: 'short', day: 'numeric', month: 'short' });
   return (
     <span className="flex items-center gap-2 rounded-full border border-line bg-panel-2 px-3 py-1 text-sm max-[900px]:hidden" data-clock title={date} data-no-translate>
       <span className="text-fg-2">{date}</span>

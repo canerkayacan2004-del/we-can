@@ -889,9 +889,24 @@ Medya ⇒ Media
 Sanat ⇒ Art
 Serbest ⇒ Open topic
 İş ve Medya ⇒ Work and media
+Bugünkü 15 dakikam ⇒ My 15 minutes today
+Bugünün planı tamam, harikasın! 🎉 ⇒ Today's plan is done, great job! 🎉
+Yeni ders ⇒ New lesson
+Telaffuz ⇒ Pronunciation
+Bugünlük tekrar yok ⇒ No reviews today
+Bütün dersler bitti ⇒ All lessons done
+Cümleleri sesli söyle ⇒ Say sentences aloud
+Kısa bir oyunla bitir ⇒ Finish with a quick game
+Bu konuyu biliyorum ⇒ I already know this
+Dersleri atla, doğrudan ünite sınavına gir · %80 alırsan ünite geçilir ⇒ Skip the lessons and take the unit exam · score 80% to pass the unit
+Daha az göster ⇒ Show less
 `;
 
 const PATTERNS = `
+{}/{} adım tamam · sıradaki adıma tek tıkla geç ⇒ {}/{} steps done · one click to the next step
+{} kart seni bekliyor ⇒ {} cards waiting
+Sıradaki: {} ⇒ Next: {}
++{} oyun daha ⇒ +{} more games
 Aralıklı tekrar: {} gün. Bildiğin kart bir sonraki aralığa geçer. ⇒ Spaced review: {} days. Cards you know move to the next interval.
 Bugün {} dakika çalıştın. ⇒ You studied {} minutes today.
 Cevap: {} ⇒ Answer: {}

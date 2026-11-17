@@ -13,6 +13,7 @@ import { curriculum, getLessonContent, getLessonMeta, getUnit, getVocabItem } fr
 import { phraseOfDay, todaysWords } from '../lib/content.ts';
 import { speak } from '../lib/tts.ts';
 import { buildPlan } from './Planner.tsx';
+import { TodayPlan } from '../components/TodayPlan.tsx';
 
 const DAY_TR = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
 
@@ -62,6 +63,7 @@ export function DashboardScreen() {
 
   return (
     <div data-screen="dashboard" className="space-y-5">
+      <TodayPlan />
       {/* Karşılama */}
       <div className="grid gap-5 lg:grid-cols-[1fr_300px]">
         <section className="card card-glow relative min-h-[300px] overflow-hidden p-7" data-widget="hero">

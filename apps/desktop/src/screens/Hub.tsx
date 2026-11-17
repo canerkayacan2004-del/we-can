@@ -6,6 +6,7 @@ import type { CefrLevel } from '@core/types.ts';
 import { PLAY_LIST, READ_LIST, WATCH_LIST, WORD_PACKS } from '@content/hub.ts';
 import type { MediaItem, MediaKind, WordPack } from '@content/hub.ts';
 import { Icon } from '../components/Icon.tsx';
+import { WeatherChip } from '../components/Weather.tsx';
 import { PageTitle, SpeakButton, cx } from '../components/ui.tsx';
 import { useApp } from '../lib/app.tsx';
 import type { Route } from '../lib/app.tsx';
@@ -33,7 +34,7 @@ export function HubScreen({ tab: initial }: { tab?: HubTab }) {
 
   return (
     <div data-screen="hub" className="space-y-5">
-      <PageTitle title="Öğrenme merkezi" icon="sparkles" subtitle="Kelimeler, oyunlar, dinleme, dizi-film, kitaplar ve paketler tek yerde" />
+      <PageTitle title="Öğrenme merkezi" icon="sparkles" subtitle="Kelimeler, oyunlar, dinleme, dizi-film, kitaplar ve paketler tek yerde" right={<WeatherChip />} />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-1 rounded-2xl border border-line bg-panel p-1" role="tablist">
           {TABS.map((t) => (

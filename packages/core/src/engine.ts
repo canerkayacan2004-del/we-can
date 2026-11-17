@@ -304,6 +304,12 @@ export function unitUnlocked(state: UserState, curriculum: Curriculum, unitId: s
   return prev?.status === 'passed' || prev?.status === 'skipped';
 }
 
+export function startTestOut(input: UserState, unitId: string): UserState {
+  const state = structuredClone(input);
+  state.testOut = { ...(state.testOut ?? {}), [unitId]: true };
+  return state;
+}
+
 export function lessonUnlocked(state: UserState, curriculum: Curriculum, unit: UnitMeta, lessonNumber: number): boolean {
   if (!unitUnlocked(state, curriculum, unit.id)) return false;
   const done = (n: number) => state.lessons[`${unit.id}.${n}`]?.status === 'completed';
@@ -312,6 +318,8 @@ export function lessonUnlocked(state: UserState, curriculum: Curriculum, unit: U
   if (isExam) {
     // Seviye tespitiyle atlanan ünitede öğrenci doğrudan ünite sınavına girebilir.
     if (state.units[unit.id]?.status === 'skipped') return true;
+    // Öğrenci 'Bu konuyu biliyorum' dediyse sınava doğrudan girer; geçme sınırı aynı kalır.
+    if (state.testOut?.[unit.id]) return true;
     return unit.lessons.slice(0, -1).every((l) => done(l.number));
   }
   return done(lessonNumber - 1);

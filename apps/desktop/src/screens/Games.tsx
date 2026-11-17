@@ -7,6 +7,7 @@ import { FIVE_LETTER_WORDS as CURATED_5 } from '@content/games/words5.ts';
 import { VALID_5 } from '@content/games/valid5.ts';
 import { WORD_BANK } from '@content/words/index.ts';
 import { Icon } from '../components/Icon.tsx';
+import { markTodayGame } from '../components/TodayPlan.tsx';
 import { Notice, PageTitle, SpeakButton, cx } from '../components/ui.tsx';
 import { errorMessage, useApp } from '../lib/app.tsx';
 import { playSound } from '../lib/sound.ts';
@@ -53,19 +54,27 @@ const GAMES: { id: GameTab; emoji: string; label: string; hint: string }[] = [
   { id: 'subtitle', emoji: '🎬', label: 'Altyazı görevi', hint: 'Dinle, altyazıyı seç' },
 ];
 
+const MAIN_GAMES: GameTab[] = ['story', 'categories', 'wordle', 'dictation'];
+
 export function GamesScreen({ game }: { game?: GameTab }) {
   const [tab, setTab] = useState<GameTab>(game && GAMES.some((g) => g.id === game) ? game : 'wordle');
+  const [more, setMore] = useState(() => !!game && !MAIN_GAMES.includes(game));
+  useEffect(() => { markTodayGame(); }, []);
+  const shown = GAMES.filter((g) => more || MAIN_GAMES.includes(g.id) || g.id === tab);
   return (
     <div data-screen="games" className="space-y-4">
       <PageTitle title="Oyun salonu" icon="target" subtitle="Oynayarak öğren: kelime, dinleme ve konuşma oyunları tek yerde." />
       <div className="flex flex-wrap gap-2" role="tablist">
-        {GAMES.map((g) => (
+        {shown.map((g) => (
           <button key={g.id} type="button" role="tab" aria-selected={tab === g.id} data-game-tab={g.id} onClick={() => setTab(g.id)} title={g.hint}
             className={cx('flex shrink-0 items-center gap-2 rounded-2xl border px-3 py-2 text-left', tab === g.id ? 'border-acc bg-acc/12 shadow-[0_0_14px_-5px_var(--wc-acc)]' : 'border-line bg-panel-2 hover:border-acc/40')}>
             <span className="text-xl leading-none">{g.emoji}</span>
             <span><span className="block text-sm font-bold text-fg">{g.label}</span><span className="block text-[0.7rem] text-fg-3">{g.hint}</span></span>
           </button>
         ))}
+        <button type="button" data-action="more-games" onClick={() => setMore((m) => !m)} className="btn btn-ghost btn-sm self-center">
+          {more ? 'Daha az göster' : `+${GAMES.length - MAIN_GAMES.length} oyun daha`}
+        </button>
       </div>
       {tab === 'wordle' && <Wordle />}
       {tab === 'scramble' && <Scramble />}

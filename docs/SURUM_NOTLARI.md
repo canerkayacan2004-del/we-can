@@ -1,3 +1,14 @@
+## We Can 0.3.6
+
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.6.exe` dosyasını indir ve çalıştır.
+Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
+
+### Bu sürümde
+- **Bugünkü 15 dakikam:** panonun en üstünde tek düğme; sırayla tekrar, yeni ders, telaffuz ve oyun
+- **"Bu konuyu biliyorum":** ünite sayfasından dersleri atlayıp doğrudan ünite sınavına girebilirsin (%80 alırsan ünite geçilir)
+- **Daha sade arayüz:** üst çubuktaki saat saniyesiz ve kısa tarihli; hava durumu Öğrenme merkezine taşındı
+- **Oyun salonu:** 4 ana oyun öne çıktı, diğerleri "+4 oyun daha" altında
+
 ## We Can 0.3.5
 
 **Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.5.exe` dosyasını indir ve çalıştır.

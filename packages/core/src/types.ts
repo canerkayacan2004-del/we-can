@@ -309,6 +309,8 @@ export interface UserState {
   designV3?: boolean;
   /** Panoya "Günün cümlesi" kutusu bir kez eklendi mi. */
   phraseV1?: boolean;
+  /** Dersleri çalışmadan doğrudan ünite sınavına girmek istenen üniteler. */
+  testOut?: Record<string, true>;
   /** Günlük 10 kelime: bugün görülen / öğrenilen kelimeler */
   dailyWords?: { date: string; seen: string[]; learned: string[]; rewarded: boolean };
   /** Kelime oyunları istatistikleri */
