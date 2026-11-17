@@ -3,7 +3,7 @@ import type { GameId } from '@core/games.ts';
 // Yerel mod (LocalBackend) ve ileride bulut modu (Supabase) aynı arayüzü uygular;
 // ekranlar hangisinin çalıştığını bilmek zorunda değildir.
 import type { PlacementResult } from '@core/engine.ts';
-import type { Appearance, Exercise, LessonResult, Note, PracticeResult, Profile, Responses, ReviewResult, UserState } from '@core/types.ts';
+import type { Appearance, Exercise, LessonResult, LevelCode, LevelExamResult, Note, PracticeResult, Profile, Responses, ReviewResult, UserState } from '@core/types.ts';
 
 export interface Session {
   userId: string;
@@ -51,6 +51,11 @@ export interface Backend {
   submitPlacement(answers: Record<string, number> | null): Promise<{ state: UserState; result: PlacementResult | null }>;
   resetPlacement(): Promise<UserState>;
   completeLesson(code: string, responses: Responses, seconds: number): Promise<{ state: UserState; result: LessonResult }>;
+  /** "Bu konuyu biliyorum": dersleri atlayıp ünite sınavına girme isteğini kaydeder. */
+  startTestOut(unitId: string): Promise<UserState>;
+  /** Seviye sonu deneme sınavı için 25 soru seçer. */
+  levelExamSet(level: LevelCode): Promise<Exercise[]>;
+  completeLevelExam(level: LevelCode, exerciseIds: string[], responses: Responses, seconds: number): Promise<{ state: UserState; result: LevelExamResult }>;
   answerReview(itemId: string, result: ReviewResult, seconds: number): Promise<UserState>;
   setVocabNote(vocabId: string, note: string): Promise<UserState>;
 

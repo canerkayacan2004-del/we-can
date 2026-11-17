@@ -19,6 +19,7 @@ import { GamesScreen } from './screens/Games.tsx';
 import { ReportScreen } from './screens/Report.tsx';
 import { HubScreen } from './screens/Hub.tsx';
 import { BossScreen } from './screens/Boss.tsx';
+import { LevelExamScreen } from './screens/LevelExam.tsx';
 import { FriendsScreen } from './screens/Friends.tsx';
 import { LessonScreen } from './screens/Lesson.tsx';
 import { MapScreen } from './screens/Map.tsx';
@@ -114,6 +115,7 @@ export function App() {
   else if (!state.profile.placementDone) body = <PlacementScreen />;
   else if (route.name === 'lesson') body = <LessonScreen key={route.code} code={route.code} />;
   else if (route.name === 'practice') body = <PracticeScreen />;
+  else if (route.name === 'levelExam') body = <LevelExamScreen key={route.level} level={route.level} />;
   else {
     body = (
       <Shell>

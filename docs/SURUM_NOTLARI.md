@@ -1,3 +1,12 @@
+## We Can 0.3.7
+
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.7.exe` dosyasını indir ve çalıştır.
+Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
+
+### Bu sürümde
+- **Seviye deneme sınavı:** haritada her seviyenin sonunda; seviyenin bütün ünitelerinden 25 soru, %80 ile geçilir. İlerlemeni etkilemez, yanlışların akıllı tekrara eklenir, her girişte sorular değişir
+- **Düzeltme:** "Bu konuyu biliyorum" ile girilen ünite sınavı bitince çıkabilen "Bu ders henüz kilitli" hatası giderildi
+
 ## We Can 0.3.6
 
 **Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.6.exe` dosyasını indir ve çalıştır.

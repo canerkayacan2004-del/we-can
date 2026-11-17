@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import {
   addDays, aiAllowance, answerReview, completeAudio, completePractice, deleteNote, migrateState, mistakeExerciseIds, saveNote, applyPlacement, completeLesson, consumeAi, dayKey, dueReviews, effectiveStreak,
   gradeExercise, lessonUnlocked, newUserState, normalizeAnswer, scorePlacement, unitUnlocked, RULES, SRS_INTERVALS, shuffleExercises, seededRng,
+  startTestOut, completeLevelExam, pickLevelExam, levelExamUnlocked, LEVEL_EXAM, LEVEL_EXAM_TYPES,
   pickDailyWords, markDailyWord, DAILY_WORDS_XP, scoreGuess, recordGame, scrambleWord, dailyIndex, GAMES_DAILY_XP_CAP,
 } from '../src/index.ts';
 import type { Curriculum, LessonContent, Responses, UserState } from '../src/index.ts';
@@ -399,4 +400,54 @@ test('oyun sonuçları: günlük Wordle bir kez, XP günlük sınırı', () => {
   assert.equal(state.games?.scramble.best, 30);
   // ertesi gün sınır sıfırlanır
   assert.equal(recordGame(state, 'scramble', { won: true }, day1, '2026-11-17').xp, 2);
+});
+
+test('"Bu konuyu biliyorum": kayıtlı durumda sınav kilidi açılır, geçme sınırı aynı kalır', () => {
+  const fresh = newUserState('Test', day1);
+  const exam = lesson('A1.1.5');
+  assert.throws(() => completeLesson(fresh, curriculum, exam, answers(exam), day1), /kilitli/);
+  const state = startTestOut(fresh, 'A1.1');
+  assert.equal(lessonUnlocked(state, curriculum, curriculum.levels[0].units[0], 5), true);
+  const out = completeLesson(state, curriculum, exam, answers(exam), day1);
+  assert.equal(out.state.units['A1.1'].status, 'passed');
+  assert.equal(unitUnlocked(out.state, curriculum, 'A1.2'), true);
+});
+
+test('seviye deneme sınavı: 25 soru, %80 geçme, sonuç kaydı, kilitlere dokunmaz', () => {
+  const pool = (list: LessonContent[]) => list.filter((l) => l.mode !== 'exam').flatMap((l) => l.exercises.filter((e) => LEVEL_EXAM_TYPES.includes(e.type)));
+  const pools = [pool(lessonsA1U1), pool(lessonsA1U2)];
+  const set = pickLevelExam(pools, seededRng(7));
+  assert.equal(set.length, LEVEL_EXAM.questions);
+  assert.equal(new Set(set.map((e) => e.id)).size, set.length);
+  // iki ünite dengeli dağılır
+  const fromU1 = set.filter((e) => pools[0].includes(e)).length;
+  assert.equal(Math.abs(fromU1 - (set.length - fromU1)) <= 1, true);
+
+  const content = { exercises: set } as LessonContent;
+  let state = newUserState('Test', day1);
+  assert.equal(levelExamUnlocked(state, curriculum, 'A1'), true);
+  assert.equal(levelExamUnlocked(state, curriculum, 'A2'), false);
+  assert.throws(() => completeLevelExam(state, curriculum, 'A2', set, answers(content), day1), /kilitli/);
+  assert.throws(() => completeLevelExam(state, curriculum, 'A1', set.slice(0, 10), answers(content), day1), /Geçersiz/);
+
+  // 6 yanlış: 19/25 = %76 → kalır, XP yok, yanlışlar tekrara düşer
+  let out = completeLevelExam(state, curriculum, 'A1', set, answers(content, 6), day1, 300);
+  assert.equal(out.result.score, 76);
+  assert.equal(out.result.passed, false);
+  assert.equal(out.result.xp, 0);
+  assert.equal(out.state.reviews.filter((r) => r.kind === 'mistake').length, 6);
+  assert.deepEqual(out.state.units, {});
+  state = out.state;
+
+  // 5 yanlış: 20/25 = %80 → geçer, ilk geçişte sınav XP'si
+  out = completeLevelExam(state, curriculum, 'A1', set, answers(content, 5), day1);
+  assert.equal(out.result.passed, true);
+  assert.equal(out.result.firstPass, true);
+  assert.equal(out.result.xp, RULES.xpExam);
+  state = out.state;
+  // tekrar geçiş yalnızca tekrar XP'si verir; en iyi sonuç korunur
+  out = completeLevelExam(state, curriculum, 'A1', set, answers(content), day1);
+  assert.equal(out.result.xp, RULES.xpRepeat);
+  assert.deepEqual({ ...out.state.levelExams!.A1, lastAt: '' }, { bestScore: 100, lastScore: 100, attempts: 3, passed: true, lastAt: '' });
+  assert.equal(out.state.levelExams!.A2, undefined);
 });

@@ -1,4 +1,4 @@
-import { levelProgress, unitUnlocked } from '@core/engine.ts';
+import { LEVEL_EXAM, levelExamUnlocked, levelProgress, unitUnlocked } from '@core/engine.ts';
 import type { UnitMeta, UserState } from '@core/types.ts';
 import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, ProgressBar, cx } from '../components/ui.tsx';
@@ -78,6 +78,21 @@ export function MapScreen() {
                   </div>
                 );
               })}
+              {(() => {
+                const open = levelExamUnlocked(state, curriculum, level.code);
+                const exam = state.levelExams?.[level.code];
+                return (
+                  <button type="button" data-level-exam={level.code} disabled={!open} onClick={() => go({ name: 'levelExam', level: level.code })}
+                    className={cx('card mt-2 flex w-full max-w-md items-center gap-4 p-4 text-left', open ? 'hover:border-acc/50' : 'opacity-55')}>
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-acc/12 text-acc"><Icon name={open ? 'trophy' : 'lock'} size={24} /></span>
+                    <span className="flex-1">
+                      <b className="block text-fg">{level.code} deneme sınavı</b>
+                      <span className="text-sm text-fg-3">{exam ? `En iyi sonucun: %${exam.bestScore} · ${exam.attempts} deneme${exam.passed ? ' · geçildi' : ''}` : `${LEVEL_EXAM.questions} soru · %${LEVEL_EXAM.pass} ile geçilir · ilerlemeni etkilemez`}</span>
+                    </span>
+                    {open && <Icon name="arrowRight" size={18} className="text-fg-3" />}
+                  </button>
+                );
+              })()}
             </div>
           </section>
         );

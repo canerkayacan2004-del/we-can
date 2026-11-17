@@ -311,6 +311,8 @@ export interface UserState {
   phraseV1?: boolean;
   /** Dersleri çalışmadan doğrudan ünite sınavına girmek istenen üniteler. */
   testOut?: Record<string, true>;
+  /** Seviye sonu deneme sınavları: seviye kodu → en iyi sonuç. İlerleme kilitlerini etkilemez. */
+  levelExams?: Record<string, LevelExamProgress>;
   /** Günlük 10 kelime: bugün görülen / öğrenilen kelimeler */
   dailyWords?: { date: string; seen: string[]; learned: string[]; rewarded: boolean };
   /** Kelime oyunları istatistikleri */
@@ -360,6 +362,29 @@ export interface LessonResult {
   questsCompleted: string[];
   vocabAdded: number;
   unit?: { id: string; status: UnitStatus; score: number };
+}
+
+export interface LevelExamProgress {
+  bestScore: number;
+  lastScore: number;
+  attempts: number;
+  passed: boolean;
+  lastAt: string;
+}
+
+export interface LevelExamResult {
+  level: LevelCode;
+  score: number;
+  correct: number;
+  total: number;
+  passed: boolean;
+  firstPass: boolean;
+  bestScore: number;
+  xp: number;
+  seconds: number;
+  details: ExerciseResult[];
+  newBadges: string[];
+  questsCompleted: string[];
 }
 
 export interface PracticeResult {

@@ -1,6 +1,10 @@
 // İngilizce arayüz sözlüğü. Her satır: Türkçe metin ⇒ İngilizce karşılığı. "{}" değişken yerini tutar.
 const RAW = `
 Pano ⇒ Dashboard
+Sınava başla ⇒ Start exam
+Yeni sorularla tekrar dene ⇒ Try again with new questions
+Bu bir denemedir: ünite kilitlerini açmaz veya kapatmaz, yalnızca seviyedeki genel durumunu gösterir. Her girişte sorular değişir. ⇒ This is a mock exam: it doesn't lock or unlock units, it only shows where you stand in the level. Questions change every time.
+Yanlış yaptığın sorular akıllı tekrara eklendi. Aşağıda zayıf kaldığın becerileri görebilirsin. ⇒ Your wrong answers were added to smart review. Below you can see the skills that need work.
 Öğrenme haritası ⇒ Learning map
 Öğrenme merkezi ⇒ Learning hub
 Akıllı tekrar ⇒ Smart review

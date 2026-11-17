@@ -5,7 +5,7 @@
 
 import { exerciseLabel, gradeExercise } from './grading.ts';
 import type {
-  Curriculum, DayLog, Exercise, ExerciseResult, LessonContent, LessonResult, LevelCode, Note, PracticeResult,
+  Curriculum, DayLog, Exercise, ExerciseResult, LessonContent, LessonResult, LevelCode, LevelExamResult, Note, PracticeResult,
   QuestProgress, Responses, ReviewItem, ReviewResult, Skill, UnitMeta, UnitStatus, UserState,
 } from './types.ts';
 import { DEFAULT_APPEARANCE, LEVELS, SKILLS } from './types.ts';
@@ -507,6 +507,99 @@ export function completePractice(input: UserState, exercises: Exercise[], respon
   const quests = settleQuests(state, now);
   const newBadges = settleBadges(state, now);
   return { state, result: { score, correct, total, xp, seconds: usedSeconds, details, newBadges, questsCompleted: quests.completed } };
+}
+
+// ---- Seviye sonu deneme sınavı ----
+export const LEVEL_EXAM = { questions: 25, pass: 80 } as const;
+/** Deneme sınavında sorulabilen, otomatik puanlanan kart türleri. */
+export const LEVEL_EXAM_TYPES: readonly string[] = ['mcq', 'listen_choice', 'dialogue', 'truefalse', 'fill', 'translate', 'order'];
+
+/** Seviyenin ilk ünitesi açıksa o seviyenin deneme sınavına girilebilir. */
+export function levelExamUnlocked(state: UserState, curriculum: Curriculum, level: LevelCode): boolean {
+  const first = curriculum.levels.find((l) => l.code === level)?.units[0];
+  return !!first && unitUnlocked(state, curriculum, first.id);
+}
+
+/**
+ * Seviyedeki ünitelere dengeli dağıtılmış deneme sınavı soruları seçer.
+ * byUnit: ünite kimliği → o ünitenin sorulabilir kartları.
+ */
+export function pickLevelExam(byUnit: Exercise[][], rng: () => number = Math.random, count: number = LEVEL_EXAM.questions): Exercise[] {
+  const pools = byUnit.map((list) => {
+    const copy = list.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }).filter((p) => p.length > 0);
+  const out: Exercise[] = [];
+  // Ünitelerden sırayla birer soru alınır; böylece her ünite sınavda yer bulur.
+  while (out.length < count && pools.some((p) => p.length > 0)) {
+    for (const pool of pools) {
+      if (out.length >= count) break;
+      const ex = pool.pop();
+      if (ex) out.push(ex);
+    }
+  }
+  return out;
+}
+
+/**
+ * Deneme sınavını puanlar ve sonucu kaydeder. Ünite kilitlerini ve geçme kurallarını değiştirmez;
+ * yalnızca seviyenin genel durumunu ölçer.
+ */
+export function completeLevelExam(
+  input: UserState,
+  curriculum: Curriculum,
+  level: LevelCode,
+  exercises: Exercise[],
+  responses: Responses,
+  now: Date,
+  seconds = 0,
+): { state: UserState; result: LevelExamResult } {
+  const today = dayKey(now);
+  const state = clone(ensureDaily(input, today));
+  if (!levelExamUnlocked(state, curriculum, level)) throw new Error('Bu seviyenin deneme sınavı henüz kilitli.');
+  if (exercises.length !== LEVEL_EXAM.questions || new Set(exercises.map((e) => e.id)).size !== exercises.length
+    || exercises.some((e) => !LEVEL_EXAM_TYPES.includes(e.type))) throw new Error('Geçersiz deneme sınavı.');
+
+  const details = gradeAll(exercises, responses);
+  const total = exercises.length;
+  const correct = details.filter((d) => d.correct).length;
+  const score = Math.round((100 * correct) / total);
+  const passed = score >= LEVEL_EXAM.pass;
+
+  const prev = state.levelExams?.[level];
+  const firstPass = passed && !prev?.passed;
+  const bestScore = Math.max(prev?.bestScore ?? 0, score);
+  state.levelExams = {
+    ...(state.levelExams ?? {}),
+    [level]: { bestScore, lastScore: score, attempts: (prev?.attempts ?? 0) + 1, passed: passed || !!prev?.passed, lastAt: now.toISOString() },
+  };
+
+  touchActivity(state, today);
+  const usedSeconds = addSeconds(state, today, seconds);
+  for (const d of details) recordSkill(state, d.skill, d.correct);
+
+  const xp = !passed ? 0 : firstPass ? RULES.xpExam + (score >= RULES.accuracyBonusAt ? RULES.xpAccuracyBonus : 0) : RULES.xpRepeat;
+  addXp(state, xp, 'exam', `level:${level}`, now);
+
+  // Yanlışlar akıllı tekrara düşer.
+  for (const d of details) {
+    if (d.correct) continue;
+    upsertReview(state, { id: `m:${d.id}`, kind: 'mistake', front: d.prompt, back: d.expected, extra: d.explainTr }, today, now, true);
+  }
+
+  state.attempts.push({ lessonCode: `${level} deneme`, at: now.toISOString(), score, correct, total, xp, seconds: usedSeconds });
+  if (state.attempts.length > 300) state.attempts = state.attempts.slice(-300);
+
+  const quests = settleQuests(state, now);
+  const newBadges = settleBadges(state, now);
+  return {
+    state,
+    result: { level, score, correct, total, passed, firstPass, bestScore, xp, seconds: usedSeconds, details, newBadges, questsCompleted: quests.completed },
+  };
 }
 
 // ---- Dinleme odası ----

@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { UserState } from '@core/types.ts';
+import type { LevelCode, UserState } from '@core/types.ts';
 import type { Backend, Session } from './backend/types.ts';
 
 export type Route =
@@ -24,6 +24,7 @@ export type Route =
   | { name: 'games'; game?: 'categories' | 'wordle' | 'scramble' | 'speed' | 'dictation' | 'subtitle' | 'streamer' | 'story' }
   | { name: 'report' }
   | { name: 'boss'; unitId: string }
+  | { name: 'levelExam'; level: LevelCode }
   | { name: 'hub'; tab?: 'all' | 'watch' | 'read' | 'play' | 'packs' };
 
 export interface AppContextValue {

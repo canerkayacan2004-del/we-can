@@ -5,14 +5,14 @@
 // Şifreler PBKDF2 ile özetlenerek saklanır; ancak bilgisayara erişimi olan biri verileri
 // değiştirebilir. Bu yüzden bu mod, bulut sürümü gelene kadar kişisel kullanım içindir.
 import {
-  aiAllowance, answerReview, applyPlacement, consumeAi, completeAudio, completeLesson, completePractice, dayKey, deleteNote, ensureDaily,
-  migrateState, mistakeExerciseIds, newUserState, saveNote, scorePlacement,
+  aiAllowance, answerReview, applyPlacement, consumeAi, completeAudio, completeLesson, completeLevelExam, completePractice, dayKey, deleteNote, ensureDaily,
+  levelExamUnlocked, migrateState, mistakeExerciseIds, newUserState, pickLevelExam, saveNote, scorePlacement, startTestOut, unitUnlocked,
 } from '@core/engine.ts';
-import type { Appearance, Exercise, Note, Responses, UserState } from '@core/types.ts';
+import type { Appearance, Exercise, LevelCode, Note, Responses, UserState } from '@core/types.ts';
 import { DASHBOARD_WIDGETS, STUDY_TIMES } from '@core/types.ts';
 import { THEMES, isHexColor } from '../theme.ts';
 import { placementQuestions } from '@content/placement.ts';
-import { curriculum, getExercise, getLessonContent, getVocabItem, todaysWords } from '../content.ts';
+import { curriculum, getExercise, getLessonContent, getUnit, getVocabItem, levelExamPools, todaysWords, unitHasContent } from '../content.ts';
 import { markDailyWord } from '@core/daily.ts';
 import { ARCADE_GAMES, recordGame } from '@core/games.ts';
 import type { GameId } from '@core/games.ts';
@@ -267,6 +267,30 @@ export class LocalBackend implements Backend {
     const content = getLessonContent(code);
     if (!content) throw new BackendError('Bu dersin içeriği henüz hazır değil.');
     const out = this.run(() => completeLesson(this.load(userId), curriculum, content, responses, new Date(), seconds));
+    this.save(userId, out.state);
+    return out;
+  }
+
+  async startTestOut(unitId: string): Promise<UserState> {
+    const userId = this.currentUserId();
+    const state = this.load(userId);
+    if (!getUnit(unitId) || !unitHasContent(unitId)) throw new BackendError('Bu ünitenin sınavı henüz hazır değil.');
+    if (!unitUnlocked(state, curriculum, unitId)) throw new BackendError('Bu ünite henüz kilitli.');
+    return this.save(userId, startTestOut(state, unitId));
+  }
+
+  async levelExamSet(level: LevelCode): Promise<Exercise[]> {
+    const state = this.load(this.currentUserId());
+    if (!levelExamUnlocked(state, curriculum, level)) throw new BackendError('Bu seviyenin deneme sınavı henüz kilitli.');
+    return pickLevelExam(levelExamPools(level));
+  }
+
+  async completeLevelExam(level: LevelCode, exerciseIds: string[], responses: Responses, seconds: number) {
+    const userId = this.currentUserId();
+    const allowed = new Set(levelExamPools(level).flat().map((e) => e.id));
+    const exercises = exerciseIds.map((id) => (allowed.has(id) ? getExercise(id) : undefined)).filter((e): e is Exercise => !!e);
+    if (exercises.length !== exerciseIds.length) throw new BackendError('Geçersiz deneme sınavı.');
+    const out = this.run(() => completeLevelExam(this.load(userId), curriculum, level, exercises, responses, new Date(), seconds));
     this.save(userId, out.state);
     return out;
   }

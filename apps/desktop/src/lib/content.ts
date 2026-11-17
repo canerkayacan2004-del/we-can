@@ -6,7 +6,7 @@ import { lessonsA1U2, vocabA1U2 } from '@content/exercises/A1/unit02.ts';
 import { GENERATED_LESSONS, GENERATED_VOCAB } from '@content/exercises/all.ts';
 import type { Curriculum, Exercise, LessonContent, LessonMeta, UnitMeta, VocabItem } from '@core/types.ts';
 import { pickDailyWords } from '@core/daily.ts';
-import { currentLevel, dayKey } from '@core/engine.ts';
+import { LEVEL_EXAM_TYPES, currentLevel, dayKey } from '@core/engine.ts';
 import type { UserState } from '@core/types.ts';
 import { WORD_BANK, bankWord } from '@content/words/index.ts';
 import type { BankWord } from '@content/words/index.ts';
@@ -62,6 +62,12 @@ export function unitHasContent(unitId: string): boolean {
 export function readyUnitCount(): number {
   return unitList.filter((u) => unitHasContent(u.id)).length;
 }
+/** Seviye deneme sınavı havuzu: seviyenin her ünitesi için otomatik puanlanan ders kartları (ünite sınavları hariç). */
+export function levelExamPools(level: string): Exercise[][] {
+  const units = curriculum.levels.find((l) => l.code === level)?.units ?? [];
+  return units.map((u) => lessonList.filter((l) => l.unitId === u.id && l.mode !== 'exam').flatMap((l) => l.exercises.filter((e) => LEVEL_EXAM_TYPES.includes(e.type))));
+}
+
 /** Tüm hazır dersler (sunucu fonksiyonu verisi üretilirken de kullanılır). */
 export function allLessons(): LessonContent[] {
   return lessonList;

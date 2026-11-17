@@ -1,15 +1,26 @@
-import { lessonUnlocked, startTestOut, unitUnlocked } from '@core/engine.ts';
+import { useState } from 'react';
+import { lessonUnlocked, unitUnlocked } from '@core/engine.ts';
 import { TEACHERS } from '@content/teachers.ts';
 import { Icon } from '../components/Icon.tsx';
 import { Notice, PageTitle, cx } from '../components/ui.tsx';
-import { useApp } from '../lib/app.tsx';
+import { errorMessage, useApp } from '../lib/app.tsx';
 import { curriculum, getLessonContent, getUnit, unitHasContent } from '../lib/content.ts';
 
 const KIND_TR = { grammar: 'Gramer', speaking: 'Konuşma', vocab: 'Kelime ve beceri', scenario: 'Senaryo ve yazma', exam: 'Ünite sınavı' } as const;
 const STATUS_TR = { passed: 'Ünite geçildi', reinforce: 'Pekiştirme gerekli', failed: 'Sınav tekrarlanmalı', skipped: 'Seviye tespitiyle atlandı' } as const;
 
 export function UnitScreen({ unitId }: { unitId: string }) {
-  const { state, go, setState } = useApp();
+  const { backend, state, go, setState } = useApp();
+  const [testOutError, setTestOutError] = useState('');
+  const testOut = async (id: string, examCode: string) => {
+    try {
+      // Önce kaydedilir; yoksa sınav bitince sunucu tarafı dersi kilitli sayar.
+      setState(await backend.startTestOut(id));
+      go({ name: 'lesson', code: examCode });
+    } catch (err) {
+      setTestOutError(errorMessage(err));
+    }
+  };
   const unit = getUnit(unitId);
   if (!unit) return <Notice tone="error">Ünite bulunamadı.</Notice>;
   const unlocked = unitUnlocked(state, curriculum, unit.id);
@@ -41,7 +52,7 @@ export function UnitScreen({ unitId }: { unitId: string }) {
       )}
 
       {unlocked && hasContent && progress?.status !== 'passed' && progress?.status !== 'skipped' && !state.testOut?.[unit.id] && (
-        <button type="button" data-action="test-out" onClick={() => { setState(startTestOut(state, unit.id)); go({ name: 'lesson', code: `${unit.id}.${unit.lessons.length}` }); }}
+        <button type="button" data-action="test-out" onClick={() => void testOut(unit.id, `${unit.id}.${unit.lessons.length}`)}
           className="card mb-5 flex w-full items-center gap-4 p-4 text-left hover:border-acc/50">
           <span className="text-4xl leading-none">⏭</span>
           <span className="flex-1"><b className="block text-fg">Bu konuyu biliyorum</b><span className="text-sm text-fg-3">Dersleri atla, doğrudan ünite sınavına gir · %80 alırsan ünite geçilir</span></span>
@@ -49,6 +60,7 @@ export function UnitScreen({ unitId }: { unitId: string }) {
         </button>
       )}
 
+      {testOutError && <div className="mb-4"><Notice tone="error">{testOutError}</Notice></div>}
       {!unlocked && <div className="mb-4"><Notice tone="warn">Bu ünite kilitli. Açmak için bir önceki ünitenin sınavını geçmelisin.</Notice></div>}
       {!hasContent && <div className="mb-4"><Notice tone="info"><b>Bu ünitenin alıştırmaları henüz hazırlanmadı.</b> Aşağıda derslerin hedeflerini görebilirsin.</Notice></div>}
       {progress?.status === 'skipped' && <div className="mb-4"><Notice tone="info">Bu ünite seviye tespitiyle atlandı. Emin değilsen doğrudan ünite sınavına girebilir veya dersleri baştan çalışabilirsin.</Notice></div>}
