@@ -6,7 +6,8 @@ import { A1_SPECS } from './specs/A1.ts';
 import { A2_SPECS } from './specs/A2.ts';
 import { B1_SPECS } from './specs/B1.ts';
 import { B2_SPECS } from './specs/B2.ts';
+import { C1_SPECS } from './specs/C1.ts';
 
-export const ALL_SPECS: UnitSpec[] = [...A1_SPECS, ...A2_SPECS, ...B1_SPECS, ...B2_SPECS];
+export const ALL_SPECS: UnitSpec[] = [...A1_SPECS, ...A2_SPECS, ...B1_SPECS, ...B2_SPECS, ...C1_SPECS];
 export const GENERATED_LESSONS: LessonContent[] = ALL_SPECS.flatMap(buildUnit);
 export const GENERATED_VOCAB: VocabItem[] = ALL_SPECS.flatMap(buildVocab);
