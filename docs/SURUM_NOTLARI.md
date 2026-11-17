@@ -1,3 +1,17 @@
+## We Can 0.3.5
+
+**Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.5.exe` dosyasını indir ve çalıştır.
+Windows "bilgisayarınızı korudu" uyarısı verirse: **Ek bilgi → Yine de çalıştır** (uygulama henüz dijital imzalı değil).
+Zaten kuruluysa: uygulamayı aç, "Şimdi güncelle" de.
+
+### Bu sürümde
+- **Bütün müfredat artık oynanabilir:** A1'den C2'ye 64 ünitenin hepsi, 320 ders
+- **B2 (12 ünite):** anlatı zamanları, gelecek yapıları, koşul cümleleri, modal perfect, ileri edilgen, aktarma fiilleri, phrasal verb'ler, deyimler, vurgu ve sunum
+- **C1 (12 ünite):** devrik yapılar, temkinli dil, akademik yazı, ikna, medya dili, müzakere, film eleştirisi ve konferans sunumu
+- **C2 (10 ünite):** üslup ve ironi, söylem, edebi dil, sözleşme dili, ince anlam farkları, münazara, mizah, liderlik iletişimi, çeviri ve altyazı, uzman sunumu
+- Her ünitede gramer kartları, konuşma diyalogları, okuma metni, AI öğretmenle rol yapma, yazma görevi ve ünite sınavı
+- **Yeni kelimeler:** derslerle birlikte 260 kelime daha kelime bankasına eklendi
+
 ## We Can 0.3.4
 
 **Yeni kurulum:** Aşağıdaki `We-Can-Kurulum-0.3.4.exe` dosyasını indir ve çalıştır.
